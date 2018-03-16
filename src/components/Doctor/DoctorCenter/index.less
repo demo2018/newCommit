@@ -1,0 +1,87 @@
+
+:local{
+  .doctorCenter{
+    padding-bottom: 40px; 
+    :global{
+      .doctorHead{
+        padding: 30px 20px 20px ;
+        background-color: #fff;
+        .headInfo{
+          text-align: center;
+          img{
+            margin: auto;
+            height: 80px;
+            width: 80px;
+            border-radius: 50%;
+          }
+          .doctorName{
+            margin: 10px 0;
+            font-size: 18px;
+            color: #333333;
+          }
+          .go-certification a,
+          .already-certification a,
+          .certification-defeat a,
+          .review a{
+            display: inline-block;
+            padding: 5px 10px;
+            color: #fff;border-radius: 10px;
+          }
+          .go-certification a{
+            background-color: #f86c1f;
+            }
+          .already-certification a{
+            background-color: #2bab9a;
+          }
+          .certification-defeat a{
+            background-color: #e8237b;
+          }
+          .review a{
+            background-color: #c9c9c9;
+          }
+          .certification-tip,
+          .doctor-title{
+            margin-top: 10px;
+            color: #333333;
+          }
+        }
+      }
+      .aboutPatient.borderTop{
+        overflow: hidden;
+        margin: 10px 0;
+        background-color: #fff;
+        &::before{
+          top: 0;
+        }
+        ul{
+          overflow: hidden;
+          padding: 13px 0;
+          li{
+            float: left;
+            width: 25%;
+            font-size: 15px;
+            text-align: center;
+            img{
+              display: block;
+              margin: 0 auto 10px;
+              width: 38px;
+              height: 38px;
+            }
+          }
+        } 
+      }
+      .doctorFun{
+        .am-list-item .am-list-line .am-list-content{
+          padding: 10px 0;
+          font-size: 15px;
+          line-height: 26px;
+          img{
+            margin-right: 10px;
+            width: 25px;
+            height: 25px;
+          }
+        }
+      }
+    }
+  }
+}

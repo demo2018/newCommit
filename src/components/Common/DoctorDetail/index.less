@@ -1,0 +1,187 @@
+@c:#069e85;
+
+
+:local {
+  .doctorDetail {
+    background: #f7f7f7;
+     :global {
+      .part {
+        padding: 20px 15px;
+        margin-bottom: 10px;
+        background: #fff;
+      }
+      .baseInfo {
+        padding: 20px 0;
+        text-align: center;
+        border-top: none;
+        .headInfo {
+          .headImg{
+              position: relative;
+              display: inline-block;
+            img {
+              width: 100px;
+              height: 100px;
+            }
+            &:after{
+              display: block;
+              position: absolute;
+              bottom: -6px;
+              right: -6px;
+              content: 'V';
+              width: 20px;
+              height: 20px;
+              line-height: 20px;
+              color: #fff;
+              border-radius: 50%;
+              border: 2px solid #fff;
+              background-color: #069e85;
+            }
+          }
+           
+          p {
+            margin-top: 8px;
+            font-size: 17px;
+          }
+        }
+        .doctorKeywords {
+          margin: 14px 0;
+          color: #a09b9b;
+          font-size: 14px;
+        }
+        .doctorTags {
+          justify-content: center;
+          .tagItem {
+            display: inline-block;
+            min-width: 20%;
+            justify-content: center;
+            margin: 4px 10px;
+            span{
+              display: block;
+              padding: 10px;
+              margin: auto;
+              width: 30px;
+              height: 30px;
+              font-size: 30px;
+              color: #a09b9b;
+              border: 1px solid #a09b9b;
+              border-radius: 50%;
+            }
+            p {
+              margin: 10px 0 0;
+              font-size: 12px;
+              color: #a09b9b;
+            }
+          }
+          .tagItem.down{
+            span{
+              border-color: #069e85;
+              color: #069e85;
+            }
+            p{
+              color: #069e85;;
+            }
+          }
+        }
+      }
+      .description {
+        .title {
+          margin-bottom: 8px;
+          padding: 3px 0;
+          padding-left: 10px;
+          font-size: 16px;
+          border-left: 3px solid @c;
+        }
+        .content {
+          padding: 0 8px;
+          line-height: 1.4;
+          color: #3e3b3b;
+          .wordClose{
+            overflow : hidden;
+            text-overflow: clip;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            height: auto
+          }
+          .wordOpen{
+            overflow : hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 100;
+            -webkit-box-orient: vertical;
+            height: auto;
+          }
+          span{
+            display: block;
+            margin-top: 5px;
+            text-align: center;
+          }
+        }
+        .tags {
+          .am-tag {
+            margin: 5px 8px 5px 0;
+            display: inline-block;
+            padding: 5px 5px;
+            line-height: 1.5;
+            border: 1px solid @c;
+            border-radius: 20px;
+            color: @c;
+            line-height: 1;
+            pointer-events: none;
+          }
+          .am-tag-active::before{
+            display: none;
+          }
+        }
+      }
+      .schedule {
+          padding: 20px 0 0;
+          margin-bottom: 10px;
+          background: #fff;
+          .head{
+            padding: 0 15px;
+          }
+        .title {
+          margin-bottom: 8px;
+          padding: 3px 0;
+          padding-left: 10px;
+          font-size: 16px;
+          border-left: 3px solid @c;
+        }
+        .am-calendar {
+          .date-picker .months{
+            max-height: 325px;
+          }
+          .mask,
+          .content {
+            position: relative;
+          }
+          .confirm-panel {
+            display: none;
+          }
+        }
+      }
+      .connect_doctor{ 
+        overflow: hidden;
+          p{ 
+            float: left;
+            margin: 0; 
+            padding: 5px 0;
+            width: 60%; 
+            text-align: center; 
+            background-color: #069e85; 
+            color: #fff;
+            span{
+              display: block;
+              margin: 5px auto;
+              width: 25px;
+              height: 25px;
+              font-size: 25px;
+            }
+          }
+          p.phone{ 
+            width: 40%; 
+            background-color: #ff9900;}
+      }
+    }
+  }
+}

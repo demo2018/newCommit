@@ -1,0 +1,125 @@
+
+
+:local{
+  .doctorCertification{
+    :global{
+      .head{
+        width: 100%;
+        img{
+          display: block;
+          width: 100%;
+        }
+      }
+      .uploadImg{
+        margin-top: 10px;
+        padding: 15px 28px;
+        font-size: 16px;
+        background-color: #fff;
+          .photohere{
+            display: flex;
+            margin: 15px 0 0;
+            align-items:center;
+            color: #999999;
+            img{
+              margin-right: 20px;
+              width: 60px;
+              height: 60px;
+            }
+          }
+        }
+      .basicInfo{
+        background-color: #fff;
+        .am-input-label{
+          margin-right: 10px;
+          font-size: 16px;
+          text-align: right;
+        }
+        .am-list-content{
+          display: inline-block;
+          margin-right: 10px;
+          width: 85px;
+          font-size: 16px;
+          text-align: right;
+        }
+        .am-input-control input{font-size: 16px;color: #888;}
+        .gender-choose{ 
+          margin-left: 15px;
+          height: 60px;
+          line-height: 60px;
+          font-size: 16px;
+          em{
+            display: inline-block;
+            width: 85px;
+            text-align: right;
+          }
+          .am-radio-item{
+            padding-left: 8px;
+            display: inline-block;
+            width: 60px;
+            .am-list-content{
+              height: 46px;
+              text-align: center;
+              line-height: 42px;
+              color: #888;
+            }
+            .am-list-extra .am-radio-inner{
+              width:17px;
+              height:17px;
+              top: 20px;
+              left:5px;
+              border:1px solid #0ea991;
+              border-radius:50%;
+              &:after{
+                top:3px;
+                right:3px;
+                width:9px;
+                height:9px;
+                border-width:0;
+                border-radius:50%;
+                background-color: #0ea991;
+              }
+            }
+          }
+        }
+        .am-list-item{
+          height: 60px;
+          .am-list-line{
+            display: -webkit-box;
+            display: -webkit-inline-box;
+          }
+        }
+      }
+      .basicInfo>p{
+        padding: 13px 28px;
+        font-size: 16px;
+      }
+      .basicInfo>p,
+      .uploadImg>p{
+        position: relative;
+      }
+      .basicInfo>p:before,
+      .uploadImg>p:before{
+        display: block;
+        content: '';
+        width: 3px;
+        height: 23px;
+        position: absolute;
+        background-color: #2bab9a;
+      }
+      .basicInfo>p:before{
+        top: 10px;
+        left: 15px;
+      }
+      .uploadImg>p:before{
+        top: -3px;
+        left: -13px;
+      }
+      .am-button{
+        margin: 20px;
+        color: #fff;
+        background-color: #2bab9a;
+        font-size: 16px;
+      }
+    }
+  }
+}

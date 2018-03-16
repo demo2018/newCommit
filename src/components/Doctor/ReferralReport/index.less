@@ -1,0 +1,43 @@
+:local{
+    .referralReport{
+        :global{
+            .reportHead{
+                padding: 20px 15px 10px;
+            }
+              
+            p.referralState{
+                margin-top: 10px;
+                padding: 15px;
+                font-size: 16px;
+                color: #2bab9a;
+                border-bottom: 2px solid #2bab9a;
+                background-color: #fff;
+                .totalIn{
+                    float: right;
+                    color: #888;
+                    font-size: 14px;
+                }
+            }
+            .am-list{
+                .am-list-body .am-list-item{
+                    .am-list-thumb{
+                        img{
+                            width: 60px;
+                            height: 60px;
+                            border-radius: 50%;
+                        }
+                    }
+                    .am-list-line::after{
+                        transform: scaleY(0);
+                        -webkit-transform: scaleY(0);
+                    }
+                }
+                .am-list-brief{
+                    span{
+                        margin-right: 10px;
+                    }
+                }
+            }
+        }
+    }
+}

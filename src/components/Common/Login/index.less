@@ -1,0 +1,64 @@
+@keyColor:rgba(0, 170, 144, 1);
+
+
+:local {
+  .loginPage {
+     :global {
+      .logoWrapper {
+        width: 50%;
+        margin: 32px auto 0px;
+        img {
+          width: 100%;
+        }
+      }
+      .formWrapper {
+        padding: 20px 15px;
+        .am-tabs {
+          margin-bottom: 14px;
+        }
+        .am-list-item.am-input-item {
+          height: 55px;
+        }
+        .am-input-label.am-input-label-5 {
+          width: 65px;
+        }
+        .am-list-item .am-input-label,
+        .am-list-item .am-input-control input {
+          font-size: 14px;
+        }
+        .am-input-extra {
+          font-size: 14px;
+          border-left: 1px solid #dedede;
+          padding: 5px 0px 5px 6px;
+          a{
+            color: #108ee9;
+          }
+        }
+      }
+      .loginBtn {
+        margin-top: 40px;
+        background: @keyColor;
+      }
+      .am-checkbox-item {
+        margin-top: 10px;
+        justify-content: center;
+        .am-list-thumb {
+          margin-right: 8px;
+        }
+        .am-list-line {
+          flex: inherit;
+          .am-list-content {
+            font-size: 14px;
+          }
+        }
+        .agreement {
+          color: @keyColor;
+        }
+      }
+      .am-checkbox.am-checkbox-checked .am-checkbox-inner {
+        border-color:@keyColor;
+        background: @keyColor;
+      }
+    }
+  }
+}

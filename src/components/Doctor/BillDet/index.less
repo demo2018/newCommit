@@ -1,0 +1,157 @@
+@c:#0ea991;
+@border:1px solid #e6e6e6;
+
+:local{
+  .myBillDetail{
+    :global{
+      .myBillDetHeadContent{
+        .card-header{
+          padding: 15px 15px 9px;
+          font-size: 14px;
+          color: #808080;
+        }
+        .am-card.am-card-full{
+          min-height: auto;
+          .am-card-header{
+            padding:15px 0 0;
+            margin: 0 15px;
+            font-size:16px;
+            .am-card-header-content{
+            color:#2f2f2f;
+            }
+            .am-card-header-extra{
+              font-size:14px;
+              color:#ff3d42;
+            }
+            .am-card-header-extra .paid{
+              color:@c;
+            }
+          }
+          .am-card-body{
+            padding: 0 15px;
+            &::before{
+              height: 0PX;
+              background-color: transparent;
+            }
+            ul li{
+              margin: 15px 0;
+              color: #2f2f2f;
+              font-size: 15px;
+              span{
+                margin: 0 3px 0 5px;
+              }
+              em{
+                float: left;
+              }
+              > img{
+                float: left;
+                margin-right: 8px;
+                width: 16px;
+              }
+              .clinic-address{
+                display: block;
+                padding-left: 100px;
+              }
+            }
+          }
+        }
+      }
+      .myBillDetContent{
+        .bill-det {
+          background-color: #fff;
+          p.bill-dethead{ 
+            padding: 15px 15px 10px; 
+            font-size: 16px; 
+            color: #2f2f2f;
+          }
+          .tableWrapper.borderBottom.borderTop{
+            margin: 0 15px;
+            &::after{
+              bottom: 58px;
+            }
+            &::before{
+              top: 37px;
+            }
+          }
+          table{ 
+            width: 100%; 
+            font-size: 15px;
+            tr td:first-child,
+            tr th:first-child{ text-align: left;}
+            tr td:last-child,
+            tr th:last-child{ text-align: right;}
+            thead th,tbody td{
+              padding: 10px 0; width: 33.33%; text-align: center;
+            }
+            th{
+              color: #808080;
+              font-weight: 100;
+            }
+            td p{
+              margin-top: 8px; 
+              color: #2f2f2f; 
+              font-size: 12px;
+              .pro-discount-det{ color: #00aa90;}
+            }
+            .combined-discount-price{ color: #00aa90;}
+            .original-price{ text-decoration: line-through; color: #808080;}
+            tfoot{
+              td{ padding: 10px 0;}
+              .combined-price{font-size: 16px;}
+            } 
+          }
+        }
+      }
+      .visitAgain{
+        margin: 10px 0;
+        .am-list-extra{
+          .am-switch .checkbox{
+              width: 43px;
+              height: 22px;
+              &::after{
+                  top: 1px;
+                  width: 20px;
+                  height: 20px;
+              }
+          }
+        }
+        .am-list{
+          .am-list-extra{
+              .am-switch .checkbox{
+                  width: 43px;
+                  height: 24px;
+                  background-color: #999;
+                  &::after{
+                    top: 2px;
+                    width: 20px;
+                    height: 20px;
+                  }
+                  &::before{
+                      background-color: transparent;
+                  }
+              }
+              .am-switch input[type="checkbox"]:checked + .checkbox{
+                  background-color: #1aad19;
+              }
+          }
+        }
+      }
+      .AgainTime{
+        margin: 10px 0;
+        .again{
+          .am-list{
+          .am-list-body div:not(:last-child) .am-list-line::after{
+             transform: scaleY(0);
+            -webkit-transform: scaleY(0);
+          }
+        }
+      }
+    }
+      .am-button{
+        margin: 30px 15px;
+        background-color: #00aa90;
+        color: #fff;
+      }
+    }
+  }
+}

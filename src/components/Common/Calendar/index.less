@@ -1,0 +1,85 @@
+:global {
+  .calendarWrapper {
+    .weekHeader {
+      background: #f7f7f7;
+      display: flex;
+      flex-shrink: 0;
+      padding: 0 2px;
+      .cell {
+        height: 24px;
+        flex: 1;
+        color: #515151;
+        font-size: 14px;
+        align-items: center;
+        display: flex;
+        justify-content: center;
+        height: 40px;
+        &:first-of-type, &:last-of-type {
+          color: #bbb;
+        }
+      }
+    }
+    .month {
+      padding: 10px 5px 5px;
+      .row {
+        display: flex;
+        align-items: baseline;
+        .cell {
+          display: flex;
+          flex-direction: column;
+          flex: 1;
+          align-items: center;
+          flex-shrink: 0;
+          color: #000;
+          font-size: 14px;
+          margin: 5px 0;
+          &.cell-selected{
+            .date{
+              border: none;
+              background: #069e85;
+              color: #fff;
+            }
+            .info{
+              color: #069e85;
+            }
+          }
+          &.cell-warning{
+            .date{
+              border: none;
+              background: #ff3d42;
+              color: #fff;
+            }
+            .info{
+              color: #ff3d42;
+            }
+          }
+        }
+        .date {
+          width: 23px;
+          height: 23px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 100%;
+          margin-bottom: 4px;
+        }
+        .info {
+          height: 15px;
+          width: 100%;
+          padding: 0 5px;
+          font-size: 10px;
+          color: #888;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          overflow: hidden;
+          text-align: center;
+          font-weight: normal;
+          font-size: 12px;
+        }
+        .cell:first-of-type, .cell:last-of-type,.grey {
+          color: #bbb;
+        }
+      }
+    }
+  }
+}

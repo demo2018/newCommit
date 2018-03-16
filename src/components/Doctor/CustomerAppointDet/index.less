@@ -1,0 +1,63 @@
+@c:#0ea991;
+
+:local{
+  .myBillDetail{
+    :global{
+      .appointDetHeadContent{
+        .card-header{
+          padding: 15px 15px 9px;
+          font-size: 14px;
+          color: #808080;
+        }
+        .am-card.am-card-full{
+          min-height: auto;
+          .am-card-header{
+            padding:15px 0 0;
+            margin: 0 15px;
+            font-size:16px;
+            .am-card-header-content{
+            color:#2f2f2f;
+            }
+            .am-card-header-extra{
+              font-size:14px;
+              color:#ff3d42;
+            }
+            .am-card-header-extra .paid{
+              color:@c;
+            }
+          }
+          .am-card-body{
+            padding: 0 15px;
+            &::before{
+              height: 0PX;
+              background-color: transparent;
+            }
+            ul li{
+              margin: 20px 0;
+              color: #2f2f2f;
+              font-size: 15px;
+              span{
+                margin: 0 3px 0 5px;
+              }
+              em{
+                float: left;
+              }
+              > img{
+                float: left;
+                margin-right: 8px;
+                width: 16px;
+              }
+              .clinic-address{
+                display: block;
+                padding-left: 100px;
+              }
+            }
+          }
+        }
+      }
+      .am-button{
+        margin: 40px 20px;
+      }
+    }
+  }
+}

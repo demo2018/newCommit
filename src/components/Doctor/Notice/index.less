@@ -1,0 +1,33 @@
+:local{
+    .notice{
+        padding: 10px 0;
+        :global{
+           .am-list{
+               .am-list-body{
+                    .am-list-content{
+                    font-size: 16px;
+                    color: #333333;
+                 }
+                .am-list-extra{
+                    .am-switch .checkbox{
+                        width: 43px;
+                        height: 24px;
+                        background-color: #999;
+                        &::after{
+                          top: 2px;
+                          width: 20px;
+                          height: 20px;
+                        }
+                        &::before{
+                            background-color: transparent;
+                        }
+                    }
+                    .am-switch input[type="checkbox"]:checked + .checkbox{
+                        background-color: #1aad19;
+                    }
+                }
+               }
+           }
+        }
+    }
+}

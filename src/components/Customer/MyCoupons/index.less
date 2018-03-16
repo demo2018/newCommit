@@ -1,0 +1,58 @@
+@c:#00aa90;
+
+:local{
+  .myCoupons{
+    position: relative;
+    :global{
+      .am-tabs{
+        padding-bottom: 50px;
+        background-color: #fff;
+        .am-tabs-default-bar-tab{
+          color: #808080;
+        }
+        .am-tabs-default-bar-tab-active,
+        .am-tabs-default-bar-underline{
+          color: @c;
+          border-color: @c;
+        }
+        ul{
+          padding: 15px;
+          width: 100%;
+          li{
+            margin: 10px 0;
+            img{
+              width: 100%;
+              pointer-events: none;
+            }
+          }
+        }
+      }
+      .coupons-instructions{
+        position: absolute;
+        margin-left: -35px;
+        font-size: 14px;
+        color: #808080;
+        bottom: 20px;
+        left: 50%;
+      }
+      .noCoupons{
+        padding: 40px 15px;
+        margin: auto;
+        width: 140px;
+        img{
+          width: 100%;
+          transform: scale(1.2);
+          pointer-events: none;
+        }
+        p{
+          text-align: center;
+          font-size: 16px;
+          color: #2f2f2f;
+        }
+        p.noCop{
+          margin: 15px 0 0 15px;
+        }
+      }
+    }
+  }
+}

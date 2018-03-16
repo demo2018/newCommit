@@ -1,0 +1,41 @@
+@c:#00aa90;
+
+:local{
+  .priceList{
+    :global{
+      .am-tabs{
+        .am-list{
+          .am-list-body:before{
+            display: none;
+          }
+          .am-list-item.borderBottom:after{
+            bottom: 1px;
+          }
+          .priceContent{
+            display: flex;
+            font-size: 16px;
+            align-items: center;
+            img {
+              width: 60px;
+              height: 60px;
+              margin-right: 15px;
+            }
+            .am-list-brief{
+              color: @c;
+            }
+          }
+        }
+          
+      }
+      .consulting{
+        position: fixed;
+        bottom: 40px;
+        right: 20px;
+        img{
+          width: 40px;
+          height: 40px;
+        }
+      }
+    }
+  }
+}

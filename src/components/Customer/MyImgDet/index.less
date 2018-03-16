@@ -1,0 +1,66 @@
+@c:#e6e6e6;
+
+:local{
+  .myImgDet{
+    :global{
+      .am-card.am-card-full{
+        .am-card-header{
+          padding:15px 0;
+          margin: 0 15px;
+          font-size:16px;
+          .am-card-header-content{
+          color:#2f2f2f;
+          }
+          .am-card-header-extra{
+            font-size:16px;
+            color:#2f2f2f;
+          }
+        }
+        .am-card-body{
+          padding: 5px 15px 0;
+          &::before{
+            height: 0PX;
+            background-color: transparent;
+          }
+          ul li{
+            margin: 15px 0;
+            color: #808080;
+            font-size: 15px;
+            span{
+              margin: 0 3px 0 5px;
+              color: #2f2f2f;
+            }
+          }
+        }
+      }
+      .imageDetail{ 
+        padding: 15px 15px 5px;
+        margin-top: 10px;
+        background-color: #fff;
+        img{
+          width: 100%;
+        }
+        p{
+          margin: 10px 0;
+          font-size: 16px;
+          text-align: right;
+          .imgPosition{
+            float: left;
+            color: #2f2f2f;
+          }
+          .imgPosition~span{
+            margin-left: 8px;
+            font-size: 14px;
+            color: #808080;
+          }
+        }
+      }
+      .imgResult{
+        margin-bottom: 15px;
+        padding: 15px;
+        font-size: 16px;
+        background-color: #fff;
+      }
+    }
+  }
+}

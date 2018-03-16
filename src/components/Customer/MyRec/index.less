@@ -1,0 +1,34 @@
+@c:#0ea991;
+
+:local{
+  .myRec{
+    padding:10px 0;
+    :global{
+     .am-list{
+       .am-list-item .am-list-line-multiple{
+         padding:10px 10px 10px 0;
+       }
+        .am-list-body .am-list-item{
+           .am-list-line{
+             &::after{
+               transform: scale(0);
+               -webkit-transform: scaleY(0);
+                  }
+              .am-list-brief{
+                margin:0;
+              }
+           }
+      }
+     }
+      .noRec{
+        padding-top: 40px;
+        margin: auto;
+        p{
+          font-size: 20px;
+          color: #ddd;
+          text-align: center;
+        }
+      }
+    }
+  }
+}

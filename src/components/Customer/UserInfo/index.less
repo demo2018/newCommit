@@ -1,0 +1,115 @@
+@c:#0ea991;
+
+
+:local {
+  .userInformation{
+    padding: 10px 0;
+    :global{
+      .my-list{ 
+        .am-list-body {
+          position: relative;
+          .my-listhead::before{
+              display: block;
+              content: '';
+              position: absolute;
+              top: 10px;
+              left: 15px;
+              width: 3px;
+              height: 23px;
+              background-color: @c;
+            }
+          .am-list-item{
+            padding-left: 28px;
+            font-size: 15px;
+            &:last-child:after{
+              display: block!important;
+            }
+            .am-list-line:after{
+              transform: scaleY(0);
+              -webkit-transform:scaleY(0);
+            } 
+            .am-list-line{
+              .am-list-content,.am-input-label,.am-list-extra{
+                font-size: 15px;
+              }
+            }
+            .am-input-control{
+              margin-right: 23px;
+              text-align: right;
+              font-size: 15px;
+              input{
+                text-align: right;
+                color: #888;
+                font-size: 15px;
+                &::-webkit-input-placeholder{
+                  color: #888;
+                }
+                 &::-moz-placeholder{
+                  color: #888;
+                }
+                 &::-webkit-input-placeholder{
+                  color: #888;
+                }
+                 &::-ms-input-placeholder{
+                  color: #888;
+                }
+              }
+            }
+            .am-input-error-extra{
+              display: none;
+            }
+          }
+          .am-list-item.headImg{
+            .am-list-line img{
+              width: 50px;
+              height: 50px;
+              border-radius: 50%;
+            }
+          }
+        }
+      }
+      .my-listhead.relation{
+        .am-button{
+          float: right;
+          padding: 2px 5px;
+          font-size: 12px;
+          color: @c;
+          border: 1px solid @c;
+          height: inherit;
+          line-height: inherit;
+          &::before{
+            border: none;
+          }
+        }
+        .am-list-content{
+          padding-top: 8px;
+          padding-bottom: 5px;
+          line-height: 1.8;
+        }
+      }
+      .mask{
+        position: fixed;
+        overflow: auto;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 1000;
+        -webkit-overflow-scrolling: touch;
+        outline: 0;
+        .maskContent{
+          position: fixed;
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            background-color: #fff;
+            .contentButtonList{
+              text-align: center;
+              color: #808080;
+            }
+        }
+      }
+    }
+  }
+}

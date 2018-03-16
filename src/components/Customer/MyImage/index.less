@@ -1,0 +1,33 @@
+@c:#0ea991;
+
+:local{
+  .myImage{
+      padding: 10px 0;
+    :global{
+     .am-list{
+       .am-list-item .am-list-line-multiple{
+         padding:10px 10px 10px 0;
+       }
+        .am-list-body .am-list-item{
+           .am-list-line{
+             &::after{
+               transform: scale(0);
+               -webkit-transform: scale(0);
+                  }
+              .am-list-brief{
+                margin:0;
+              }
+           }
+      }
+     }
+      .noImg{
+        padding: 40px 0;
+        margin: auto;
+        width:50%;
+        img{
+          width:100%;
+        }
+      }
+    }
+  }
+}

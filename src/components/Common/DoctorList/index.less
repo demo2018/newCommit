@@ -1,0 +1,78 @@
+:local {
+  .doctorsPage {
+     :global {
+      .am-carousel .slider-frame,
+      .am-carousel .slider-frame .slider-list,
+      .am-carousel .slider-frame .slider-list .slider-slide{
+        height: 100%!important;
+      }
+      .bannerWrapper {
+        display: inlin-block;
+        width: 100%;
+        overflow: hidden;
+        .bannerImg {
+          width: 100%;
+        }
+      }
+
+      .am-list-item.borderBottom{
+        padding-left: 15px;
+        &:after,
+        .am-list-ripple{
+          display: block!important;
+        }
+      }
+      .doctorContent {
+        display: flex;
+        align-items: center;
+        font-size: 16px;
+        img {
+          width: 75px;
+          height: 75px;
+          margin-right: 20px;
+        }
+        .tagItem {
+          display: inline-block;
+          padding: 1px 6px;
+          margin-left: 8px;
+          color: #00AA90;
+          font-size: 13px;
+          border: 1px solid #00AA90;
+          border-radius: 3px;
+        }
+        .am-list-brief {
+          font-size: 12px;
+        }
+      }
+      .doctorSelect{
+        ul{
+          border: none;
+        }
+        ul li{
+          float: left;
+          width: 33.33%;
+          .am-navbar-title,
+          .am-navbar-right{
+            display: none;
+          }
+          .am-navbar-left{
+          text-align: center;}
+        }
+      }
+      .select .valueLabel{
+        font-size: 15px;
+      }
+    }
+  }
+}
+:global{
+  .fixSearchBar{
+      position: fixed;
+      top:0;
+      z-index: 9999;
+      width: 100%;
+  }
+  .fixSearchBar + .am-list{
+    padding-top: 44px;
+  }
+}

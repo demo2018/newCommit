@@ -1,0 +1,111 @@
+@c:#10b8a0;
+
+:local{
+  .customerAppoint{
+    :global{
+      .am-tabs{
+        .am-list-extra{
+          font-size: 14px;
+          color: #ababab;
+          .check-date{
+            display: inline-block;
+            margin-right: 10px;
+          }
+        }
+        .am-list-body::before{
+          display: none;
+        }
+        .am-list-item.borderBottom::after{
+          bottom: 1px;
+        }
+        .am-list-body .am-list-item .am-list-line::after{
+            display: none;
+          }
+        .noappoint{
+          padding: 30px 0;
+          text-align: center;
+        }
+      }
+      .patientAppoint{
+        .customer-phone{
+          color: #999;
+        }
+        .customer-name{
+          display: inline-block;
+          margin-right: 10px;
+        }
+        p{
+          margin: 3px 0;
+          font-size: 16px;
+        }
+        del{
+          font-size: 15px;
+          color: #999;
+        }
+        p.timeInfo{
+          position: absolute;
+          right: 15px;
+          top: 15px;
+          font-size: 14px;
+          color: #999;
+          span{
+            margin: 0 3px 0 5px;
+          }
+        }
+        p.check-project{font-size: 15px;}
+        p.note,
+        p.cancel-reason{
+          font-size: 15px;
+          color: #fb4c17;
+        }
+      }
+      .myBillContent{
+          position: relative;
+          font-size: 16px;
+          .billhead{
+            display: inline-block;
+          }
+          .check-pro{
+            display: inline-block;
+            margin-left: 10px;
+            padding: 0 6px;
+            font-size: 12px;
+            color: @c;
+            border: 1px solid @c;
+            border-radius: 10px;
+          }
+          .pay{
+            float: right;
+            text-align: right;
+            color: #ff3d42;
+            .bepaid{
+              display: block;
+            }
+            .price{
+              display: block;
+              margin-top: 6px;
+              font-size: 15px;
+            }
+          }
+          .pay.paid{
+            color: #2f2f2f;
+          }
+          .pay.paid .price{
+            color: @c;
+          }
+          .pay.paid .evaluation{
+            display: block;
+            padding: 2px 5px;
+            font-size: 14px;
+            border: 1px solid @c;
+            border-radius: 5px;
+            color: @c;
+          }
+          .complete-time{
+            display: inline-block;
+            margin-left: 8px;
+          }
+        }
+    }
+  }
+}

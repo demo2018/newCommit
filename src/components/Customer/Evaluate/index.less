@@ -1,0 +1,106 @@
+@c:#00aa90;
+
+
+:local{
+  .Evaluate{
+    :global{
+      .evaluate{
+          .evaluate-head{
+          padding: 20px 15px;
+          color: #808080;
+          font-size: 16px;
+          background-color: #fff;
+        }
+        .am-tabs{
+          .am-tabs-tab-bar-wrap{
+          background-color: #fff;
+        }
+        .am-list-item .am-list-line .am-list-content{
+          line-height: 1;
+        }
+          .evaluate-tag{
+            padding: 15px;
+            background-color: #fff;
+            .am-tag{
+              margin: 5px 5px 5px 0;
+            }
+            .am-tag-normal::before{
+              border-color: #808080;
+            }
+            .am-tag-normal::before,
+            .am-tag-active::before{
+              border-radius: 50px;
+            }
+          }
+          .write-evaluate{
+            padding: 15px;
+            width: 100%;
+            background-color: #fff;
+            .am-list-item.am-textarea-item{padding: 0;}
+            .am-textarea-control textarea{
+              padding: 10px;
+              width: 100%;
+              font-size: 15px;
+              border: 1px solid #ddd;
+              resize: none;
+              -webkit-appearance: none;
+            }
+          }
+        }
+      }
+      .evaluate-submit{
+        padding: 30px 15px;
+        .am-button{
+          color: #fff;
+          background-color: @c;
+          span{
+            font-size: 16px;
+          }
+        }
+        .am-checkbox-item{
+          -webkit-box-pack:center;
+          -webkit-justify-content:center;
+          justify-content:center;
+          background-color: transparent;
+          .am-list-line{
+            -webkit-box-flex: inherit;
+            flex: inherit;
+            .am-list-content{
+              color: #919292;
+              font-size: 14px;
+            }
+          }
+        }
+        .am-checkbox,
+        .am-checkbox-inner{
+          transform: scale(.8);
+        }
+        .am-list-item .am-list-thumb:first-child{margin-right: 8px;}
+        .am-checkbox.am-checkbox-checked .am-checkbox-inner{
+          border-color: #919292; 
+          background-color: transparent;
+          color: #919292;
+        }
+        .am-checkbox.am-checkbox-checked .am-checkbox-inner:after{
+          border-color: #919292;
+        }
+      }
+      .paidSuccess{
+        .payresultImg{
+          margin: 20px auto;
+          width: 35%;
+          img{
+            width: 80px;
+            height: 80px;
+          }
+        }
+        padding: 15px;
+        margin-bottom: 10px;
+        text-align: center;
+        color: #808080;
+        font-size: 15px;
+        background-color: #fff;
+      }
+    }
+  }
+}

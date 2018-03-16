@@ -1,0 +1,127 @@
+@c:#2bab9a;
+@b:1px solid #c9c9c9;
+
+:local{
+    .doctorSeniority{
+        :global{
+            .head{
+                width: 100%;
+                img{
+                    display: block;
+                    width: 100%;
+                }
+            }
+            .instructions{
+                margin: 10px 0;
+                padding: 13px 15px;
+                background-color: #fff;
+                p{
+                    font-size: 16px;
+                    color: @c;
+                }
+                ul li{
+                    padding-left: 15px;
+                    margin-top: 10px;
+                    position: relative;
+                    line-height: 1.5;
+                }
+                li:before{
+                    display: block;
+                    content: '';
+                    width: 6px;
+                    height: 6px;
+                    background-color: @c;
+                    position: absolute;
+                    top: 8px;
+                    left: 2px;
+                    border-radius: 50%;
+                }
+            }
+            .idCard,
+            .practice,
+            .seniority{
+                padding: 15px 0 15px 28px;
+                background-color: #fff;
+                p{
+                    font-size: 16px;
+                    position: relative;
+                    color: #333333;
+                }
+                p:before{
+                    display: block;
+                    content: '';
+                    width: 3px;
+                    height: 23px;
+                    background-color: @c;
+                    position: absolute;
+                    left: -13px;
+                    top: -3px;
+                }
+                
+                .photohere{
+                  display: flex;
+                  margin: 15px 0 0;
+                  align-items:center;
+                  color: #999999;
+                  img{
+                    margin-right: 10px;
+                    width: 60px;
+                    height: 60px;
+                  }
+                  img.exampleImg{
+                    width: 90px;
+                  }
+                }
+            }
+             .submit{
+                margin: 20px;
+                .am-button{
+                color: #fff;
+                background-color: #2bab9a;
+                font-size: 16px;
+                }
+              .am-checkbox-item{
+                  -webkit-box-pack:center;
+                  -webkit-justify-content:center;
+                  justify-content:center;
+                  background-color: transparent;
+                  .am-list-line{
+                    -webkit-box-flex: inherit;
+                    flex: inherit;
+                    .am-list-content{
+                      color: #919292;
+                      font-size: 12px;
+                      a{
+                          color: @c;
+                      }
+                    }
+                  }
+                }
+                .am-checkbox,
+                .am-checkbox-inner{
+                  width: 15px;
+                  height: 15px;
+                }
+                .am-list-item .am-list-thumb:first-child{margin-right: 8px;}
+                .am-checkbox.am-checkbox-checked .am-checkbox-inner{
+                  border-color: #919292; 
+                  background-color: transparent;
+                  color: #919292;
+                }
+                .am-checkbox.am-checkbox-checked .am-checkbox-inner:after{
+                  top: 1px;
+                  left: 4px;
+                  height: 8px;
+                  width: 4px;
+                  border-color: #919292;
+                }
+                .am-list-item{
+                  display: -webkit-box;
+                  .am-list-thumb{
+                    margin-right: 8px;
+                  }
+                }
+            }
+        }
+    }
+}

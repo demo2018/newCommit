@@ -1,0 +1,65 @@
+:local{
+  .reservationProcess{
+    :global{
+      .stepHead{
+        padding: 15px;
+        height: 50px;
+        font-size: 16px;
+        line-height: 50px;
+        background-color: #fff;
+        img{
+          float: left;
+          margin-right: 15px;
+          width: 50px;
+          height: 50px;
+        }
+        p{
+          text-align: right;
+          .customerName{
+            float: left;
+            color: #333333;
+            vertical-align: 20px;
+          }
+          .state{
+            color: #2bab9a;
+          }
+        }
+        
+      }
+      .am-steps{
+        margin-top: 10px;
+        padding: 15px;
+        background-color: #fff;
+        .am-steps-item{
+          .am-steps-item-title,
+          .am-steps-item-description{
+            font-size: 14px;
+            color: #444444;
+          }
+          .am-steps-item-icon > .am-steps-icon .am-icon{
+            transform: scale(.8);
+          }
+          .am-steps-item-content .am-steps-item-title{
+            font-weight: normal;
+          }
+          .am-steps-item-description{
+            padding-bottom: 22px;
+            p span{
+              margin-right: 8px;
+            }
+          }
+        }
+        .am-steps-item.am-steps-item-finish .am-steps-item-title,
+        .am-steps-item.am-steps-item-finish .am-steps-item-description{
+          color: #2bab9a;
+        }
+      }
+      .contactService{
+        margin: 15px auto;
+        font-size: 12px;
+        text-align: center;
+        color: #0099ff;
+      }
+    }
+  }
+}

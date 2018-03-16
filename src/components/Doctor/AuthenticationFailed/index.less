@@ -1,0 +1,66 @@
+:local{
+  .defeat{
+    padding-top: 10px;
+    :global{
+      .defeatReason{
+        padding: 15px 15px 5px;
+        margin-bottom: 20px;
+        background-color: #fff;
+        > div{
+          >span{
+            float: left;
+            color: #2bab9a;
+            font-size: 16px;
+          }
+          p{
+            padding: 3px 0;
+            font-size: 14px;
+            color: #999999;
+            text-align: right;
+            span{
+              margin-left: 8px;
+            }
+          }
+        }
+        ul{
+          margin-top: 20px;
+          li{
+            padding-left: 15px;
+            margin: 20px 0;
+            position: relative;
+            font-size: 14px;
+            &:before{
+              position: absolute;
+              top: 4px;
+              left: 0;
+              display: block;
+              content: '';
+              width: 6px;
+              height: 6px;
+              background-color: #2bab9a;
+              border-radius: 50%;
+            }
+          }
+        }
+      }
+      .am-button{
+        margin: 40px 20px;
+        background-color: #2bab9a;
+        color: #fff;
+        span{
+          font-size: 16px;
+        }
+      }
+      .contactSrevice{
+        position: absolute;
+        width: 80px;
+        margin-left: -40px;
+        left: 50%;
+        bottom: 20px;
+        text-align: center;
+        font-size: 14px;
+        color: #2bab9a;
+      }
+    }
+  }
+}

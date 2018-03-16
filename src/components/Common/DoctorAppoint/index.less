@@ -1,0 +1,136 @@
+@c:#0ea991;
+
+
+:local{
+  .doctorAppoint{
+    padding-top: 10px;
+    :global{
+      .appointContent{
+        display: flex;
+        img{
+          margin-right: 15px;
+          width: 80px;
+          height: 80px;
+        }
+        .doctor-name{
+          margin-top: 15px;
+        }
+      }
+      .am-list{
+        .tag-container>span{
+          display: inline-block;
+          margin-right: 10px;
+          width: 80px;
+          text-align: right;
+          font-size: 16px;
+        }
+        .tag-container{
+          .ofProject{
+            float: left;
+          }
+          .projectWrap{
+            padding-left: 90px;
+          }
+        }
+        
+        .chooseTime{
+          padding: 10px 15px;
+          .am-list-content{
+            margin-right: 10px;
+            text-align: right; 
+            width: 80px;
+          }
+          .am-list-extra{
+            color: @c;
+          }
+          .am-list-arrow.am-list-arrow-horizontal{
+            position: absolute;
+            right: 0;
+            top: 14px;
+          }
+        } 
+        .am-list-item.borderBottom{
+          &::after{
+            bottom: 1px;
+          }
+          .am-list-line-multiple{
+            padding-bottom: 0; 
+          }
+        }
+        
+        .am-list-item.borderBottom.appointHead{
+          .am-list-line-multiple{
+            padding-bottom: 12.5px; 
+          }
+        }
+        .inputName{
+          padding: 6px 15px;
+          .am-list-content{
+            margin-right: 10px;
+            text-align: right; 
+            width: 80px;
+          }
+        }
+        .am-list-body div:not(:last-child) .am-list-line{
+          border-bottom: none;
+        }
+        .am-list-body .am-list-item{
+          min-height: auto;
+          &:last-child:after{
+            display: block!important;
+          }
+          .am-list-line{
+            display: -webkit-box;
+            display: -webkit-inline-box;
+          }
+          .am-list-line .am-list-content{
+            display: inline-block;
+            white-space:pre-wrap;
+            font-size: 16px;
+          }
+          .am-list-line::after{
+            transform: scaleY(0);
+            -webkit-transform: scaleY(0);
+          }
+        } 
+        .am-tag{
+          margin-right: 10px;
+          margin-bottom: 12.5px;
+          height: auto;
+        }
+        .am-tag-active{
+          color: #fff;
+          background-color:@c;
+          border-color: @c;
+        }
+        .am-tag-normal{
+          color: #ff9900;
+          &:before{
+            border-color: #ff9900;
+          }
+        }
+        .am-list-body .am-list-item.forOther{
+          .am-list-line{
+            .am-list-content{
+              display: block;
+              height: 30px;
+              line-height: 30px;
+              text-align: center;
+              a{
+                display: block;
+                font-size: 14px;
+                color: @c;
+              }
+            }
+          }
+        }
+        
+      }
+      .am-button{
+        margin: 20px;
+        background-color: @c;
+        color: #fff;
+      }
+    }
+  }
+}

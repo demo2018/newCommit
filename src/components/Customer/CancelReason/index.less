@@ -1,0 +1,40 @@
+@c:#0ea991;
+
+:local{
+  .cancelReason{
+    :global{
+      .am-list-header{
+        font-size:16px;
+        color:#2f2f2f;
+      }
+     .am-list{
+        .am-list-body .am-list-item{
+          .am-list-line{
+            padding-left:30px;
+            .am-list-extra .am-radio-inner{
+              width:16px;
+              height:16px;
+              left:5px;
+              border:1px solid @c;
+              border-radius:50%;
+              &:after{
+                top:2px;
+                right:2px;
+                width:10px;
+                height:10px;
+                border-width:0;
+                border-radius:50%;
+                background-color:@c;
+              }
+            }
+          }
+        } 
+      }
+      .am-button{
+        margin: 50px 15px;
+        color: #fff;
+        background-color: #00aa90;
+      }
+    }
+  }
+}

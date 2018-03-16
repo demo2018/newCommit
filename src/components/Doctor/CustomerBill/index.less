@@ -1,0 +1,60 @@
+@c:#10b8a0;
+
+:local{
+  .customerBill{
+    :global{
+      .am-list .am-list-body div:not(:last-child) .am-list-line::after{
+        transform: scaleY(0);
+        -webkit-transform: scaleY(0);
+      }
+      .myBillContent{
+          position: relative;
+          font-size: 16px;
+          .billhead{
+            display: inline-block;
+          }
+          .check-pro{
+            display: inline-block;
+            margin-left: 10px;
+            padding: 0 6px;
+            font-size: 12px;
+            color: @c;
+            border: 1px solid @c;
+            border-radius: 10px;
+          }
+          .pay{
+            float: right;
+            text-align: right;
+            color: #ff3d42;
+            .bepaid{
+              display: block;
+            }
+            .price{
+              display: block;
+              margin-top: 6px;
+              font-size: 15px;
+            }
+          }
+          .pay.paid{
+            color: #2f2f2f;
+          }
+          .pay.paid .price{
+            color: @c;
+          }
+          .pay.paid .evaluation{
+            display: block;
+            padding: 2px 5px;
+            margin-top: 6px;
+            font-size: 13px;
+            border: 1px solid @c;
+            border-radius: 5px;
+            color: @c;
+          }
+          .complete-time{
+            display: inline-block;
+            margin-left: 8px;
+          }
+        }
+    }
+  }
+}

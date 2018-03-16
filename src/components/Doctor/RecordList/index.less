@@ -1,0 +1,66 @@
+@c:#0ea991;
+
+:local{
+  .recordList{
+    :global{
+     .am-tabs-pane-wrap{
+       .am-list-item .am-list-line-multiple{
+         padding:10px 10px 10px 0;
+       }
+        .am-list-item.borderBottom{
+          background-color: #fff;
+          &::after{
+            bottom: 1px;
+          }
+            &:last-child:after{
+              display: block!important;
+              bottom: 0;
+            }
+           .am-list-line{
+             &::after{
+                background-color: transparent;
+                height:0PX;
+                  }
+              .am-list-brief{
+                margin:0;
+              }
+           }
+      }
+     }
+      .myRecordContent{
+        .customer-name{
+          display: inline-block;
+          margin-right: 10px;
+        }
+        .customer-phone{
+          color: #999999;
+        }
+        p{
+          font-size: 16px;
+          color: #333;
+          line-height: 1.5;
+        }
+        p .check-date{
+          float: right;
+          font-size: 14px;
+          color: #999;
+          vertical-align: middle;
+        }
+        p.check-project{
+          margin-top: 6px;
+          font-size: 15px;
+        }
+      }
+      .noRec{
+        padding: 40px 0;
+        margin: auto;
+        background-color: transparent;
+        p{
+          font-size: 20px;
+          color: #ddd;
+          text-align: center;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,65 @@
+@c: #0ea991;
+
+
+:local{
+  .myBill{
+    padding: 10px 0;
+    :global{
+        .am-list{
+          .myBillContent{
+            font-size: 16px;
+            .billhead{
+              margin-bottom: 5px;
+            }
+            .check-pro{
+              display: inline-block;
+              margin-left: 10px;
+              padding: 0 6px;
+              font-size: 12px;
+              color: @c;
+              border: 1px solid @c;
+              border-radius: 10px;
+            }
+            .pay{
+              float: right;
+              color: #ff3d42;
+            }
+            .pay.paid{
+              color: #2f2f2f;
+            }
+            .billEvaluation{
+              float: right;
+              margin-top: 10px;
+              width: 50px;
+              text-align: center;
+              font-size: 15px;
+              color: @c;
+              border: 1px solid @c;
+              border-radius: 5px; 
+            }
+            .billEvaluation.billEvaluated{
+              color: #ff9900;
+              border-color: #ff9900; 
+            }
+          }
+          .am-list-body .am-list-item{
+            .am-list-line{
+              &::after{
+                  transform: scaleY(0);
+                  -webkit-transform: scaleY(0);
+                    }
+                .am-list-brief{
+                  margin-top: 0;
+                }
+            }
+        }
+      }
+       .noBill{
+          margin: 20px auto;
+          font-size: 18px;
+          color: #ddd;
+          text-align: center;
+        }
+    }
+  }
+}
