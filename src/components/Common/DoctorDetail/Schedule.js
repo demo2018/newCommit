@@ -2,6 +2,10 @@
 import { Modal } from 'antd-mobile';
 import Calendar from 'components/Common/Calendar';
 
+//   获取当前时间戳，判断当前时间戳的日期不管是否可约，都不展示在日历表中
+const now = new Date().getTime();
+
+//  获取可约与不可约日期
 const getDateFromDate = (datetime = {}) => {
   const { content = [] } = datetime;
   const able = content
@@ -9,14 +13,20 @@ const getDateFromDate = (datetime = {}) => {
       return status == 0;
     })
     .map(({ date }) => {
-      return date;
+      const ableTime = new Date(date).getTime();
+      if (ableTime > now) {
+        return date;
+      }
     });
   const unable = content
     .filter(({ status }) => {
       return status == 1;
     })
     .map(({ date }) => {
-      return date;
+      const unableTime = new Date(date).getTime();
+      if (unableTime > now) {
+        return date;
+      }
     });
   return {
     ...datetime,

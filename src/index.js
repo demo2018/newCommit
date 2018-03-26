@@ -20,6 +20,8 @@ app.model(require('./models/common/changePhone'));
 app.model(require('./models/common/doctorList'));
 app.model(require('./models/common/doctorDetail'));
 app.model(require('./models/common/doctorAppoint'));
+app.model(require('./models/common/priceList'));
+app.model(require('./models/common/priceListDet'));
 
 app.model(require('./models/customer/userCenter'));
 app.model(require('./models/customer/userInfo'));
@@ -47,6 +49,9 @@ app.model(require('./models/doctor/myWallet'));
 app.model(require('./models/doctor/myWalletDet'));
 app.model(require('./models/doctor/myCard'));
 app.model(require('./models/doctor/doctorSet'));
+app.model(require('./models/doctor/notice'));
+app.model(require('./models/doctor/myNotice'));
+app.model(require('./models/doctor/doctorCard'));
 
 
 

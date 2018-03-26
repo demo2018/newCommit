@@ -1,5 +1,4 @@
 
-import { login } from './../../../services/layout';
 class BillDetail extends React.Component {
   constructor(props) {
     super(props);

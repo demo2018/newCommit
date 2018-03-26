@@ -9,13 +9,16 @@ class DoctorCard extends React.Component {
     this.state = {};
   }
   render() {
+    const { list, doctorInfo } = this.props;
+    const listProps = { list };
+    const infoProps = { doctorInfo };
     return (
       <div className={styles.myCard}>
         <div className="cardTips">
-          -<span className="doctorName">南哲</span>医生推荐您，预约薄荷好医生-
+          -<span className="doctorName">{doctorInfo.realName}</span>医生推荐您，预约薄荷好医生-
         </div>
-        <CardInfo />
-        <MoreDoctor />
+        <CardInfo {...infoProps} />
+        <MoreDoctor {...listProps} />
         <Button type="primary">查看更多医生</Button>
       </div>
     );

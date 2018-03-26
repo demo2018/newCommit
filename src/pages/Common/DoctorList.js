@@ -19,6 +19,10 @@ function mapDispatchToProps(dispatch) {
       dispatch({ type: 'doctorList/updateSearch', payload: { search } });
       dispatch({ type: 'doctorList/fetchSearchList' });
     },
+    fetchSelectList(choose) {
+      dispatch({ type: 'doctorList/updateSelect', payload: { choose } });
+      dispatch({ type: 'doctorList/fetchSelectList' });
+    },
   };
 }
 

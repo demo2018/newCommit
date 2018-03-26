@@ -11,16 +11,23 @@ class More extends React.Component {
     this.handleSelect = this.handleSelect.bind(this);
   }
   handleSelect(node, key) {
-    const { toCancel } = this.props;
+    const { toCancel, times } = this.props;
+    const today = new Date().getTime();
+    const appointDate = new Date(times).getTime();
     this.setState({ popVisible: false });
     if (key == 0) {
-      Modal.alert('取消预约', <div>
-        <p>就诊前24小时内的预约</p>
-        <p>请联系您的医生助理进行取消</p>
-      </div>, [
+      // 判断取消时间在24小时内弹出弹窗
+      if (appointDate - today <= 86400000) {
+        Modal.alert('取消预约', <div>
+          <p>就诊前24小时内的预约</p>
+          <p>请联系您的医生助理进行取消</p>
+        </div>, [
             { text: '取消', onPress: () => console.log('cancel'), style: 'default' },
-            { text: '确定', onPress: () => toCancel() },
-      ]);
+            { text: '确定', onPress: () => console.log('OK') },
+        ]);
+      } else {
+        toCancel();
+      }
     }
   }
   handleVisibleChange = (popVisible) => {
@@ -45,7 +52,7 @@ class More extends React.Component {
         onVisibleChange={this.handleVisibleChange}
         onSelect={this.handleSelect}
       >
-        <img src={require('../../../images/more.png')} alt="more" />
+        <img src={require('images/more.png')} alt="more" />
       </Popover>);
   }
 }

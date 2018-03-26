@@ -1,6 +1,14 @@
-import { List, InputItem, DatePicker, Button, Radio, ActionSheet } from 'antd-mobile';
+import { List, InputItem, DatePicker, Button, Radio, ActionSheet, Steps } from 'antd-mobile';
 import styles from './index.less';
 
+const Step = Steps.Step;
+const steps = [{
+  title: '基本信息',
+}, {
+  title: '执业信息',
+}, {
+  title: '资格认证',
+}].map((s, i) => <Step key={i} title={s.title} description={s.description} />);
 
 const minDate = new Date(1960, 0, 1);
 const maxDate = new Date();
@@ -16,6 +24,7 @@ const data = [
   { value: 0, label: '男' },
   { value: 1, label: '女' },
 ];
+
 
 class DoctorBasic extends React.Component {
   constructor(props) {
@@ -72,7 +81,8 @@ class DoctorBasic extends React.Component {
     return (
       <div className={styles.doctorCertification}>
         <div className="head borderBottom">
-          <img src={require('images/basichead.png')} alt="" />
+             <img src={require('images/basichead.jpg')} alt="" />  
+           {/* <Steps current={1} direction="horizontal">{steps}</Steps>  */}
         </div>
         <div className="uploadImg borderBottom borderTop">
           <p>头像</p>

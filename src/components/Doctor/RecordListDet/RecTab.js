@@ -1,4 +1,5 @@
 import { Tabs, Carousel } from 'antd-mobile';
+import ToothPicker from './../../Common/ToothPicker/index';
 
 const tabs = [
   { title: '全身情况' },
@@ -45,8 +46,7 @@ class RecTab extends React.Component {
           <div style={{ alignItems: 'center', justifyContent: 'center', backgroundColor: '#fff' }}>
             <div className="teethImg">
               <div className="teethimage">
-                {/* 此处应用组件开发，但组件并未开发完全，顾为展示效果，目前咱用图片代替 */}
-                <img src={require('../../../assets/teeth.png')} alt="牙位图" />
+                <ToothPicker />
               </div>
               <ul>
                 <li><span className="teeth-num">26</span>.<span className="teeth-info">龋坏</span></li>

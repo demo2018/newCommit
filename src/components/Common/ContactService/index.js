@@ -6,13 +6,18 @@ class ContactService extends React.Component {
     this.state = {};
   }
   componentDidMount() {
-    Toast.loading('正在为您匹配牙医助理...', 30, () => {
-      console.log('Load complete !!!');
-    });
-
-    setTimeout(() => {
-      Toast.hide();
-    }, 1000);
+    if (localStorage.getItem('times') == 1) {
+      window.location.href = 'https://static.meiqia.com/dist/standalone.html?_=t&eid=47693';
+      window.history.back(-1);
+    } else {
+      Toast.loading('正在为您匹配牙医助理...', 30);
+      setTimeout(() => {
+        Toast.hide();
+        localStorage.setItem('times', 1);
+        window.location.href = 'https://static.meiqia.com/dist/standalone.html?_=t&eid=47693';
+        window.history.back(-1);
+      }, 1000);
+    }
   }
   render() {
     return (

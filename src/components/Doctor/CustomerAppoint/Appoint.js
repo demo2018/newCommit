@@ -1,25 +1,18 @@
 import { List } from 'antd-mobile';
-import formatDate from 'utils/common';
+import { formatDate } from 'utils/common';
 
 const ListItem = List.Item;
-const getDetailByReady = (details = {}) => {
-  const { createTime } = details;
-  return {
-    ...details,
-    createTime: createTime ? formatDate(createTime) : undefined,
-  };
-};
 
 class Appoint extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      readyList: getDetailByReady(props.ready),
+      readyList: props.ready,
     };
   }
   componentWillReceiveProps(nextProps) {
     if ('ready' in nextProps && nextProps.ready !== this.props.ready) {
-      this.setState({ readyList: getDetailByReady(nextProps.ready) });
+      this.setState({ readyList: nextProps.ready });
     }
   }
   renderList() {
@@ -40,7 +33,7 @@ class Appoint extends React.Component {
               <p className="check-project">{className}</p>
               <p className="note">备注 : {remark}</p>
               <p className="timeInfo">
-                <span className="check-date">{createTime}</span>
+                <span className="check-date">{formatDate(createTime)}</span>
               </p>
             </div>
           </div>
@@ -54,9 +47,9 @@ class Appoint extends React.Component {
     return (
       <List>
         {
-          readyList.content
+          readyList.content && readyList.content[0]
             ? <div>{this.renderList()} </div>
-            : <p>暂无预约</p>
+            : <p className="noList">暂无预约</p>
         }
 
       </List>

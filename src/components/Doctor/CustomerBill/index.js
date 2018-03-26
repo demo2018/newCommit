@@ -1,7 +1,7 @@
 import { List } from 'antd-mobile';
 import styles from './index.less';
 import SearchBar from './SearchBar';
-import formatDate from 'utils/common';
+import { formatDate } from 'utils/common';
 
 const ListItem = List.Item;
 const Brief = ListItem.Brief;
@@ -29,11 +29,25 @@ class CustomerBill extends React.Component {
       this.setState({ details: nextProps.details });
     }
   }
+  // //  获取项目
+  renderProjects(num) {
+    const { details, projects } = this.props;
+    const chosedProjects = projects
+      .filter(({ className }) => {
+        return details.content[num].itemName.includes(className) || details.content[num].itemName.includes(`${className}`);
+      })
+      .map(({ className }) => {
+        return className;
+      });
+    return chosedProjects
+      .map((index) => {
+        return (<span className="check-pro" key={index}>{chosedProjects}</span>);
+      });
+  }
   renderList() {
     const { toBillDetail } = this.props;
     const { details } = this.state;
-    console.log(details);
-    return (details.content || []).map(({ patientName, itemName, status, actualCost, isComment, createTime, id }) => {
+    return (details.content || []).map(({ patientName, itemName, status, actualCost, isComment, createTime, id }, index) => {
       return (<ListItem
         key={id}
         className="borderBottom"
@@ -45,7 +59,7 @@ class CustomerBill extends React.Component {
           <div>
             <div className="billhead">
               <span className="customer-name">{patientName}</span>
-              <span className="check-pro">{itemName}</span>
+              {this.renderProjects(index)}
             </div>
 
             {
@@ -64,7 +78,7 @@ class CustomerBill extends React.Component {
                   <span className="price">￥{actualCost}</span>
                 </div>
             }
-            <Brief><span className="complete-date">{createTime}</span></Brief>
+            <Brief><span className="complete-date">{formatDate(createTime)}</span></Brief>
           </div>
         </div>
       </ListItem>);
@@ -72,9 +86,14 @@ class CustomerBill extends React.Component {
       ;
   }
   render() {
+    const { fetchSearchList, search } = this.props;
+    const searchBarProps = {
+      search,
+      fetchSearchList,
+    };
     return (
       <div className={styles.customerBill}>
-        <SearchBar />
+        <SearchBar {...searchBarProps} />
         <List>
           {this.renderList()}
         </List>

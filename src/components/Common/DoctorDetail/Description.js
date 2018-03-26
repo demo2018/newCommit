@@ -16,9 +16,16 @@ class Description extends React.Component {
 
   // 渲染擅长标签
   renderTags() {
-    const { details } = this.props;
-    console.log(details);
-    return (details.adepts || []).map((index) => {
+    const { details, tags } = this.props;
+    console.log(tags);
+    const partNames = (tags.content || [])
+      .filter(({ id }) => {
+        return details.adepts && details.adepts.includes(id) || details.adepts && details.adepts.includes(`${id}`);
+      })
+      .map(({ name }) => {
+        return name;
+      });
+    return partNames.map((index) => {
       return (<Tag selected key={index}>{index}</Tag>);
     });
   }

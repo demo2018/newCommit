@@ -25,8 +25,9 @@ export function goodAt(param) {
 
 // 调取微信接口
 export function getWechat() {
-  return get('/bhyy/core/weixin/config?url=http://view.boheyayi.com:8060/');
+  return get('/bhyy/core/weixin/config?url=http://test.zhenweitech.cn/');
 }
+
 
 // export function getWechat() {
 //   return get(`/bhyy/core/weixin/config?url=${location.href.split('#')[0]}`);

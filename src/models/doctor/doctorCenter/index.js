@@ -6,6 +6,7 @@ export default Model.extend({
 
   state: {
     details: {},
+    goodat: [],
   },
 
   subscriptions: {
@@ -16,6 +17,7 @@ export default Model.extend({
           dispatch({ type: 'resetState' });
           dispatch({ type: 'updateState', payload: { id } });
           dispatch({ type: 'fetchDetails' });
+          dispatch({ type: 'fetchGoods' });
         },
       });
     }
@@ -25,6 +27,12 @@ export default Model.extend({
     * fetchDetails({ payload }, { update, callWithLoading }) {
       const { data } = yield callWithLoading(services.doctorcenter.getInfo);
       yield update({ details: data });
+    },
+    //  擅长
+    * fetchGoods({ payload }, { select, update, callWithLoading }) {
+      const { good } = yield select(({ doctorCenter }) => doctorCenter);
+      const { data } = yield callWithLoading(services.doctorcenter.goodAt, { good });
+      yield update({ goodat: data });
     },
   },
 

@@ -3,13 +3,37 @@ import styles from './index.less';
 import AboutPatient from './AboutPatient';
 import DoctorFunction from './DoctorFunction';
 
+// 擅长
+const getGoodFromData = (partment = {}) => {
+  const { content = [] } = partment;
+  //  从后台获取擅长
+  const pickerGood = content.map(({ id, name }) => {
+    return {
+      value: id,
+      label: name,
+    };
+  });
+  console.log(pickerGood);
+  localStorage.setItem('adepts', JSON.stringify(pickerGood));
+  return {
+    ...partment,
+    pickerGood,
+  };
+};
+
 class DoctorCenter extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       title: '用户中心',
+      goods: getGoodFromData(props.goodat),
     };
     document.title = this.state.title;
+  }
+  componentWillReceiveProps(nextProps) {
+    if ('goodat' in nextProps && nextProps.goodat !== this.props.goodat) {
+      this.setState({ goods: getGoodFromData(nextProps.goodat) });
+    }
   }
   render() {
     const { toCertification, toDoctorInfo,
@@ -19,7 +43,6 @@ class DoctorCenter extends React.Component {
     const headProps = {
       details
     };
-
 
     return (
       <div className={styles.doctorCenter}>

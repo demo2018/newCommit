@@ -5,7 +5,7 @@ const { put } = http.create('medical');
 const { get } = http.create('medical');
 
 // 客户详情
-export function getInfo(param) {
+export function getInfo() {
   return get(`/bhyy/core/customer/${cookie.get('id')}`, {});
 }
 // 更新客户详情
@@ -23,5 +23,5 @@ export function getListInfo(param) {
 
 // 调取微信接口
 export function getWechat(param) {
-  return get('/bhyy/core/weixin/config?url=http://view.boheyayi.com:8060/', param);
+  return get('/bhyy/core/weixin/config?url=http://test.zhenweitech.cn/', param);
 }

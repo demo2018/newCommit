@@ -11,9 +11,6 @@ class DoctorList extends React.Component {
   renderList() {
     const { toDoctorDetail, details } = this.props;
     return (details.content || [])
-      .filter(({ status }) => {
-        return status == 1;
-      })
     .map(({ id, realName, hospitalName, title, icon, isRecommend }, index) => {
       return (<ListItem
         key={index}
@@ -35,10 +32,15 @@ class DoctorList extends React.Component {
       ;
   }
   render() {
+    const { details } = this.props;
     return (
-      <List>
-        {this.renderList()}
-      </List>
+      <div>
+        {
+          details.content && details.content[0]
+            ? <List><div>{this.renderList()}</div> </List>
+            : <p className="noDoctor">暂无医生</p>
+        }
+      </div>
     );
   }
 }

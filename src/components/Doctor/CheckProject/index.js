@@ -1,4 +1,4 @@
-import { Tabs, Button, Stepper, List, Checkbox, ActivityIndicator } from 'antd-mobile';
+import { Tabs, Button, Stepper, List, Checkbox, ActivityIndicator, Toast } from 'antd-mobile';
 import styles from './index.less';
 
 const CheckboxItem = Checkbox.CheckboxItem;
@@ -82,8 +82,15 @@ class CheckProject extends React.Component {
         proname: name,
       });
     });
-    localStorage.setItem('selectedProjects', JSON.stringify(selectedDates));
-    toBill();
+
+    //  判断有问题，当未选择项目时应不跳转
+    console.log(selectedDates);
+    if (selectedDates) {
+      localStorage.setItem('selectedProjects', JSON.stringify(selectedDates));
+      toBill();
+    } else {
+      Toast.info('请选择至少一个项目', 1);
+    }
   }
   handleTabChange({ key }) {
     const { getProjects } = this.props;

@@ -25,16 +25,16 @@ class DoctorSet extends React.Component {
       <div className={styles.set}>
         <List className="my-list">
           <Item arrow="horizontal" multipleLine onClick={toChangePhone}>
-            <img src={require('images/setphone.jpg')} alt="更换手机号" />更换手机号
+            <img src={require('images/setphone.png')} alt="更换手机号" />更换手机号
           </Item>
           <Item arrow="horizontal" multipleLine onClick={() => { }}>
-            <img src={require('images/setabout.jpg')} alt="关于我们" />关于我们
+            <img src={require('images/setabout.png')} alt="关于我们" />关于我们
           </Item>
           <Item arrow="horizontal" multipleLine onClick={toNotice}>
-            <img src={require('images/setnotice.jpg')} alt="通知" />通知
+            <img src={require('images/setnotice.png')} alt="通知" />通知
           </Item>
           <Item arrow="horizontal" multipleLine onClick={() => { }}>
-            <img src={require('images/setprotect.jpg')} alt="隐私保护" />隐私保护
+            <img src={require('images/setprotect.png')} alt="隐私保护" />隐私保护
           </Item>
         </List>
         <Button className="quit" onClick={this.showAlert}>退出登录</Button>

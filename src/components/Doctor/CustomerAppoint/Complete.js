@@ -1,32 +1,41 @@
 import { List } from 'antd-mobile';
-import formatDate from 'utils/common';
+import { formatDate } from 'utils/common';
 
 const ListItem = List.Item;
 const Brief = ListItem.Brief;
-const getDetailBycomplete = (details = {}) => {
-  const { createTime } = details;
-  return {
-    ...details,
-    createTime: createTime ? formatDate(createTime) : undefined,
-  };
-};
 
 class Complete extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      doneList: getDetailBycomplete(props.done),
+      doneList: props.done,
     };
   }
   componentWillReceiveProps(nextProps) {
     if ('done' in nextProps && nextProps.done !== this.props.done) {
-      this.setState({ doneList: getDetailBycomplete(nextProps.done) });
+      this.setState({ doneList: nextProps.done });
     }
+  }
+  // //  获取项目
+  renderProjects(num) {
+    const { doneList } = this.state;
+    const { projects } = this.props;
+    const chosedProjects = projects
+      .filter(({ className }) => {
+        return doneList.content[num].itemName.includes(className) || doneList.content[num].itemName.includes(`${className}`);
+      })
+      .map(({ className }) => {
+        return className;
+      });
+    return chosedProjects
+      .map((index) => {
+        return (<span className="check-pro" key={index}>{chosedProjects}</span>);
+      });
   }
   renderList() {
     const { doneList } = this.state;
     const { toCompleteDet } = this.props;
-    return (doneList.content || []).map(({ patientName, itemName, status, actualCost, isComment, id} ) => {
+    return (doneList.content || []).map(({ patientName, itemName, status, actualCost, isComment, id, createTime }, index) => {
       return (<ListItem
         key={id}
         className="borderBottom"
@@ -38,7 +47,7 @@ class Complete extends React.Component {
           <div>
             <div className="billhead">
               <span className="customer-name">{patientName}</span>
-              <span className="check-pro">{itemName}</span>
+              {this.renderProjects(index)}
             </div>
 
             {
@@ -57,7 +66,7 @@ class Complete extends React.Component {
                   <span className="price">￥{actualCost}</span>
                 </div>
             }
-            <Brief><span className="complete-date">2018-2-05</span><span className="complete-time">11:50</span></Brief>
+            <Brief><span className="complete-date">{formatDate(createTime)}</span></Brief>
           </div>
         </div>
       </ListItem>);
@@ -69,9 +78,9 @@ class Complete extends React.Component {
     return (
       <List>
         {
-          doneList.content
+          doneList.content && doneList.content[0]
             ? <div>{this.renderList()} </div>
-            : <p>暂无列表</p>
+            : <p className="noList">暂无列表</p>
         }
       </List>
     );

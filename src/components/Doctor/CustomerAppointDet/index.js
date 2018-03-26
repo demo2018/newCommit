@@ -9,14 +9,28 @@ class MyBill extends React.Component {
       title: '预约详情',
     };
     document.title = this.state.title;
+    this.onClick = this.onClick.bind(this);
+  }
+  onClick() {
+    const { toGenerateBill, details } = this.props;
+    //  存储账单详情供发送账单页使用
+    localStorage.setItem('appointBillDetails', JSON.stringify({
+      appointId: details && details.appointId,
+      patientName: details && details.patientName,
+      time: details && details.time,
+      doctorName: details && details.doctorName,
+      address: details && details.address,
+      itemClassId: details && details.itemClassId,
+    }));
+    toGenerateBill();
   }
   render() {
-    const { toGenerateBill, details } = this.props;
-    const readyProps = { details };
+    const { details, projects } = this.props;
+    const readyProps = { details, projects };
     return (
       <div className={styles.myBillDetail}>
-         <DetailHead {...readyProps} /> 
-        <Button type="primary" onClick={toGenerateBill}>生成账单</Button>
+         <DetailHead {...readyProps} />
+        <Button type="primary" onClick={this.onClick}>生成账单</Button>
       </div>
     );
   }

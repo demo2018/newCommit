@@ -21,13 +21,17 @@ class CustomerAppoint extends React.Component {
     document.title = this.state.title;
   }
   render() {
-    const { toDet, toCompleteDet, ready, done, cancel } = this.props;
+    const { toDet, toCompleteDet, ready, done, cancel, fetchSearchList, search, projects } = this.props;
     const readyProps = { ready };
-    const doneProps = { done };
+    const doneProps = { done, projects };
     const cancelProps = { cancel };
+    const searchBarProps = {
+      search,
+      fetchSearchList,
+    };
     return (
       <div className={styles.customerAppoint}>
-        <SearchBar />
+        <SearchBar {...searchBarProps} />
         <Tabs
           tabs={tabs}
           initialPage={0}

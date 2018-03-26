@@ -1,3 +1,4 @@
+import { getServer } from 'utils/common';
 
 class UserHead extends React.Component {
   constructor(props) {
@@ -12,12 +13,13 @@ class UserHead extends React.Component {
     }
   }
   render() {
-    const { toUserInfo, details } = this.props;
+    const { toUserInfo } = this.props;
     const { userHead } = this.state;
+    const { medical } = getServer();
     return (
       < div className="userHead borderBottom" style={{ background: `url(${require('images/user-bg.png')}) no-repeat center center` }}>
         <div className="headInfo" onClick={() => { toUserInfo(); }}>
-          <img className="headImg" src={userHead.icon} alt="头像加载失败" />
+          <img className="headImg" src={`${medical}/bhyy/core/image/${userHead.icon}`} alt="头像加载失败" />
           <p className="userName">{userHead.realName}</p>
         </div>
       </div>);

@@ -45,15 +45,16 @@ class ChangePhone extends React.Component {
   }
   handleGetCode() {
     const { phone } = this.state;
+    const { changeCode } = this.props;
     const Rex = /^1[3|4|5|7|8]\d{1}\s\d{4}\s\d{4}$/;
     if (!phone) {
       Toast.info('手机号不能为空', 1.5);
     } else if (!Rex.test(phone)) {
       Toast.info('手机号格式有误', 1.5);
     } else {
-      console.log(phone);
-      Toast.info('验证码已发送', 1.5);
       this.startCodeTimer();
+      changeCode(phone);
+      Toast.info('验证码已发送', 1.5);
     }
   }
   handleChange(key) {

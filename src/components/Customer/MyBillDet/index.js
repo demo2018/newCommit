@@ -14,14 +14,14 @@ class MyBill extends React.Component {
     document.title = this.state.title;
   }
   render() {
-    const { toEvaluate, details ,goods,bads } = this.props;
-    const detailProps = { details,goods,bads };
+    const { toEvaluate, details, goods, bads, projects } = this.props;
+    const detailProps = { details, goods, bads, projects };
     return (
       <div className={styles.myBillDetail}>
         <MyBillDetHead {...detailProps} />
         <BillDetail {...detailProps} />
         {  // 已支付未评价
-          details.status && !details.isComment ? <Paid toEvaluate={toEvaluate}/> : null
+          details.status && !details.isComment ? <Paid toEvaluate={toEvaluate} /> : null
         }
         { // 未支付
          !details.status ? <Pay toEvaluate={toEvaluate} /> : null

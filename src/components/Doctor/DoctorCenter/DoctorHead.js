@@ -1,3 +1,5 @@
+import { getServer } from 'utils/common';
+
 class DoctorHead extends React.Component {
   constructor(props) {
     super(props);
@@ -5,10 +7,11 @@ class DoctorHead extends React.Component {
   }
   render() {
     const { toCertification, toDoctorInfo, toAuthenticationFailed, details } = this.props;
+    const { medical } = getServer();
     return (
       <div className="doctorHead borderBottom">
         <div className="headInfo">
-          <img className="headImg" src={require('assets/head.png')} alt="头像加载失败" onClick={toDoctorInfo} />
+          <img className="headImg" src={`${medical}/bhyy/core/image/${details.icon}`} alt="头像加载失败" onClick={toDoctorInfo} />
           <p className="doctorName">{details.realName}</p>
           {
             details.status == 0 &&
@@ -32,6 +35,12 @@ class DoctorHead extends React.Component {
           }
           {
             details.status == 3 &&
+              <div>
+                <p className="review"><a>停诊中</a></p>
+              </div>
+          }
+          {
+            details.status == 4 &&
               <div>
                 <p className="review"><a>审核中</a></p>
               </div>

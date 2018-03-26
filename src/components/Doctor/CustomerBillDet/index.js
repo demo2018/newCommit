@@ -12,8 +12,8 @@ class MyBill extends React.Component {
     document.title = this.state.title;
   }
   render() {
-    const { details, goods, bads } = this.props;
-    const detailsProps = { details, goods, bads };
+    const { details, goods, bads, projects } = this.props;
+    const detailsProps = { details, goods, bads, projects };
     return (
       <div className={styles.billDetail}>
         <BillDetHead {...detailsProps} />

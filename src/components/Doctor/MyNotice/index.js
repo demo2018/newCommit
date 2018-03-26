@@ -1,5 +1,6 @@
 import { List } from 'antd-mobile';
 import styles from './index.less';
+import { formatDate } from 'utils/common';
 
 const ListItem = List.Item;
 
@@ -12,22 +13,22 @@ class MyNotice extends React.Component {
     document.title = this.state.title;
   }
   renderList() {
-    const { dataSoure = [1, 2, 3] } = this.state;
-    return dataSoure.map((id) => {
+    const { details } = this.props;
+    return (details.content || []).map(({ id, createTime, phone, realName, message }, index) => {
       return (<ListItem
-        key={id}
+        key={index}
         className="borderBottom"
         align="middle"
         multipleLine
-        extra={<p><span>2017-12-12</span><span>14:30</span></p>}
+        extra={<p>{formatDate(createTime)}</p>}
       >
         <div className="myNoticeContent">
           <div>
             <div>
               <p>
-                <span className="customer-name">李四</span> (<span className="customer-phone">18632273417</span>)
+                <span className="customer-name">{realName}</span> (<span className="customer-phone">{phone}</span>)
               </p>
-              <p className="noticeContent">已扫码你的二维码</p>
+              <p className="noticeContent">{message}</p>
             </div>
           </div>
         </div>
@@ -36,15 +37,18 @@ class MyNotice extends React.Component {
       ;
   }
   render() {
+    const { details } = this.props;
     return (
       <div className={styles.recordList}>
-        <List>
-          {this.renderList()}
-        </List>
-
-        {/* <div className="noNotice">
-          <p>暂无通知</p>
-        </div> */}
+        {
+          details.content && details.content[0]
+            ? <List>
+              {this.renderList()}
+            </List>
+            : <div className="noNotice">
+              <p>暂无通知</p>
+            </div>
+        }
       </div>
     );
   }

@@ -11,7 +11,7 @@ export function getDetail(param) {
 
 // 获取可预约项目名称
 export function getProject(param) {
-  return get('/bhyy/core/itemClass?page=0&size=10', param);
+  return get('/bhyy/core/itemClass', param);
 }
 
 // 新增预约

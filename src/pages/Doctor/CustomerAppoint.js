@@ -17,7 +17,11 @@ function mapDispatchToProps(dispatch) {
     },
     toCompleteDet(id) {
       dispatch(routerRedux.push(`/doctor/customerbilldetail/${id}`));
-    }
+    },
+    fetchSearchList(param) {
+      // dispatch({ type: 'customerAppoint/updateSearch', payload: { keywords } });
+      dispatch({ type: 'customerAppoint/fetchSearchList', param });
+    },
   };
 }
 

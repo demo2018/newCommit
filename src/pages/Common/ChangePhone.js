@@ -14,6 +14,9 @@ function mapDispatchToProps(dispatch) {
     changePhone(param) {
       dispatch({ type: 'changePhone/changePhone', param });
     },
+    changeCode(param) {
+      dispatch({ type: 'changePhone/changeCode', param });
+    },
   };
 }
 

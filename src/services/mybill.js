@@ -7,3 +7,7 @@ export function getBill() {
   return get('/bhyy/core/customer/bill');
 }
 
+// 获取项目名称
+export function getProject(param) {
+  return get('/bhyy/core/itemClass', param);
+}

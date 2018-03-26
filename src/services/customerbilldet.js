@@ -16,3 +16,7 @@ export function getGood(param) {
 export function getBad(param) {
   return get('/bhyy/core/commentTag?typeId=2', param);
 }
+// 获取项目名称
+export function getProject(param) {
+  return get('/bhyy/core/itemClass', param);
+}

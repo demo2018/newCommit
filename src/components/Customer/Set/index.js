@@ -23,13 +23,13 @@ class Set extends React.Component {
       <div className={styles.set}>
         <List className="my-list">
           <Item arrow="horizontal" multipleLine onClick={toChangePhone}>
-            <img src={require('images/changephone.jpg')} alt="更换手机号" />更换手机号
+            <img src={require('images/changephone.png')} alt="更换手机号" />更换手机号
           </Item>
           <Item arrow="horizontal" multipleLine onClick={() => { }}>
-            <img src={require('images/aboutus.jpg')} alt="关于我们" />关于我们
+            <img src={require('images/aboutus.png')} alt="关于我们" />关于我们
           </Item>
           <Item arrow="horizontal" multipleLine onClick={() => { }}>
-            <img src={require('images/protect.jpg')} alt="隐私保护" />隐私保护
+            <img src={require('images/protect.png')} alt="隐私保护" />隐私保护
           </Item>
         </List>
         <Button className="quit" onClick={this.handleOut}>退出登录</Button>

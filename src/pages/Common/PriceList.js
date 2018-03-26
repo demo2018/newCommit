@@ -4,9 +4,9 @@ import { routerRedux } from 'dva/router';
 
 import PriceList from 'components/Common/PriceList';
 
-function mapStateToProps({ layout }) {
+function mapStateToProps({ priceList }) {
   return {
-    ...layout,
+    ...priceList,
   };
 }
 
@@ -17,6 +17,9 @@ function mapDispatchToProps(dispatch) {
     },
     toContactService() {
       dispatch(routerRedux.push('/common/contactservice'));
+    },
+    getProjects(id) {
+      dispatch({ type: 'priceList/getProjects', payload: { id } });
     },
   };
 }

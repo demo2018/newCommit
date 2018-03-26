@@ -2,36 +2,61 @@ import { List, InputItem, Button, Picker, TextareaItem, Menu } from 'antd-mobile
 import styles from './index.less';
 
 const getDetailFrom = (details = {}) => {
-  const { departments,title } = details;
+  const { adepts = [], education } = details;
+  const allPart = JSON.parse(localStorage.getItem('adepts')); // 擅长列表 为什么从localStorage取？ 后端返回了
+  const selectedPart = adepts;// 已选中的擅长
+  const partNames = allPart
+    .filter(({ value }) => {
+      return selectedPart.includes(value) || selectedPart.includes(`${value}`);
+    })
+    .map(({ label }) => {
+      return label;
+    });
   return {
     ...details,
-    departments,
-    title: [Number(title)],  //  将获取到的职称type转为number
+    education: [education],
+    adepts: adepts.map((key) => {
+      return window.parseInt(key);
+    }),
+    partNames: partNames.join('，'),
   };
 };
 
 const getTitleFromData = (partment = {}) => {
   const { content = [] } = partment;
-  const pickerOptions = content
-  .filter(({ type }) => {
-      return type == 1;
-    })
-  .map(({ id, className }) => {
-    return {
-      value: id,
-      label: className,
-    };
-  });
-
+  //  从后台获取
+  // const pickerOptions = content
+  //   .filter(({ type }) => {
+  //     return type == 1;
+  //   })
+  //   .map(({ id, className }) => {
+  //     return {
+  //       value: id,
+  //       label: className,
+  //     };
+  //   });
+  // 固定科室
+  const pickerOptions = [
+    { label: '内科', value: '内科' },
+    { label: '外科', value: '外科' },
+    { label: '种植科', value: '种植科' },
+    { label: '正畸科', value: '正畸科' },
+    { label: '修复科', value: '修复科' },
+    { label: '综合科', value: '综合科' },
+    { label: '牙周科', value: '牙周科' },
+    { label: '儿童口腔科', value: '儿童口腔科' },
+  ];
   return {
     ...partment,
     pickerOptions,
   };
 };
 
+
 // 擅长
 const getGoodFromData = (partment = {}) => {
-  const { name, content = [] } = partment;
+  const { content = [] } = partment;
+  //  从后台获取擅长
   const pickerGood = content.map(({ id, name }) => {
     return {
       value: id,
@@ -48,18 +73,26 @@ class DoctorProfessional extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      titles: [
+      educations: [
         {
-          label: '医师',
-          value: 0,
+          label: '研究生',
+          value: '研究生',
         },
         {
-          label: '医师啊',
-          value: 1,
+          label: '博士',
+          value: '博士',
         },
         {
-          label: '医师啊啊',
-          value: 2,
+          label: '硕士',
+          value: '硕士',
+        },
+        {
+          label: '本科',
+          value: '本科',
+        },
+        {
+          label: '专科',
+          value: '专科',
         },
       ],
       show: false,
@@ -83,19 +116,36 @@ class DoctorProfessional extends React.Component {
     }
   }
   //  确认科室
-  onPartmentOk = (label) => {
+  onPartmentOk = (key) => {
     const { doctorInfo } = this.state;
     const { changeInfo } = this.props;
+    const { adepts } = doctorInfo;
     this.onCancel();
-    changeInfo({ doctorInfo: { ...doctorInfo, departments: label ? [`${label}`] : null } });
+    changeInfo({
+      ...doctorInfo,
+      title: `${doctorInfo.title[0]}`,
+      hospitalName: doctorInfo.hospitalName,
+      workYear: doctorInfo.workYear,
+      departments: key,
+      // adepts: adepts && adepts.split('，')
+    });
   }
 
   // 确认擅长
-  onAdeptsOk = (label) => {
+  onAdeptsOk = (key) => {
     const { doctorInfo } = this.state;
     const { changeInfo } = this.props;
+    const { departments } = doctorInfo;
     this.onCancel();
-    changeInfo({ doctorInfo: { ...doctorInfo, adepts: [`${label}`] } });
+
+    changeInfo({
+      ...doctorInfo,
+      title: `${doctorInfo.title[0]}`,
+      hospitalName: doctorInfo.hospitalName,
+      workYear: doctorInfo.workYear,
+      // departments: departments && departments.split('，'),
+      adepts: key
+    });
   }
   onCancel = () => {
     this.setState({ show: false });
@@ -126,15 +176,15 @@ class DoctorProfessional extends React.Component {
         value = value.target.value;
       }
       this.setState({ doctorInfo: { ...doctorInfo, [key]: value } });
-       //  解决无法实时更新，每次切换只获取到上一次值的BUG
-      if (key == 'title') {
-        this.setState({ ...doctorInfo, title: `${value[0]}`, hospitalName: doctorInfo.hospitalName, workYear: doctorInfo.workYear });
-      } else if (key == 'hospitalName') {
-        this.setState({ ...doctorInfo, title: `${doctorInfo.title[0]}`, hospitalName: value, });
+      //  解决无法实时更新，每次切换只获取到上一次值的BUG
+      if (key == 'hospitalName') {
+        this.setState({ ...doctorInfo, hospitalName: value, });
       } else if (key == 'workYear') {
-        this.setState({ ...doctorInfo, title: `${doctorInfo.title[0]}`, workYear: value });
+        this.setState({ ...doctorInfo, workYear: value });
+      } else if (key == 'education') {
+        this.setState({ ...doctorInfo, education: value[0] });
       } else {
-        this.setState({ ...doctorInfo, title: `${doctorInfo.title[0]}` });
+        this.setState({ ...doctorInfo });
       }
     };
   }
@@ -178,7 +228,7 @@ class DoctorProfessional extends React.Component {
     return (
       <div className={styles.doctorProfessional}>
         <div className="head borderBottom">
-          <img src={require('images/professional.png')} alt="" />
+          <img src={require('images/professional.jpg')} alt="" />
         </div>
         <div className="basicInfo borderTop">
           <p>执业信息</p>
@@ -190,24 +240,30 @@ class DoctorProfessional extends React.Component {
             >执业地点</InputItem>
 
             <List.Item
-              value={doctorInfo.departments}
+              extra={doctorInfo.departments}
               onClick={this.handleClick}
+              extra={doctorInfo.departments && doctorInfo.departments.join('，')}
             >科室</List.Item>
-              {show ? menuDepart : null}
-              {show ? <div className="menu-mask" onClick={this.onMaskClick} /> : null}
+            {show ? menuDepart : null}
+            {show ? <div className="menu-mask" onClick={this.onMaskClick} /> : null}
 
 
+            {/* 学历 */}
             <Picker
-              data={this.state.titles}
+              data={this.state.educations}
               cols={1}
-              value={doctorInfo.title}
-              onChange={this.handleChange('title')}
+              value={doctorInfo.education}
+              onChange={this.handleChange('education')}
             >
-              <List.Item className="borderBottom" >职称</List.Item>
+              <List.Item className="borderBottom" arrow="horizontal" >学历</List.Item>
             </Picker>
 
             {/* 擅长 */}
-            <List.Item className="borderBottom" onClick={this.handleGoodsClick} extra={doctorInfo.adepts}>擅长</List.Item>
+            <List.Item
+              className="borderBottom"
+              onClick={this.handleGoodsClick}
+              extra={doctorInfo.partNames}
+            >擅长</List.Item>
             {showGoods ? menuGood : null}
             {showGoods ? <div className="menu-mask" onClick={this.onMaskClick} /> : null}
 

@@ -1,4 +1,4 @@
-@c:#0ea991;
+@c:#065C5A;
 @border:1px solid #e6e6e6;
 
 :local{
@@ -38,6 +38,7 @@
       .recTab{
         margin: 10px 0;
         .am-tabs-default-bar-tab{color: #999;}
+        .am-tabs-default-bar-tab.am-tabs-default-bar-tab-active{color: @c;}
         .general-condition{
           padding: 15px;
           li{
@@ -51,9 +52,10 @@
         }
         .teethImg{
           .teethimage{
-             padding: 20px 0;
+            padding: 20px 0;
             margin: auto;
             width: 70%;
+            pointer-events: none;
             img{
               width: 100%;
               pointer-events: none;

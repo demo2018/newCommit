@@ -8,6 +8,7 @@ export default Model.extend({
     details: {},
     goods: [],
     bads: [],
+    projects: [],
   },
 
   subscriptions: {
@@ -20,6 +21,7 @@ export default Model.extend({
           dispatch({ type: 'fetchDetails' });
           dispatch({ type: 'fetchGood' });
           dispatch({ type: 'fetchBad' });
+          dispatch({ type: 'fetchProject' });
         },
       });
     }
@@ -38,6 +40,12 @@ export default Model.extend({
     * fetchBad({ payload }, { update, callWithLoading }) {
       const { data: { content } } = yield callWithLoading(services.mybilldet.getBad);
       yield update({ bads: content });
+    },
+    // 项目
+    * fetchProject({ payload }, { select, update, callWithLoading }) {
+      const { types } = yield select(({ myBillDet }) => myBillDet);
+      const { data: { content } } = yield callWithLoading(services.mybilldet.getProject, { types });
+      yield update({ projects: content });
     },
   },
 

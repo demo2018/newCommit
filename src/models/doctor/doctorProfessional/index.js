@@ -45,8 +45,10 @@ export default Model.extend({
       const { data } = yield callWithLoading(services.doctorinfo.goodAt, { good });
       yield update({ goodat: data });
     },
-    * changeInfo({ payload: { param } }, { callWithLoading }) {
+    * changeInfo({ payload: { param } }, { put, callWithLoading }) {
       yield callWithLoading(services.doctorinfo.editInfo, param);
+      yield put({ type: 'fetchGoods' }); // 再一次获取详情，更新信息，保持和服务端一致
+      yield put({ type: 'fetchDetails' }); // 再一次获取详情，更新信息，保持和服务端一致
     }
   },
 

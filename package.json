@@ -11,13 +11,13 @@
         "dev": "export DEPLOY_ENV=dev || set DEPLOY_ENV=dev&& rimraf dist/dev && atool-build -o dist/dev",
         "qa": "export DEPLOY_ENV=qa || set DEPLOY_ENV=qa&& rimraf dist/qa && atool-build -o dist/qa",
         "demo": "export DEPLOY_ENV=qa || set DEPLOY_ENV=qa&& rimraf demo && atool-build -o dist/demo",
-        "prod": "export NODE_ENV=production || set NODE_ENV=production&& atool-build -o dist/prod/20180316"
+        "prod": "export NODE_ENV=production || set NODE_ENV=production&& atool-build -o dist/prod/20180326"
     },
     "theme": {
         "hd": "1px",
-        "brand-primary": "#00aa90",
-        "brand-primary-tap": "#00aa90",
-        "brand-wait": "#00aa90"
+        "brand-primary": "#065C5A",
+        "brand-primary-tap": "#065C5A",
+        "brand-wait": "#065C5A"
     },
     "dependencies": {
         "antd-mobile": "2.1.4",
@@ -34,6 +34,7 @@
         "preact-compat": "3.17.0",
         "preact-router": "2.6.0",
         "promise": "8.0.1",
+        "qrcode.react": "^0.8.0",
         "rc-dropdown": "2.1.0",
         "rc-menu": "6.2.6",
         "react": "^15.4.1",

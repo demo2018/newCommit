@@ -6,6 +6,7 @@ export default Model.extend({
 
   state: {
     details: {},
+    projects: {},
   },
 
   subscriptions: {
@@ -16,6 +17,7 @@ export default Model.extend({
           dispatch({ type: 'resetState' });
           dispatch({ type: 'updateState', payload: { id } });
           dispatch({ type: 'fetchDetails' });
+          dispatch({ type: 'fetchProject' });
         },
       });
     }
@@ -26,6 +28,12 @@ export default Model.extend({
       const { id } = yield select(({ customerAppointDet }) => customerAppointDet);
       const { data } = yield callWithLoading(services.customerappointdet.getAppointDet, { id });
       yield update({ details: data });
+    },
+    // 项目
+    * fetchProject({ payload }, { select, update, callWithLoading }) {
+      const { types } = yield select(({ customerAppointDet }) => customerAppointDet);
+      const { data } = yield callWithLoading(services.customerappointdet.getProject, { types });
+      yield update({ projects: data });
     },
   },
 

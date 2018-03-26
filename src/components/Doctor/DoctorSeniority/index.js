@@ -21,8 +21,7 @@ class DoctorSeniority extends React.Component {
 
   onSubmit() {
     const { toResult, submitCheck, details } = this.props;
-    // console.log(submitCheck);
-    submitCheck(details);
+    submitCheck({ ...details, status: 4 });
     // toResult();
   }
   showActionSheet = () => {
@@ -81,7 +80,7 @@ class DoctorSeniority extends React.Component {
     return (
       <div className={styles.doctorSeniority}>
         <div className="head borderBottom">
-          <img src={require('images/last.png')} alt="" />
+          <img src={require('images/last.jpg')} alt="" />
         </div>
         <div className="instructions borderBottom borderTop">
           <p>资格认证说明</p>

@@ -1,4 +1,4 @@
-import { Button } from 'antd-mobile';
+import { Button, ActivityIndicator } from 'antd-mobile';
 import styles from './index.less';
 import Question from './Question';
 import More from './More';
@@ -50,7 +50,7 @@ class MyAppoint extends React.Component {
             <div className="appointRight">
               <ul>
                 <li>
-                  <More toCancel={() => toCancel(id)} />
+                  <More times={time} toCancel={() => toCancel(id)} />
                 </li>
                 <li className="userName">{realName}</li>
                 <li className="appointPro">预约项目：<span>{className}</span></li>
@@ -94,18 +94,19 @@ class MyAppoint extends React.Component {
     });
   }
   render() {
-    const { toAppoint, listCancel, listConfirm, listNew } = this.props;
+    const { toAppoint, listCancel, listConfirm, listNew, loading } = this.props;
     let test = false;
     if (listCancel[0] || listConfirm[0] || listNew[0]) {
       test = true;
     }
     return (
       <div className={styles.myAppoint}>
+        <ActivityIndicator animating={loading} toast />
         <ul className="appointWarp">
           {
             test
               ? <div>
-                {this.renderListNew()}
+                {/* {this.renderListNew()} */}
                 {this.renderListConfirm()}
                 {this.renderListCancel()}
               </div>

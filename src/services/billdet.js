@@ -15,3 +15,8 @@ export function getDiscount() {
   return get('/bhyy/core/discount?page=0&size=10');
 }
 
+// 获取项目名称
+export function getProject(param) {
+  return get('/bhyy/core/itemClass', param);
+}
+

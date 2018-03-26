@@ -60,7 +60,8 @@ class Calendar extends React.Component {
 
     const dateSelected = findDate(ableDates, day);
     const dateWarning = findDate(disableDates, day);
-    const info = (dateSelected && '可约') || (dateWarning && '约满');
+    const isToday = moment().isSame(day, 'day');
+    const info = ((isToday && '今天') || dateSelected && '可约') || (dateWarning && '约满');
 
     const handleClick = () => {
       if (dateSelected) {
@@ -76,6 +77,7 @@ class Calendar extends React.Component {
     return (<div
       key={index}
       className={classnames('cell', {
+        'cell-today': isToday,
         'cell-selected': dateSelected,
         'cell-warning': dateWarning,
       })}

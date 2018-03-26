@@ -60,7 +60,7 @@ export default function ({ history }) {
         <Route path="/doctor/mycard" component={pages.MyCard} breadcrumbName="我的名片" />
         <Route path="/doctor/mywallet" component={pages.MyWallet} breadcrumbName="我的钱包" />
         <Route path="/doctor/mywalletdetail" component={pages.MyWalletDet} breadcrumbName="我的钱包明细" />
-        <Route path="/doctor/doctorcard" component={pages.DoctorCard} breadcrumbName="医生名片" />
+        <Route path="/doctor/doctorcard/:id" component={pages.DoctorCard} breadcrumbName="医生名片" />
         <Route path="/doctor/turncenter" component={pages.TurnCenter} breadcrumbName="转诊中心" />
         <Route path="/doctor/reservationprocess/:id" component={pages.ReservationProcess} breadcrumbName="预约详情" />
         <Route path="/doctor/referralcomplete/:id" component={pages.ReferralComplete} breadcrumbName="转诊成功详情" />

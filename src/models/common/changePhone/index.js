@@ -20,6 +20,10 @@ export default Model.extend({
   },
 
   effects: {
+    //  获取验证码
+    * changeCode({ param }, { callWithLoading }) {
+      yield callWithLoading(services.changephone.changeCode, { phone: param.replace(/\s*/g, '') });
+    },
     //  更换手机号
     * changePhone({ param }, { call }) {
       const result = yield call(services.changephone.changePhone, {

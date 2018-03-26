@@ -47,15 +47,20 @@ export default Model.extend({
       const { data } = yield callWithLoading(services.doctorinfo.goodAt, { good });
       yield update({ goodat: data });
     },
-    * changeInfo({ payload: { param } }, { callWithLoading }) {
-      yield callWithLoading(services.doctorinfo.editInfo, param);
+    * changeInfo({ payload: { param } }, { put, callWithLoading }) {
+      yield callWithLoading(services.doctorinfo.editInfo, param); // 第一次发请求编辑信息
+      yield put({ type: 'fetchDetails' }); // 再一次获取详情，更新信息，保持和服务端一致
+      yield put({ type: 'fetchGoods' }); // 再一次获取详情，更新信息，保持和服务端一致
     },
     * updateName({ payload: { param } }, { put, callWithLoading }) {
       yield callWithLoading(services.doctorinfo.editInfo, param);
       yield put(routerRedux.push('/doctor/info'));
     },
+
+    //  获取配置
     * weChat({ param }, { update, callWithLoading }) {
-      const { data } = yield callWithLoading(services.doctorinfo.getWechat);
+      const { data } = yield callWithLoading(services.doctorinfo.getWechat, { url: location.href.split('#')[0] });
+      console.log(location.href.split('#')[0]);
       yield update({ wechat: data });
     },
   },

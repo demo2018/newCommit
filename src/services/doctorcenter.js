@@ -7,3 +7,9 @@ const { get } = http.create('medical');
 export function getInfo() {
   return get(`/bhyy/core/doctor/${cookie.get('doctorid')}`);
 }
+
+
+// 获取擅长标签存储
+export function goodAt(param) {
+  return get('/bhyy/core/commentTag?typeId=3', param);
+}

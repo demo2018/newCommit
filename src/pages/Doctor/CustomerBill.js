@@ -14,7 +14,11 @@ function mapDispatchToProps(dispatch) {
   return {
     toBillDetail(id) {
       dispatch(routerRedux.push(`/doctor/customerbilldetail/${id}`));
-    }
+    },
+    fetchSearchList(param) {
+      // dispatch({ type: 'customerAppoint/updateSearch', payload: { keywords } });
+      dispatch({ type: 'customerBill/fetchSearchList', param });
+    },
   };
 }
 

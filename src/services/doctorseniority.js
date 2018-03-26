@@ -6,7 +6,7 @@ const { get } = http.create('medical');
 
 // 调取微信接口
 export function getWechat(param) {
-  return get('/bhyy/core/weixin/config?url=http://view.boheyayi.com:8060/', param);
+  return get('/bhyy/core/weixin/config?url=http://test.zhenweitech.cn/', param);
 }
 
 // 提交审核

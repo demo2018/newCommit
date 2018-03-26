@@ -5,6 +5,17 @@ class DetailHead extends React.Component {
     super(props);
     this.state = {};
   }
+  //  获取项目
+  renderProjects() {
+    const { details, projects } = this.props;
+    return (projects.content || [])
+      .filter(({ id }) => {
+        return details.itemClassId && details.itemClassId == id;
+      })
+      .map(({ id, className }, index) => {
+        return (<span key={index}>{className}</span>);
+      });
+  }
   render() {
     const { details } = this.props;
     return (
@@ -18,7 +29,7 @@ class DetailHead extends React.Component {
           />
           <Card.Body>
             <ul>
-              <li className="diagnosisPro"><img src={require('images/tooth.png')} alt="" />就诊项目：<span>正畸</span></li>
+              <li className="diagnosisPro"><img src={require('images/tooth.png')} alt="" />就诊项目：{this.renderProjects()}</li>
               <li className="clinic-time"><img src={require('images/clock.png')} alt="" />就诊时间：
                 <span className="clinic-date">{details.time}</span>
               </li>

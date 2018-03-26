@@ -1,4 +1,5 @@
 import moment from 'moment';
+import qs from 'qs';
 import serverConfigs from 'configs/servers';
 
 // 获取当前环境
@@ -8,14 +9,20 @@ export function getDeployEnv(deployEnv) {
   }
   return window.$$cachedEnv;
 }
+
 // 获取当前服务
 export function getServer(servers = serverConfigs) {
   return servers[getDeployEnv(process.env.DEPLOY_ENV)];
 }
 
+// 获取图片上传接口地址
+export function getUploadPicUrl(params = {}) {
+  return `${getServer().medical}/bhyy/core/image?${qs.stringify(params)}`;
+}
+
+
 // 格式化日期
 export const formatDate = (date, type = 'YYYY-MM-DD HH:mm') => {
-  console.log(date);
   return date ? moment(date).format(type) : '';
 };
 

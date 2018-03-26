@@ -49,8 +49,17 @@ class DropDownPicker extends React.Component {
       this.setState({ visible: newVisible });
     }
   }
-  onSelect({ selectedKeys }) {
-    const { onSelect, multiple } = this.props;
+  onSelect({ key, selectedKeys }) {
+    const { onSelect, multiple, menus } = this.props;
+    if (key == -1) {   //  点击全部时间实现全选
+      if (selectedKeys.includes(-1) || selectedKeys.includes('-1')) {
+        selectedKeys = menus.map(({ value }) => {
+          return value;
+        });
+      } else {
+        selectedKeys = [];
+      }
+    }
     this.setState({ value: selectedKeys, visible: multiple }, () => {
       onSelect && onSelect(selectedKeys);
     });

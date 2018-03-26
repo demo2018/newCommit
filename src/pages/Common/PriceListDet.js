@@ -4,15 +4,17 @@ import { routerRedux } from 'dva/router';
 
 import PriceListDet from 'components/Common/PriceListDet';
 
-function mapStateToProps({ layout }) {
+function mapStateToProps({ priceListDet }) {
   return {
-    ...layout,
+    ...priceListDet,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    ...dispatch
+    toContactService() {
+      dispatch(routerRedux.push('/common/contactservice'));
+    },
   };
 }
 

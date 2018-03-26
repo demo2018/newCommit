@@ -41,7 +41,7 @@ class DoctorInfo extends React.Component {
           <TextareaItem
             rows={5}
             count={200}
-            defaultValue={details.intro ? details.intro : null}
+            defaultValue={details ? details.intro : null}
             placeholder="请输入内容"
             onChange={this.handleChange('intro')}
           />

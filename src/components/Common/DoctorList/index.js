@@ -40,7 +40,7 @@ class Doctors extends React.Component {
   }
   render() {
     const { height, refreshing, searchVisible } = this.state;
-    const { toDoctorDetail, details, banners, fetchSearchList, search } = this.props;
+    const { toDoctorDetail, details, banners, servicesItem, fetchSearchList, search, fetchSelectList, choose } = this.props;
     const doctorListProps = { details };
     const bannerProps = { banners };
     const pullToRefreshProps = {
@@ -66,6 +66,12 @@ class Doctors extends React.Component {
       search,
       fetchSearchList,
     };
+    const selectProps = {
+      servicesItem,
+      details,
+      choose,
+      fetchSelectList,
+    };
 
     return (<div
       className={styles.doctorsPage}
@@ -74,7 +80,7 @@ class Doctors extends React.Component {
       <BannerList {...bannerProps} />
       <div className={classnames({ fixSearchBar: searchVisible })}>
         {searchVisible && <SearchBar {...searchBarProps} />}
-        <DoctorSelect {...searchBarProps} />
+        <DoctorSelect {...selectProps} {...searchBarProps} />
       </div>
       <DoctorList toDoctorDetail={toDoctorDetail} {...doctorListProps} />
       {/* </PullToRefresh> */}

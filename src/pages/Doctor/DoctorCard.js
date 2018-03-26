@@ -4,17 +4,15 @@ import { routerRedux } from 'dva/router';
 
 import DoctorCard from 'components/Doctor/DoctorCard';
 
-function mapStateToProps({ userCenter }) {
+function mapStateToProps({ doctorCard }) {
   return {
-    ...userCenter,
+    ...doctorCard,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    toProfessional() {
-      dispatch(routerRedux.push('/doctor/professional'));
-    }
+    ...dispatch
   };
 }
 

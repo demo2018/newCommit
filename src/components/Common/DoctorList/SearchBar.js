@@ -7,15 +7,16 @@ class Doctors extends React.Component {
     };
   }
   handleChange(key) {
+    const { search } = this.props;
     return (value) => {
       if (value) {
-        this.props.fetchSearchList({ [key]: value });
+        this.props.fetchSearchList({ ...search, [key]: value });
       }
     };
   }
   render() {
     return (
-      <SearchBar placeholder="请输入医生姓名" onSubmit={this.handleChange('doctorName')} />
+      <SearchBar placeholder="请输入医生姓名" onSubmit={this.handleChange('name')} />
     );
   }
 }

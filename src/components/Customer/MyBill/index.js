@@ -12,9 +12,25 @@ class MyBill extends React.Component {
     };
     document.title = this.state.title;
   }
+  // //  获取项目
+  renderProjects(num) {
+    const { details, projects } = this.props;
+    // const n = details.content[num].itemName;
+    const chosedProjects = projects
+      .filter(({ className }) => {
+        return details.content[num].itemName.includes(className) || details.content[num].itemName.includes(`${className}`);
+      })
+      .map(({ className }) => {
+        return className;
+      });
+    return chosedProjects
+      .map((index) => {
+        return (<span className="check-pro" key={index}>{chosedProjects}</span>);
+      });
+  }
   renderList() {
     const { toBillDetail, details } = this.props;
-    return (details.content || []).map(({ id, patientName, billId, actualCost, itemName, status, isComment }) => {
+    return (details.content || []).map(({ id, patientName, billId, actualCost, itemName, status, isComment }, index) => {
       return (
         <ListItem
           key={id}
@@ -27,7 +43,7 @@ class MyBill extends React.Component {
             <div>
               <div className="billhead">
                 <span className="customer-name">{patientName}</span>
-                <span className="check-pro">{itemName}</span>
+                {this.renderProjects(index)}
                 {
                   status && status == 1
                     ? <div className="pay paid">
@@ -49,7 +65,6 @@ class MyBill extends React.Component {
   }
   render() {
     const { details } = this.props;
-    console.log(details.content);
     return (
       <div className={styles.myBill}>
           {

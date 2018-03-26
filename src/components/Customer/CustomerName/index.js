@@ -29,8 +29,6 @@ class CustomerName extends React.Component {
   }
   render() {
     const { details } = this.state;
-    console.log(details);
-
     return (
       <div className={styles.customerName}>
         <List>

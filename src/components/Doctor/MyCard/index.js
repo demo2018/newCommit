@@ -1,5 +1,6 @@
-
+import QRCode from 'qrcode.react';
 import styles from './index.less';
+import cookie from 'js-cookie';
 
 class DoctorSet extends React.Component {
   constructor(props) {
@@ -11,7 +12,7 @@ class DoctorSet extends React.Component {
   }
   render() {
     const { details } = this.props;
-    console.log(details)
+    const locationHref = location.href.split('#')[0];
     return (
       <div className={styles.myCard}>
         <div className="cardHead">
@@ -28,7 +29,7 @@ class DoctorSet extends React.Component {
           }
         </div>
         <div className="add">
-          <img src={require('assets/QR-code.png')} alt="" />
+          <QRCode value={`${locationHref}#/doctor/doctorcard/${cookie.get('doctorid')}`} />
           <p>添加医生助理为好友，预约好牙医</p>
         </div>
       </div>

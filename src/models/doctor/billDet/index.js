@@ -6,9 +6,9 @@ export default Model.extend({
   namespace: 'billDet',
 
   state: {
-    details: {},
     discount: {},
     billDetails: {},
+    projects: {},
   },
 
   subscriptions: {
@@ -18,25 +18,27 @@ export default Model.extend({
           const id = params[0];
           dispatch({ type: 'resetState' });
           dispatch({ type: 'updateState', payload: { id } });
-          dispatch({ type: 'fetchDetails' });
           dispatch({ type: 'fetchDiscount' });
+          dispatch({ type: 'fetchProject' });
         },
       });
     }
   },
 
   effects: {
-    * fetchDetails({ payload }, { select, update, callWithLoading }) {
-      const { id } = yield select(({ customerAppointDet }) => customerAppointDet);
-      const { data } = yield callWithLoading(services.customerappointdet.getAppointDet, { id });
-      yield update({ details: data });
-    },
+    //  获取折扣
     * fetchDiscount({ payload }, { update, callWithLoading }) {
       const { data } = yield callWithLoading(services.billdet.getDiscount);
       yield update({ discount: data });
     },
+    // 项目
+    * fetchProject({ payload }, { select, update, callWithLoading }) {
+      const { types } = yield select(({ billDet }) => billDet);
+      const { data } = yield callWithLoading(services.billdet.getProject, { types });
+      yield update({ projects: data });
+    },
     * sendBillOut({ param }, { select, callWithLoading }) {
-      const { id } = yield select(({ checkProject }) => checkProject);
+      const { id } = yield select(({ billDet }) => billDet);
       const result = yield callWithLoading(services.billdet.sendBill, { id, param });
       const status = result.status;
       if (status) {

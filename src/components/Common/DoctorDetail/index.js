@@ -45,7 +45,7 @@ class DoctorDetail extends React.Component {
   handleContact() {
     Modal.alert('提示', '确定拨打电话：400-9696-791吗？', [
       { text: '取消', onPress: () => console.log('cancel') },
-      { text: '确定', onPress: () => console.log('ok') },
+      { text: '确定', onPress: () => (window.location.href = 'tel://400-9696-791') },
     ]);
   }
   render() {
@@ -77,7 +77,7 @@ class DoctorDetail extends React.Component {
             closable
             onClose={this.onClose('modal')}
             title={myImg(code)}
-            footer={[{ text: '确定', onPress: () => { console.log('ok'); this.onClose('modal')(); } }]}
+            footer={[{ text: '确定', onPress: () => { this.onClose('modal')(); } }]}
             wrapProps={{ onTouchStart: this.onWrapTouchStart }}
           >
           <div>

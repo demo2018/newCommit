@@ -1,14 +1,11 @@
 import { List, Picker, DatePicker, InputItem, Toast, ActionSheet } from 'antd-mobile';
-import head from 'assets/head.png';
+import { getServer } from 'utils/common';
 
 
 const ListItem = List.Item;
 const minDate = new Date(1960, 0, 1);
 const maxDate = new Date();
-const data = [{
-  url: 'https://zos.alipayobjects.com/rmsportal/PZUUCKTRIHWiZSY.jpeg',
-  id: '2121',
-}];
+
 const myImg = src => <img src={src} alt="" />;
 
 // 格式化获取到的性别及出生日期
@@ -21,11 +18,17 @@ const getDetailByStates = (details = {}) => {
   };
 };
 
+// 图像转义
+function getBase64(img, callback) {
+  const reader = new FileReader();
+  reader.addEventListener('load', () => callback(reader.result));
+  reader.readAsDataURL(img);
+}
+
 class PersonalInfo extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      files: data,
       hasError: false,
       gender: [
         {
@@ -39,57 +42,119 @@ class PersonalInfo extends React.Component {
       ],
       doctorInfo: getDetailByStates(props.details),
     };
+    this.wxuploadImage = this.wxuploadImage.bind(this);
+    this.wxImgDown = this.wxImgDown.bind(this);
   }
-  // componentDidMount() {
-  // }
   componentWillReceiveProps(nextProps) {
     if ('details' in nextProps && nextProps.details !== this.props.details) {
       this.setState({ doctorInfo: getDetailByStates(nextProps.details) });
     }
   }
+  // 上传图片接口
+  wxuploadImage = (e) => {
+    wx.uploadImage({
+      localId: e, // 需要上传的图片的本地ID，由chooseImage接口获得
+      isShowProgressTips: 1, // 默认为1，显示进度提示
+      success: (res) => {
+        const mediaId = res.serverId; // 返回图片的服务器端ID
+        // if (mediaId) {
+        this.wxImgDown(mediaId);
+        // }
+      },
+      // fail: function (error) {
+      //   picPath = '';
+      //   localIds = '';
+      //   alert(Json.stringify(error));
+      // }
 
+    });
+  }
+  // 下载图片接口
+  wxImgDown = (sid) => {
+    const { changeInfo } = this.props;
+    const { doctorInfo } = this.state;
+    wx.downloadImage({
+      serverId: sid, // 需要下载的图片的服务器端ID，由uploadImage接口获得
+      success: (res) => {
+        const localId = res.localId; // 返回图片下载后的本地ID
+        changeInfo({ ...doctorInfo, icon: getBase64(localId) });
+      }
+    });
+    // $.ajax({   // 后台下载
+    //   type: 'POST',
+    //   url: '/wechat/wxImgDown',
+    //   data: {
+    //     sid: sid
+    //   },
+    //   dataType: 'json',
+    //   async: false,
+    //   success: function (rel) {
+    //     if (rel.state) {
+    //       // alert(rel.data);//获得图片信息
+    //       //                alert(rel.data.id);//图片在服务器上的id
+    //       //                alert(rel.data.thumdfile);//图片在服务器上的
+    //       her.arrPic = rel.data;// 是个数组
+    //       //                iid=rel.data.id;
+    //     } else {
+    //       her.arrPic.thumdfile = false;
+    //       alert('上传图片错误');
+    //     }
+    //   },
+    //   erro: function (jqXHR) {
+    //     alert(jqXHR);
+    //   }
+    // }).done(function (arrPic) {
+    //   return her.arrPic;
+    // });
+    // return her.arrPic;  // 返回一个数组  保存图片在本地服务器中的信息（url，id）
+  }
   showActionSheet = () => {
     const BUTTONS = ['从相册选择图片', '拍照', '取消'];
-    const { wechat } = this.props;
+    const { wechat, changeInfo } = this.props;
+    const { doctorInfo } = this.state;
+    //  获取微信配置
     wx.config({
-      debug: true,
+      // debug: true,
       appId: wechat.appId,
       timestamp: wechat.timestamp,
       nonceStr: wechat.nonceStr,
       signature: wechat.signature,
-      jsApiList: ['chooseImage'],
+      jsApiList: ['chooseImage', 'uploadImage', 'downloadImage']
     });
     ActionSheet.showActionSheetWithOptions({
       options: BUTTONS,
       cancelButtonIndex: BUTTONS.length - 1,
       maskClosable: true,
     },
-      // 点击按钮回调
+      // 点击按钮调用微信相册和相机接口
       (buttonIndex) => {
         this.setState({ clicked: BUTTONS[buttonIndex] });
-        if (buttonIndex == 0) {
+        if (buttonIndex == 0) {   //  调用相册
           wx.chooseImage({
-            count: 1, // 默认9
+            count: 1, //  可选择照片的数量
             sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
-            sourceType: ['camera'], // 可以指定来源是相册还是相机，默认二者都有
-            success: function (res) {
-              console.log('hah');
+            sourceType: ['album'], // 指定来源为相册
+            success: (res) => {
+              const localIds = res.localIds[0].toString();
+              // const localIds = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
+              // changeInfo({ ...doctorInfo, icon: getBase64(localIds) });
+              this.wxuploadImage(localIds);
             }
           });
         }
-        if (buttonIndex == 1) {
+        if (buttonIndex == 1) {   // 调用相机
           wx.chooseImage({
-            count: 1, // 默认9
+            count: 1,
             sizeType: ['original', 'compressed'],
-            sourceType: ['album'], // 指定来源为相册
-            success: function (res) {
-              console.log('hah');
+            sourceType: ['camera'], // 指定来源为相机
+            success: (res) => {
+              const localIds = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
+              changeInfo({ ...doctorInfo, icon: localIds });
             }
           });
         }
       });
   }
-
   handleChange(key) {
     return (value) => {
       const { changeInfo } = this.props;
@@ -107,10 +172,10 @@ class PersonalInfo extends React.Component {
       }
     };
   }
-
   render() {
     const { toDoctorName } = this.props;
     const { doctorInfo } = this.state;
+    const { medical } = getServer();
     return (
       <div className="personalInfo">
         {/* 个人资料 */}
@@ -119,7 +184,7 @@ class PersonalInfo extends React.Component {
           {/* 头像选择 */}
           <ListItem
             arrow="horizontal"
-            extra={myImg(head)}
+            extra={myImg(`${medical}/bhyy/core/image/${doctorInfo.icon}`)}
             className="headImg borderBottom" onClick={this.showActionSheet}
           >头像</ListItem>
           <ListItem className="borderBottom" extra={doctorInfo.realName} arrow="horizontal" onClick={toDoctorName}>姓名</ListItem>

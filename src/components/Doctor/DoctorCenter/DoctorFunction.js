@@ -1,4 +1,4 @@
-import { List, Toast } from 'antd-mobile';
+import { List } from 'antd-mobile';
 
 
 const ListItem = List.Item;
@@ -9,9 +9,6 @@ class DoctorFunction extends React.Component {
     this.state = {};
   }
 
-  onClick() {
-    Toast.info('开发中...', 1);
-  }
   render() {
     const { toDoctorCard, toMyWallet, toNotice, toFeedback, toDoctorSet } = this.props;
     return (
@@ -31,10 +28,8 @@ class DoctorFunction extends React.Component {
           </ListItem>
           <ListItem
             arrow="horizontal"
-            onClick={() => { this.onClick(); }}
+            onClick={toNotice}
           >
-
-            {/* onClick={toNotice} */}
             <img src={require('images/my-notice.png')} alt="图标" />我的通知
           </ListItem>
           <ListItem

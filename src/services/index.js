@@ -26,6 +26,11 @@ import * as feedback from './feedback';
 import * as set from './set';
 import * as doctorset from './doctorset';
 import * as cancelreason from './cancelreason';
+import * as notice from './notice';
+import * as mynotice from './mynotice';
+import * as doctorcard from './doctorcard';
+import * as pricelist from './pricelist';
+import * as pricelistdet from './pricelistdet';
 
 
 
@@ -58,4 +63,9 @@ export default {
   billdet,
   doctorseniority,
   cancelreason,
+  notice,
+  mynotice,
+  doctorcard,
+  pricelist,
+  pricelistdet,
 };
