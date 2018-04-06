@@ -26,6 +26,10 @@ export default Model.extend({
       const { data } = yield callWithLoading(services.mywalletdet.getWallet, { id });
       yield update({ details: data });
     },
+    * chooseMonth({ payload: { month } }, { update, callWithLoading }) {
+      const { data } = yield callWithLoading(services.mywalletdet.getMonthList, { month });
+      yield update({ details: data });
+    },
   },
 
   reducers: {

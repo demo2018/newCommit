@@ -2,7 +2,6 @@
 import { List, Picker, DatePicker, InputItem, ActionSheet } from 'antd-mobile';
 import styles from './index.less';
 import CustomerRelation from './CustomerRelation';
-import { toString } from 'utils/common';
 
 const ListItem = List.Item;
 const minDate = new Date(1960, 0, 1);
@@ -13,10 +12,10 @@ const data = [{
 }];
 const myImg = src => <img src={src} alt="" />;
 
+
 // 格式化获取到的性别及出生日期
 const getDetailByStates = (details = {}) => {
   const { birthday, gender } = details;
-  console.log(typeof(gender));
   return {
     ...details,
     gender: [gender], // picker组件接受的是数组
@@ -69,10 +68,41 @@ class UserInfo extends React.Component {
       }
     };
   }
+   // 上传图片接口
+  wxuploadImage = (e) => {
+    const { imgUpload } = this.props;
+    wx.uploadImage({
+      localId: e, // 需要上传的图片的本地ID，由chooseImage接口获得
+      isShowProgressTips: 1, // 默认为1，显示进度提示
+      success: (res) => {
+        const mediaId = res.serverId; // 返回图片的服务器端ID
+        alert(mediaId);
+        // if (mediaId) {.
+          // 回传servsrId给后台
+        imgUpload(mediaId);
+
+        // this.wxImgDown(mediaId);
+        // }
+      },
+      // fail: function (error) {
+      //   picPath = '';
+      //   localIds = '';
+      //   alert(Json.stringify(error));
+      // }
+    });
+  }
   showActionSheet = () => {
     const { wechat } = this.props;
-    console.log(wechat);
     const BUTTONS = ['拍照', '我的相册', '取消'];
+    //  获取微信配置
+    wx.config({
+      debug: true,
+      appId: wechat.appId,
+      timestamp: wechat.timestamp,
+      nonceStr: wechat.nonceStr,
+      signature: wechat.signature,
+      jsApiList: ['chooseImage', 'uploadImage', 'downloadImage']
+    });
     ActionSheet.showActionSheetWithOptions({
       options: BUTTONS,
       cancelButtonIndex: BUTTONS.length - 1,
@@ -83,21 +113,30 @@ class UserInfo extends React.Component {
         this.setState({ clicked: BUTTONS[buttonIndex] });
         if (buttonIndex == 0) {
           wx.chooseImage({
-            count: 1, // 默认9
+            count: 1, //  可选择照片的数量
             sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
-            sourceType: ['camera'], // 可以指定来源是相册还是相机，默认二者都有
-            success: function (res) {
-              console.log('hah');
+            sourceType: ['camera'], // 指定来源为相机
+            success: (res) => {
+              const localIds = res.localIds[0].toString();
+              alert(localIds);
+              // const localIds = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
+              // changeInfo({ ...doctorInfo, icon: getBase64(localIds) });
+              this.wxuploadImage(localIds);
+
+              // getUploadPicUrl({ type: 'icon' });
+              // changeInfo({ ...doctorInfo, icon: localId });
             }
           });
         }
         if (buttonIndex == 1) {
           wx.chooseImage({
-            count: 1, // 默认9
+            count: 1,
             sizeType: ['original', 'compressed'],
-            sourceType: ['album'], // 制定来源为相册
-            success: function (res) {
-              console.log('hah');
+            sourceType: ['album'], // 指定来源为相册
+            success: (res) => {
+              const localIds = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
+              // changeInfo({ ...doctorInfo, icon: localIds });
+              this.wxuploadImage(localIds);
             }
           });
         }
@@ -143,6 +182,7 @@ class UserInfo extends React.Component {
             mode="date"
             extra="请选择出生日期"
             value={userInfo.birthday}
+            defaultValue={new Date(1980, 0, 1)}
             minDate={minDate}
             maxDate={maxDate}
             onChange={this.handleChange('birthday')}

@@ -114,7 +114,7 @@ class PriceList extends React.Component {
             } */}
           </div>
         </div>
-        <div className="consulting" onClick={toContactService}>
+        <div className="consulting" onClick={() => { toContactService(); }}>
           <img src={require('images/consulting.png')} alt="咨询" />
         </div>
       </div >

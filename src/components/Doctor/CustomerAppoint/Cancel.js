@@ -17,7 +17,7 @@ class Appoint extends React.Component {
   }
   renderList() {
     const { cancelList } = this.state;
-    return (cancelList.content || []).map(({ patientName, phone, className, remark, createTime, cancelReason, id }, index) => {
+    return (cancelList.content || []).map(({ patientName, phone, className, remark, time, cancelReason, id }, index) => {
       return (<ListItem
         key={index}
         className="borderBottom"
@@ -31,7 +31,7 @@ class Appoint extends React.Component {
               <del className="check-project">{className}</del>
               <p className="cancel-reason">取消原因 : {cancelReason}</p>
               <p className="timeInfo">
-                <span className="check-date">{formatDate(createTime)}</span>
+                <span className="check-date">{time}</span>
               </p>
             </div>
           </div>
@@ -42,15 +42,13 @@ class Appoint extends React.Component {
   }
   render() {
     const { cancelList } = this.state;
-    return (
-      <List>
-        {
-          cancelList.content && cancelList.content[0]
-            ? <div>{this.renderList()} </div>
-            : <p className="noList">暂无取消</p>
-        }
-
-      </List>
+    return (<div>
+      {
+        cancelList.content && cancelList.content[0]
+          ? <List>{this.renderList()} </List>
+          : <p className="noList">暂无取消</p>
+      }
+    </div>
     );
   }
 }

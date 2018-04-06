@@ -18,7 +18,7 @@ class Set extends React.Component {
     login();
   }
   render() {
-    const { toChangePhone } = this.props;
+    const { toChangePhone, toProtectPrivacy } = this.props;
     return (
       <div className={styles.set}>
         <List className="my-list">
@@ -28,7 +28,7 @@ class Set extends React.Component {
           <Item arrow="horizontal" multipleLine onClick={() => { }}>
             <img src={require('images/aboutus.png')} alt="关于我们" />关于我们
           </Item>
-          <Item arrow="horizontal" multipleLine onClick={() => { }}>
+          <Item arrow="horizontal" multipleLine onClick={toProtectPrivacy}>
             <img src={require('images/protect.png')} alt="隐私保护" />隐私保护
           </Item>
         </List>

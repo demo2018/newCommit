@@ -19,7 +19,11 @@ class UserHead extends React.Component {
     return (
       < div className="userHead borderBottom" style={{ background: `url(${require('images/user-bg.png')}) no-repeat center center` }}>
         <div className="headInfo" onClick={() => { toUserInfo(); }}>
-          <img className="headImg" src={`${medical}/bhyy/core/image/${userHead.icon}`} alt="头像加载失败" />
+          {
+            userHead.icon
+              ? <img className="headImg" src={`${medical}/bhyy/core/image/${userHead.icon}`} alt="头像加载失败" />
+              : <img className="headImg" src={require('assets/head.png')} alt="头像加载失败" />
+          }
           <p className="userName">{userHead.realName}</p>
         </div>
       </div>);

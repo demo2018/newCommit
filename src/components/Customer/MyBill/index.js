@@ -15,14 +15,14 @@ class MyBill extends React.Component {
   // //  获取项目
   renderProjects(num) {
     const { details, projects } = this.props;
-    // const n = details.content[num].itemName;
-    const chosedProjects = projects
+    const chosedProjects = (projects || [])
       .filter(({ className }) => {
-        return details.content[num].itemName.includes(className) || details.content[num].itemName.includes(`${className}`);
+        return details && details.content[num].itemName.includes(className) || details && details.content[num].itemName.includes(`${className}`);
       })
       .map(({ className }) => {
         return className;
       });
+    console.log(chosedProjects);
     return chosedProjects
       .map((index) => {
         return (<span className="check-pro" key={index}>{chosedProjects}</span>);
@@ -43,7 +43,8 @@ class MyBill extends React.Component {
             <div>
               <div className="billhead">
                 <span className="customer-name">{patientName}</span>
-                {this.renderProjects(index)}
+                 {/* {this.renderProjects(index)} */}
+                 <span className="check-pro">{itemName.replace('["', '').replace('"]', '')}</span>
                 {
                   status && status == 1
                     ? <div className="pay paid">

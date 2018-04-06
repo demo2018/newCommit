@@ -11,7 +11,11 @@ class DoctorHead extends React.Component {
     return (
       <div className="doctorHead borderBottom">
         <div className="headInfo">
-          <img className="headImg" src={`${medical}/bhyy/core/image/${details.icon}`} alt="头像加载失败" onClick={toDoctorInfo} />
+          {
+            details.icon
+              ? <img className="headImg" src={`${medical}/bhyy/core/image/${details.icon}`} alt="头像加载失败" onClick={toDoctorInfo} />
+              : <img className="headImg" src={require('assets/head.png')} alt="头像加载失败" onClick={toDoctorInfo} />
+          }
           <p className="doctorName">{details.realName}</p>
           {
             details.status == 0 &&
@@ -24,7 +28,7 @@ class DoctorHead extends React.Component {
             details.status == 1 &&
               <div>
                 <p className="already-certification"><a>已认证</a></p>
-                <p className="doctor-title">{details.hospitalName} | {details.title}</p>
+                <p className="doctor-title">{details.hospitalName} | {details.education}</p>
               </div>
           }
           {

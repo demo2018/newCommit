@@ -1,5 +1,6 @@
 import Model from 'utils/model';
 import services from 'services';
+import cookie from 'js-cookie';
 
 export default Model.extend({
   namespace: 'doctorList',
@@ -47,12 +48,10 @@ export default Model.extend({
       const { data } = yield callWithLoading(services.doctorlist.gerDoctorList, search);
       yield update({ details: data });
     },
-    // 筛选推荐
-    // * fetchSelectList({ payload }, { select, update, callWithLoading }) {
-    //   const { choose } = yield select(({ doctorList }) => doctorList);
-    //   const { data } = yield callWithLoading(services.doctorlist.getList, choose);
-    //   yield update({ details: data });
-    // },
+    // 获取转诊咨询情况
+    * getReferral({ payload }, { callWithLoading }) {
+      yield callWithLoading(services.doctorlist.getReferral, { id: parseInt(`${cookie.get('id')}`) });
+    },
   },
 
   reducers: {
@@ -60,12 +59,6 @@ export default Model.extend({
       return {
         ...state,
         search: { ...state.search, ...search }
-      };
-    },
-    updateSelect(state, { payload: { choose } }) {
-      return {
-        ...state,
-        choose: { ...state.choose, ...choose }
       };
     },
   }

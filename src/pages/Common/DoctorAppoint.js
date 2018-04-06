@@ -20,6 +20,7 @@ function mapDispatchToProps(dispatch) {
     toUserName(id) {
       //  存储初始值以判断跳转页面（跳转见个人中心model层）
       localStorage.setItem('toAdd', id);
+
       dispatch(routerRedux.push('/user/name'));
     },
     toResult() {

@@ -1,5 +1,5 @@
 import { List, Picker, DatePicker, InputItem, Toast, ActionSheet } from 'antd-mobile';
-import { getServer } from 'utils/common';
+import { getServer, getUploadPicUrl } from 'utils/common';
 
 
 const ListItem = List.Item;
@@ -17,13 +17,6 @@ const getDetailByStates = (details = {}) => {
     birthday: birthday ? new Date(birthday) : undefined, // mobile日期组件只支持传入date对象
   };
 };
-
-// 图像转义
-function getBase64(img, callback) {
-  const reader = new FileReader();
-  reader.addEventListener('load', () => callback(reader.result));
-  reader.readAsDataURL(img);
-}
 
 class PersonalInfo extends React.Component {
   constructor(props) {
@@ -43,7 +36,7 @@ class PersonalInfo extends React.Component {
       doctorInfo: getDetailByStates(props.details),
     };
     this.wxuploadImage = this.wxuploadImage.bind(this);
-    this.wxImgDown = this.wxImgDown.bind(this);
+    // this.wxImgDown = this.wxImgDown.bind(this);
   }
   componentWillReceiveProps(nextProps) {
     if ('details' in nextProps && nextProps.details !== this.props.details) {
@@ -52,13 +45,18 @@ class PersonalInfo extends React.Component {
   }
   // 上传图片接口
   wxuploadImage = (e) => {
+    const { imgUpload } = this.props;
     wx.uploadImage({
       localId: e, // 需要上传的图片的本地ID，由chooseImage接口获得
       isShowProgressTips: 1, // 默认为1，显示进度提示
       success: (res) => {
         const mediaId = res.serverId; // 返回图片的服务器端ID
-        // if (mediaId) {
-        this.wxImgDown(mediaId);
+        alert(mediaId);
+        // if (mediaId) {.
+          // 回传servsrId给后台
+        imgUpload(mediaId);
+
+        // this.wxImgDown(mediaId);
         // }
       },
       // fail: function (error) {
@@ -66,55 +64,28 @@ class PersonalInfo extends React.Component {
       //   localIds = '';
       //   alert(Json.stringify(error));
       // }
-
     });
   }
   // 下载图片接口
-  wxImgDown = (sid) => {
-    const { changeInfo } = this.props;
-    const { doctorInfo } = this.state;
-    wx.downloadImage({
-      serverId: sid, // 需要下载的图片的服务器端ID，由uploadImage接口获得
-      success: (res) => {
-        const localId = res.localId; // 返回图片下载后的本地ID
-        changeInfo({ ...doctorInfo, icon: getBase64(localId) });
-      }
-    });
-    // $.ajax({   // 后台下载
-    //   type: 'POST',
-    //   url: '/wechat/wxImgDown',
-    //   data: {
-    //     sid: sid
-    //   },
-    //   dataType: 'json',
-    //   async: false,
-    //   success: function (rel) {
-    //     if (rel.state) {
-    //       // alert(rel.data);//获得图片信息
-    //       //                alert(rel.data.id);//图片在服务器上的id
-    //       //                alert(rel.data.thumdfile);//图片在服务器上的
-    //       her.arrPic = rel.data;// 是个数组
-    //       //                iid=rel.data.id;
-    //     } else {
-    //       her.arrPic.thumdfile = false;
-    //       alert('上传图片错误');
-    //     }
-    //   },
-    //   erro: function (jqXHR) {
-    //     alert(jqXHR);
-    //   }
-    // }).done(function (arrPic) {
-    //   return her.arrPic;
-    // });
-    // return her.arrPic;  // 返回一个数组  保存图片在本地服务器中的信息（url，id）
-  }
+  // wxImgDown = (sid) => {
+  //   const { changeInfo, imgUpload } = this.props;
+  //   const { doctorInfo } = this.state;
+  //   wx.downloadImage({
+  //     serverId: sid, // 需要下载的图片的服务器端ID，由uploadImage接口获得
+  //     success: (res) => {
+  //       const localId = res.localId; // 返回图片下载后的本地ID
+  //       // changeInfo({ ...doctorInfo, icon: getUploadPicUrl(localId) });
+  //     }
+  //   });
+  // }
   showActionSheet = () => {
     const BUTTONS = ['从相册选择图片', '拍照', '取消'];
     const { wechat, changeInfo } = this.props;
     const { doctorInfo } = this.state;
+
     //  获取微信配置
     wx.config({
-      // debug: true,
+      debug: true,
       appId: wechat.appId,
       timestamp: wechat.timestamp,
       nonceStr: wechat.nonceStr,
@@ -136,9 +107,13 @@ class PersonalInfo extends React.Component {
             sourceType: ['album'], // 指定来源为相册
             success: (res) => {
               const localIds = res.localIds[0].toString();
+              alert(localIds);
               // const localIds = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
               // changeInfo({ ...doctorInfo, icon: getBase64(localIds) });
               this.wxuploadImage(localIds);
+
+              // getUploadPicUrl({ type: 'icon' });
+              // changeInfo({ ...doctorInfo, icon: localId });
             }
           });
         }
@@ -149,7 +124,8 @@ class PersonalInfo extends React.Component {
             sourceType: ['camera'], // 指定来源为相机
             success: (res) => {
               const localIds = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
-              changeInfo({ ...doctorInfo, icon: localIds });
+              // changeInfo({ ...doctorInfo, icon: localIds });
+               this.wxuploadImage(localIds);
             }
           });
         }

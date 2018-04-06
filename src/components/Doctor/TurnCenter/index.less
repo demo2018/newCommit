@@ -2,6 +2,7 @@
   .turnCenter{
     :global{
       .head{
+        position: relative;
         padding: 15px;
         color: #999;
         background-color: #fff;
@@ -9,6 +10,12 @@
           margin-top: 5px;
           color: #2bab9a;
           font-size: 30px;
+        }
+        img{
+          position: absolute;
+          top: 15px;
+          right: 15px;
+          transform: scale(.6);
         }
       }
       
@@ -54,6 +61,12 @@
           -webkit-transform: scaleY(0);
         }
       }
+      .noReferral{
+              margin: 20px auto 0;
+              font-size: 18px;
+              color: #ddd;
+              text-align: center;
+            }
     }
   }
 }

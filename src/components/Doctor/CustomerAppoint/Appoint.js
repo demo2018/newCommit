@@ -18,7 +18,7 @@ class Appoint extends React.Component {
   renderList() {
     const { readyList } = this.state;
     const { toDet } = this.props;
-    return (readyList.content || []).map(({ patientName, phone, className, remark, createTime, id }, index) => {
+    return (readyList.content || []).map(({ patientName, phone, className, remark, time, id }, index) => {
       return (<ListItem
         key={index}
         className="borderBottom"
@@ -31,9 +31,13 @@ class Appoint extends React.Component {
             <div>
               <p><span className="customer-name">{patientName}</span><span className="customer-phone">({phone})</span></p>
               <p className="check-project">{className}</p>
-              <p className="note">备注 : {remark}</p>
+              {
+                remark
+                  ? <p className="note"> 备注 : {remark} </p>
+                  : null
+              }
               <p className="timeInfo">
-                <span className="check-date">{formatDate(createTime)}</span>
+                <span className="check-date">{time}</span>
               </p>
             </div>
           </div>
@@ -45,14 +49,13 @@ class Appoint extends React.Component {
   render() {
     const { readyList } = this.state;
     return (
-      <List>
+      <div>
         {
           readyList.content && readyList.content[0]
-            ? <div>{this.renderList()} </div>
+            ? <List>{this.renderList()}</List>
             : <p className="noList">暂无预约</p>
         }
-
-      </List>
+      </div>
     );
   }
 }

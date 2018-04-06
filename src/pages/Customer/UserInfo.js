@@ -23,6 +23,9 @@ function mapDispatchToProps(dispatch) {
     },
     changeInfo(param) {
       dispatch({ type: 'userInfo/changeInfo', payload: { param } });
+    },
+    imgUpload(param) {
+      dispatch({ type: 'userInfo/imgUpload', payload: { param } });
     }
   };
 }

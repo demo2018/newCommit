@@ -45,19 +45,29 @@ export default Model.extend({
       yield put({ details: data });
     },
 
+    //  图片上传
+    * imgUpload({ payload: { param } }, { put, callWithLoading }) {
+      const res = yield callWithLoading(services.userinfo.imgUpload, param);
+      if (res.status) {
+        yield callWithLoading(services.userinfo.editInfo, { icon: res.data });
+        yield put({ type: 'fetchDetails' }); // 更新信息，保持和服务端一致
+      }
+    },
     // 修改名字
     * updateName({ payload: { param } }, { put, callWithLoading }) {
       yield callWithLoading(services.userinfo.editInfo, param);
       cookie.set('realName', param.realName);
-      if (localStorage.getItem('toAdd') != null) {
+      if (localStorage.getItem('toAdd')) {
         yield put(routerRedux.push(`/common/doctors/appoint/${localStorage.getItem('toAdd')}`));
         localStorage.removeItem('toAdd');
       } else {
         yield put(routerRedux.push('/user/userinfo'));
       }
     },
-    * wechat({ param }, { callWithLoading }) {
-      const { data } = yield callWithLoading(services.userinfo.getWechat);
+    //  获取微信配置
+    * weChat({ param }, { update, callWithLoading }) {
+      const { data } = yield callWithLoading(services.userinfo.getWechat, { url: location.href.split('#')[0] });
+      yield update({ wechat: data });
     },
   },
 

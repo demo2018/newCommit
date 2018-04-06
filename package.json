@@ -11,7 +11,7 @@
         "dev": "export DEPLOY_ENV=dev || set DEPLOY_ENV=dev&& rimraf dist/dev && atool-build -o dist/dev",
         "qa": "export DEPLOY_ENV=qa || set DEPLOY_ENV=qa&& rimraf dist/qa && atool-build -o dist/qa",
         "demo": "export DEPLOY_ENV=qa || set DEPLOY_ENV=qa&& rimraf demo && atool-build -o dist/demo",
-        "prod": "export NODE_ENV=production || set NODE_ENV=production&& atool-build -o dist/prod/20180326"
+        "prod": "export NODE_ENV=production || set NODE_ENV=production&& atool-build -o dist/prod/20180406"
     },
     "theme": {
         "hd": "1px",

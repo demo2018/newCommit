@@ -18,7 +18,7 @@ class DoctorSet extends React.Component {
         <div className="cardHead">
           <p className="myImg"><img src={require('assets/head.png')} alt="" /></p>
           <p className="myName">{details.realName}</p>
-          <p className="myTitle"><span>{details.hospitalName}</span><span>{details.title}</span></p>
+          <p className="myTitle"><span>{details.hospitalName}</span><span>{details.education}</span></p>
           <p className="myIntro">简介：
             <span className="intro">{details.intro}</span>
           </p>

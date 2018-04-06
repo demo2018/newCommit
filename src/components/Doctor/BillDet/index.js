@@ -10,7 +10,7 @@ const getDiscountByStates = (details = {}) => {
       return status == 1;
     })
     .map(({ limitPercentage }) => {
-      return limitPercentage;
+      return (limitPercentage * 10) + '折';
     });
   return {
     ...details,
@@ -66,7 +66,7 @@ class MyBill extends React.Component {
       this.setState({
         billDetails: {
           ...billDetails,
-          appointmentId: details.appointId,
+          appointmentId: details.customerId,
           itemNames: itemName,
           items: itemslist,
           actualCost: cost,
@@ -124,7 +124,6 @@ class MyBill extends React.Component {
     const { sendBillOut, details } = this.props;
     const { billDetails } = this.state;
     Toast.loading('账单发送中');
-
     sendBillOut(billDetails);
     console.log(details);
   }
@@ -133,7 +132,6 @@ class MyBill extends React.Component {
   showBillActionSheet = (key) => {
     const { chooseDiscount, billDetails } = this.state;
     const { priceDiscount } = chooseDiscount;
-    const { actualCost } = billDetails;
     //  拼接获取的折扣和取消按钮
     const cancel = ['取消'];
     const contact = [...priceDiscount, ...cancel];
@@ -145,19 +143,23 @@ class MyBill extends React.Component {
       'data-seed': 'logId',
     },
       (buttonIndex) => {
+        const discountNum = (BUTTONS[buttonIndex].replace(new RegExp('折'), '')) / 10;
         let cost = 0;
         for (let i = 0; i < billDetails.items.length; i++) {
           if (i == key) {
             if (buttonIndex == BUTTONS.length - 1) {   // 点击取消时默认折扣转为1
-              BUTTONS[buttonIndex] == '选择折扣';
               billDetails.items[i] = { ...billDetails.items[i], discount: 1 };
-              cost += billDetails.items[i].num * billDetails.items[i].price * 1;
+              cost += billDetails.items[i].num * billDetails.items[i].price * 1
+                * (billDetails.discount ? billDetails.discount : 1);
             } else {
-              billDetails.items[i] = { ...billDetails.items[i], discount: BUTTONS[buttonIndex] };
-              cost += billDetails.items[i].num * billDetails.items[i].price * BUTTONS[buttonIndex];
+              billDetails.items[i] = { ...billDetails.items[i], discount: discountNum };
+              cost += billDetails.items[i].num * billDetails.items[i].price * discountNum
+                * (billDetails.discount ? billDetails.discount : 1);
             }
           } else {
-            cost += billDetails.items[i].num * billDetails.items[i].price * (billDetails.items[i].discount ? billDetails.items[i].discount : 1);
+            cost += billDetails.items[i].num * billDetails.items[i].price
+            * (billDetails.items[i].discount ? billDetails.items[i].discount : 1)
+            * (billDetails.discount ? billDetails.discount : 1);
           }
         }
         this.setState({
@@ -174,7 +176,7 @@ class MyBill extends React.Component {
   showTotalActionSheet = () => {
     const { chooseDiscount, billDetails } = this.state;
     const { priceDiscount } = chooseDiscount;
-    const { actualCost, originalCost, discount } = billDetails;
+    const { discount } = billDetails;
     //  拼接获取的折扣和取消按钮
     const cancel = ['取消'];
     const contact = [...priceDiscount, ...cancel];
@@ -186,21 +188,27 @@ class MyBill extends React.Component {
       'data-seed': 'logId',
     },
       (buttonIndex) => {
+        const discountNum = (BUTTONS[buttonIndex].replace(new RegExp('折'), '')) / 10;
+        let cost = 0;
+        for (let i = 0; i < billDetails.items.length; i++) {
+          cost += billDetails.items[i].num * billDetails.items[i].price
+            * (billDetails.items[i].discount ? billDetails.items[i].discount : 1);
+        }
         if (buttonIndex == BUTTONS.length - 1) {
           this.setState({
             billDetails: {
               ...billDetails,
               discount: 1,
-              actualCost: formatNum(1 * originalCost),
+              actualCost: formatNum(1 * cost),
             }
           });
         } else {
-          if (BUTTONS[buttonIndex] != discount) {
+          if (discountNum != discount) {
             this.setState({
               billDetails: {
                 ...billDetails,
-                discount: BUTTONS[buttonIndex],
-                actualCost: formatNum(BUTTONS[buttonIndex] * originalCost),
+                discount: discountNum,
+                actualCost: formatNum(discountNum * cost),
               }
             });
           }
@@ -223,7 +231,7 @@ class MyBill extends React.Component {
                 className="pro-discount-det"
                 onClick={() => this.showBillActionSheet(index)}
               >
-                {items[index] && items[index].discount != 1 ? items[index].discount : '选择折扣'}
+                {items[index] && items[index].discount != 1 ? ((items[index].discount * 10) + '折') : '选择折扣'}
               </span>
             </p>
           </td>
@@ -279,7 +287,6 @@ class MyBill extends React.Component {
     const details = JSON.parse(localStorage.getItem('appointBillDetails'));
     const { timeVisible, billDetails } = this.state;
 
-    console.log(billDetails);
     return (
       <div className={styles.myBillDetail}>
 
@@ -327,10 +334,10 @@ class MyBill extends React.Component {
                       <span className="combined-price">合计</span>
                       <p>折扣：
                       <span
-                        className="combined-discount"
-                        onClick={this.showTotalActionSheet}
-                      >
-                          {billDetails && billDetails.discount != 1 ? billDetails.discount : '选择折扣'}
+                          className="combined-discount"
+                          onClick={this.showTotalActionSheet}
+                        >
+                          {billDetails && billDetails.discount != 1 ? ((billDetails.discount * 10) + '折') : '选择折扣'}
                         </span>
                       </p>
                     </td>

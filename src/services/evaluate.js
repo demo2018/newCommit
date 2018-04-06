@@ -17,3 +17,8 @@ export function getBad(param) {
 export function evaluate(param) {
   return post('/bhyy/core/billComment', param);
 }
+
+// 调取微信接口
+export function getWechat() {
+  return get('/bhyy/core/weixin/config?url=http://test.zhenweitech.cn/');
+}

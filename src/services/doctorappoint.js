@@ -21,7 +21,7 @@ export function addAppoint(param) {
 
 // 获取可预约的就诊时间
 export function appointTime(param) {
-  return get(`/bhyy/core/doctorConfig?doctorId=${param.id}&status=0`);
+  return get(`/bhyy/core/doctorConfig/id?id=${param.id}`, { sort: 'date' });
 }
 
 // 为他人预约(新增关系成员)

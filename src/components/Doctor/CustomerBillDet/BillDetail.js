@@ -9,19 +9,27 @@ class BillDetail extends React.Component {
     console.log(details);
     return (details.items || []).map(({ itemName, discount, num, actualCost, originalPrice }, index) => {
       return (
-          <tr key={index}>
-            <td>
-              <span className="patient-project">{itemName}</span>
-              <p className="patient-pro-discount">折扣：
-              <span className="pro-discount-det">{discount}</span>
-              </p>
-            </td>
-            <td className="patient-pronum">{num}</td>
-            <td>
-              <span className="patient-proprice">{actualCost}</span>
-              <p className="original-price">
-                {originalPrice}
-              </p>
+        <tr key={index}>
+          <td>
+            <span className="patient-project">{itemName}</span>
+            {
+              discount != 1
+                ? <p className="patient-pro-discount">折扣：
+                  <span className="pro-discount-det">{(discount * 10) + '折'}</span>
+                </p>
+                : null
+            }
+          </td>
+          <td className="patient-pronum">{num}</td>
+          <td>
+            <span className="patient-proprice">{actualCost}</span>
+            {
+              discount != 1
+                ? <p className="original-price">
+                  {originalPrice}
+                </p>
+                : null
+              }
             </td>
           </tr>
         );
@@ -33,7 +41,7 @@ class BillDetail extends React.Component {
       <div className="billDetContent">
         <div className="bill-det borderBottom">
           <p className="bill-dethead">账单明细</p>
-          <div className="tableWrapper borderBottom borderTop">
+          <div className="tableWrapper borderTop">
             <table cellSpacing="0" cellPadding="0">
               <thead>
                 <tr>
@@ -45,18 +53,26 @@ class BillDetail extends React.Component {
               <tbody>
                 {this.renderProjects()}
               </tbody>
-              <tfoot>
+              <tfoot className="borderTop tablefoot">
                 <tr className="combined">
                   <td>
                     <span className="combined-price">合计</span>
-                    <p>折扣：
-                      <span className="combined-discount">{details.discount}</span>
-                    </p>
+                    {
+                      details.discount != 1
+                        ? <p>折扣：
+                          <span className="combined-discount">{(details.discount * 10) + '折'}</span>
+                        </p>
+                        : null
+                    }
                   </td>
                   <td></td>
                   <td>
                     <span className="combined-discount-price">{details.actualCost}</span>
-                    <p className="original-price">{details.originalCost}</p>
+                    {
+                      details.discount != 1
+                        ? <p className="original-price">{details.originalCost}</p>
+                        : null
+                    }
                   </td>
                 </tr>
               </tfoot>

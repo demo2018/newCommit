@@ -26,6 +26,7 @@ import AppointResult from './Common/AppointResult';
 import ContactService from './Common/ContactService';
 import Feedback from './Common/Feedback';
 import FeedbackResult from './Common/FeedbackResult';
+import ProtectPrivacy from './Common/ProtectPrivacy';
 
 
 import DoctorCenter from './Doctor/DoctorCenter';
@@ -49,7 +50,6 @@ import MyWalletDet from './Doctor/MyWalletDet';
 import DoctorCard from './Doctor/DoctorCard';
 import TurnCenter from './Doctor/TurnCenter';
 import ReservationProcess from './Doctor/ReservationProcess';
-import ReferralComplete from './Doctor/ReferralComplete';
 import AuthenticationFailed from './Doctor/AuthenticationFailed';
 import CertificationResult from './Doctor/CertificationResult';
 import DoctorInfo from './Doctor/DoctorInfo';
@@ -106,10 +106,10 @@ export default {
   DoctorCard,
   TurnCenter,
   ReservationProcess,
-  ReferralComplete,
   AuthenticationFailed,
   CertificationResult,
   DoctorInfo,
   DoctorName,
   ReferralReport,
+  ProtectPrivacy,
 };

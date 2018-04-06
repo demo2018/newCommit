@@ -21,7 +21,7 @@ class DetailHead extends React.Component {
     return (
       <div className="appointDetHeadContent">
         <div className="card-header">
-          账单号：<span className="billno">{details.appointId}</span>
+          预约单号：<span className="billno">{details.appointId}</span>
         </div>
         <Card full>
           <Card.Header

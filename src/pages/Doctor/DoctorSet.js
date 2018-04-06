@@ -20,7 +20,10 @@ function mapDispatchToProps(dispatch) {
     },
     login(param) {
       dispatch({ type: 'doctorSet/logout', param });
-    }
+    },
+    toProtectPrivacy() {
+      dispatch(routerRedux.push('/common/protectprivacy'));
+    },
   };
 }
 

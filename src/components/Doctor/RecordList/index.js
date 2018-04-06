@@ -16,10 +16,9 @@ class RecordList extends React.Component {
     };
     document.title = this.state.title;
   }
-  renderList() {
-    const { dataSoure = [1, 2, 3] } = this.state;
-    const { toRecordListDet } = this.props;
-    return dataSoure.map((id) => {
+  renderFirstList() {
+    const { details, toRecordListDet } = this.props;
+    return (details.content || []).map(({ id, customerName, phone, itemName }) => {
       return (<ListItem
         key={id}
         className="borderBottom"
@@ -31,11 +30,37 @@ class RecordList extends React.Component {
           <div>
             <div>
               <p>
-                <span className="customer-name">李四</span>
-                <span className="customer-phone">(18632273417)</span>
+                <span className="customer-name">{customerName}</span>
+                <span className="customer-phone">({phone})</span>
                 <span className="check-date">2018-1-30</span>
               </p>
-              <p className="check-project">慢性牙龈炎</p>
+              <p className="check-project">{itemName.replace('["', '').replace('"]', '')}</p>
+            </div>
+          </div>
+        </div>
+      </ListItem>);
+    })
+      ;
+  }
+  renderAgainList() {
+    const { details, toRecordListDet } = this.props;
+    return (details.content || []).map(({ id, customerName, phone, itemName }) => {
+      return (<ListItem
+        key={id}
+        className="borderBottom"
+        align="middle"
+        multipleLine
+        onClick={() => { toRecordListDet(id); }}
+      >
+        <div className="myRecordContent">
+          <div>
+            <div>
+              <p>
+                <span className="customer-name">{customerName}</span>
+                <span className="customer-phone">({phone})</span>
+                <span className="check-date">2018-1-30</span>
+              </p>
+              <p className="check-project">{itemName.replace('["', '').replace('"]', '')}</p>
             </div>
           </div>
         </div>
@@ -44,22 +69,33 @@ class RecordList extends React.Component {
       ;
   }
   render() {
+    const { details } = this.props;
     return (
       <div className={styles.recordList}>
         <SearchBar />
         <Tabs
           tabs={tabs}
           initialPage={0}
-          onChange={(tab, index) => { console.log('onChange', index, tab); }}
-          onTabClick={(tab, index) => { console.log('onTabClick', index, tab); }}
+          onChange={(tab, index) => { this.props.fetchSearchList({ type: index }); }}
+          onTabClick={(tab, index) => { this.props.fetchSearchList({ type: index }); }}
         >
           <div style={{ alignItems: 'center', justifyContent: 'center' }}>
-            {this.renderList()}
+            {
+              details.content && details.content[0]
+                ? <div>
+                  {this.renderFirstList()}
+                </div>
+                : <div className="noRec">暂无病历</div>
+            }
           </div>
           <div style={{ alignItems: 'center', justifyContent: 'center' }}>
-            <div className="noRec">
-              <p>暂无病历</p>
-            </div>
+            {
+              details.content && details.content[0]
+                ? <div>
+                  {this.renderAgainList()}
+                </div>
+                : <div className="noRec">暂无病历</div>
+            }
           </div>
         </Tabs>
       </div>

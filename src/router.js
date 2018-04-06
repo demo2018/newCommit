@@ -60,11 +60,17 @@ export default function ({ history }) {
         <Route path="/doctor/mycard" component={pages.MyCard} breadcrumbName="我的名片" />
         <Route path="/doctor/mywallet" component={pages.MyWallet} breadcrumbName="我的钱包" />
         <Route path="/doctor/mywalletdetail" component={pages.MyWalletDet} breadcrumbName="我的钱包明细" />
-        <Route path="/doctor/doctorcard/:id" component={pages.DoctorCard} breadcrumbName="医生名片" />
         <Route path="/doctor/turncenter" component={pages.TurnCenter} breadcrumbName="转诊中心" />
-        <Route path="/doctor/reservationprocess/:id" component={pages.ReservationProcess} breadcrumbName="预约详情" />
-        <Route path="/doctor/referralcomplete/:id" component={pages.ReferralComplete} breadcrumbName="转诊成功详情" />
+        <Route path="/doctor/reservationprocess/:id" component={pages.ReservationProcess} breadcrumbName="转诊详情" />
         <Route path="/doctor/referralreport" component={pages.ReferralReport} breadcrumbName="转诊报告" />
+      </Route>
+
+      {/* 预约时需判断是否已登录  */}
+      <Route path="/common" onEnter={isLogin}>
+        <Route path="/common/doctors/list" component={pages.DoctorList} breadcrumbName="医生团队" />
+        <Route path="/common/doctors/detail/:id" component={pages.DoctorDetail} breadcrumbName="医生详情" />
+        <Route path="/common/doctors/appoint/:id" component={pages.DoctorAppoint} breadcrumbName="预约" />
+        <Route path="/common/doctors/appointresult" component={pages.AppointResult} breadcrumbName="预约结果" />
       </Route>
 
       {/* 公共  */}
@@ -74,13 +80,10 @@ export default function ({ history }) {
         <Route path="/common/feedbackresult" component={pages.FeedbackResult} breadcrumbName="反馈结果" />
         <Route path="/common/pricelist" component={pages.PriceList} breadcrumbName="价格表" />
         <Route path="/common/pricelistdetail/:id" component={pages.PriceListDet} breadcrumbName="价格详情" />
-
+        <Route path="/doctor/doctorcard/:id" component={pages.DoctorCard} breadcrumbName="医生名片" />
         <Route path="/common/contactservice" component={pages.ContactService} breadcrumbName="接入美洽" />
+        <Route path="/common/protectprivacy" component={pages.ProtectPrivacy} breadcrumbName="隐私保护" />
 
-        <Route path="/common/doctors/list" component={pages.DoctorList} breadcrumbName="医生团队" />
-        <Route path="/common/doctors/detail/:id" component={pages.DoctorDetail} breadcrumbName="医生详情" />
-        <Route path="/common/doctors/appoint/:id" component={pages.DoctorAppoint} breadcrumbName="预约" />
-        <Route path="/common/doctors/appointresult" component={pages.AppointResult} breadcrumbName="预约结果" />
       </Route>
     </Route>
   </Router >);

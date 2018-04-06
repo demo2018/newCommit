@@ -82,8 +82,13 @@ class AddRelation extends React.Component {
   onSubmit() {
     const { addRelation, upDateRelation } = this.props;
     const { relationInfo } = this.state;
-    const { gender, relation, age } = relationInfo;
+    const { gender, relation, age, phone } = relationInfo;
+    const reg = /^[1][3,4,5,7,8][0-9]{9}$/;
     if (relationInfo != null && gender[0] != null && relation[0] != null && age != null) {
+      if (phone && !reg.test(phone)) {
+        Toast.info('手机号格式有误', 1);
+        return false;
+      }
       if (relationInfo.id) {
         upDateRelation({ ...relationInfo, gender: gender[0], relation: relation[0] });
       } else {
@@ -97,32 +102,38 @@ class AddRelation extends React.Component {
   handleChange(key) {
     return (value) => {
       const { relationInfo } = this.state;
+      if (value[0] == undefined) {  // 修复不滑动下拉框时点击确认无法取值问题
+        value[0] = 0;
+      }
       if (value.target) {
         value = value.target.value;
       }
+
       this.setState({ relationInfo: { ...relationInfo, [key]: value } });
     };
   }
   render() {
-    const { details } = this.props;
     const { relationInfo } = this.state;
     return (
       <form className={styles.addRelation}>
         <List>
+
           <InputItem
             placeholder="为方便就诊，请输入真实姓名"
             className="borderBottom"
             value={relationInfo.realName}
             onChange={this.handleChange('realName')}
           >姓名</InputItem>
+
           <Picker
             data={this.state.relationShip}
             cols={this.state.cols}
-            value={relationInfo.relation || '1'}
+            value={relationInfo.relation}
             onChange={this.handleChange('relation')}
           >
             <List.Item onClick={this.onClick} className="borderBottom">关系</List.Item>
           </Picker>
+
           <Picker
             data={this.state.sex}
             cols={this.state.cols}
@@ -131,18 +142,21 @@ class AddRelation extends React.Component {
           >
             <List.Item onClick={this.onClick} className="borderBottom">性别</List.Item>
           </Picker>
+
           <InputItem
             className="borderBottom"
             placeholder="请输入数字"
             value={relationInfo.age}
             onChange={this.handleChange('age')}
           >年龄</InputItem>
+
           <InputItem
             className="borderBottom"
             placeholder="（非必填项）"
             value={relationInfo.phone}
             onChange={this.handleChange('phone')}
           >手机号码</InputItem>
+
         </List>
 
         <Button type="primary" size="large" onClick={() => { this.onSubmit(); }}>确定</Button>

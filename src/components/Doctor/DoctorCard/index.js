@@ -9,9 +9,9 @@ class DoctorCard extends React.Component {
     this.state = {};
   }
   render() {
-    const { list, doctorInfo } = this.props;
+    const { list, doctorInfo, toAppoint, toRecordListDet } = this.props;
     const listProps = { list };
-    const infoProps = { doctorInfo };
+    const infoProps = { doctorInfo, toRecordListDet };
     return (
       <div className={styles.myCard}>
         <div className="cardTips">
@@ -19,7 +19,7 @@ class DoctorCard extends React.Component {
         </div>
         <CardInfo {...infoProps} />
         <MoreDoctor {...listProps} />
-        <Button type="primary">查看更多医生</Button>
+        <Button type="primary" onClick={toAppoint}>查看更多医生</Button>
       </div>
     );
   }

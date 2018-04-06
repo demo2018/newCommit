@@ -18,6 +18,9 @@ function mapDispatchToProps(dispatch) {
     submitCheck(param) {
       dispatch({ type: 'doctorSeniority/submitCheck', param });
     },
+    imgUpload(param) {
+      dispatch({ type: 'doctorSeniority/imgUpload', payload: { param } });
+    }
   };
 }
 

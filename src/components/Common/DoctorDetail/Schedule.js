@@ -55,8 +55,9 @@ class Schedule extends React.Component {
       ableDates: date.able,
       disableDates: date.unable,
       // 可预约触发函数
-      onSelectUsable() {
+      onSelectUsable(value) {
         toDoctorAppoint(id);
+        localStorage.setItem('chooseDate', value);
       },
       // 约满触发函数
       onSelectWarning() {

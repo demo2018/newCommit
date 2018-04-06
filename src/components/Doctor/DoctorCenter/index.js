@@ -13,7 +13,6 @@ const getGoodFromData = (partment = {}) => {
       label: name,
     };
   });
-  console.log(pickerGood);
   localStorage.setItem('adepts', JSON.stringify(pickerGood));
   return {
     ...partment,
@@ -47,8 +46,8 @@ class DoctorCenter extends React.Component {
     return (
       <div className={styles.doctorCenter}>
         <DoctorHead
-          toCertification={toCertification}
           toDoctorInfo={toDoctorInfo}
+          toCertification={toCertification}
           toAuthenticationFailed={toAuthenticationFailed}
           {...headProps}
         />

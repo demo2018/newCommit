@@ -4,14 +4,18 @@ import { routerRedux } from 'dva/router';
 
 import RecordList from 'components/Doctor/RecordList';
 
-function mapStateToProps({ layout }) {
+function mapStateToProps({ recordList }) {
   return {
-    ...layout,
+    ...recordList,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
+    fetchSearchList(search) {
+      dispatch({ type: 'recordList/updateSearch', payload: { search } });
+      dispatch({ type: 'recordList/fetchSearchList' });
+    },
     toRecordListDet(id) {
       dispatch(routerRedux.push(`/doctor/recordlistdetail/${id}`));
     },

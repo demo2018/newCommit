@@ -1,4 +1,4 @@
-import { Checkbox, Button, ActionSheet } from 'antd-mobile';
+import { Checkbox, Button, ActionSheet, Toast } from 'antd-mobile';
 import styles from './index.less';
 
 const CheckboxItem = Checkbox.CheckboxItem;
@@ -24,16 +24,39 @@ class DoctorSeniority extends React.Component {
     submitCheck({ ...details, status: 4 });
     // toResult();
   }
-  showActionSheet = () => {
+  // 上传图片接口
+  wxuploadImage = (e, key) => {
+    const { imgUpload } = this.props;
+    wx.uploadImage({
+      localId: e, // 需要上传的图片的本地ID，由chooseImage接口获得
+      isShowProgressTips: 1, // 默认为1，显示进度提示
+      success: (res) => {
+        const mediaId = res.serverId; // 返回图片的服务器端ID
+        alert(mediaId);
+        // if (mediaId) {.
+        // 回传servsrId给后台
+        imgUpload({ mediaId, key });
+
+        // this.wxImgDown(mediaId);
+        // }
+      },
+      fail: (error) => {
+        Toast.info(error);
+      }
+    });
+  }
+  showActionSheet = (key) => {
     const BUTTONS = ['从相册选择图片', '拍照', '取消'];
     const { wechat } = this.props;
+
+    //  获取微信配置
     wx.config({
       debug: true,
       appId: wechat.appId,
       timestamp: wechat.timestamp,
       nonceStr: wechat.nonceStr,
       signature: wechat.signature,
-      jsApiList: ['chooseImage'],
+      jsApiList: ['chooseImage', 'uploadImage', 'downloadImage']
     });
     ActionSheet.showActionSheetWithOptions({
       options: BUTTONS,
@@ -45,21 +68,30 @@ class DoctorSeniority extends React.Component {
         this.setState({ clicked: BUTTONS[buttonIndex] });
         if (buttonIndex == 0) {
           wx.chooseImage({
-            count: 1, // 默认9
+            count: 1, //  可选择照片的数量
             sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
-            sourceType: ['camera'], // 可以指定来源是相册还是相机，默认二者都有
-            success: function (res) {
-              console.log('hah');
+            sourceType: ['album'], // 指定来源为相册
+            success: (res) => {
+              const localIds = res.localIds[0].toString();
+              alert(localIds);
+              // const localIds = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
+              // changeInfo({ ...doctorInfo, icon: getBase64(localIds) });
+              this.wxuploadImage(localIds, key);
+
+              // getUploadPicUrl({ type: 'icon' });
+              // changeInfo({ ...doctorInfo, icon: localId });
             }
           });
         }
         if (buttonIndex == 1) {
           wx.chooseImage({
-            count: 1, // 默认9
+            count: 1,
             sizeType: ['original', 'compressed'],
-            sourceType: ['album'], // 制定来源为相册
-            success: function (res) {
-              console.log('hah');
+            sourceType: ['camera'], // 指定来源为相机
+            success: (res) => {
+              const localIds = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
+              // changeInfo({ ...doctorInfo, icon: localIds });
+              this.wxuploadImage(localIds, key);
             }
           });
         }
@@ -93,7 +125,7 @@ class DoctorSeniority extends React.Component {
         <div className="idCard borderTop">
           <p>身份证正面照</p>
           <div className="photohere">
-            <img src={require('images/img.png')} onClick={this.showActionSheet} />
+            <img src={require('images/img.png')} onClick={() => this.showActionSheet('idIcon')} />
             <img src={require('images/ex1.png')} className="exampleImg" alt="" />
             <span>请上传身份证的正面照片</span>
           </div>
@@ -101,12 +133,12 @@ class DoctorSeniority extends React.Component {
         <div className="practice borderTop">
           <p>医师执业证</p>
           <div className="photohere">
-            <img src={require('images/img.png')} onClick={this.showActionSheet} />
+            <img src={require('images/img.png')} onClick={() => this.showActionSheet('jobIcon1')} />
             <img src={require('images/ex2.png')} className="exampleImg" alt="" />
             <span>请上传医师执业证的第1页</span>
           </div>
           <div className="photohere">
-            <img src={require('images/img.png')} onClick={this.showActionSheet} />
+            <img src={require('images/img.png')} onClick={() => this.showActionSheet('jobIcon2')} />
             <img src={require('images/ex3.png')} className="exampleImg" alt="" />
             <span>请上传医师执业证的第2页</span>
           </div>
@@ -114,7 +146,7 @@ class DoctorSeniority extends React.Component {
         <div className="seniority borderBottom borderTop">
           <p>医师资格证</p>
           <div className="photohere">
-            <img src={require('images/img.png')} onClick={this.showActionSheet} />
+            <img src={require('images/img.png')} onClick={() => this.showActionSheet('doctorIcon')} />
             <img src={require('images/ex4.png')} className="exampleImg" alt="" />
             <span>请上传医师资格证的第1页</span>
           </div>

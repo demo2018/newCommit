@@ -3,6 +3,7 @@ import cookie from 'js-cookie';
 import services from 'services';
 import { routerRedux } from 'dva/router';
 import { Toast } from 'antd-mobile';
+
 export default Model.extend({
   namespace: 'login',
 
@@ -30,7 +31,9 @@ export default Model.extend({
       const status = result.status;
       const expires = { expires: 7 };   // 设置cookie有效期
       if (status) {
-        cookie.set('realName', result.data.realName, expires);
+        if (result.data.realName) {
+          cookie.set('realName', result.data.realName, expires);
+        }
         cookie.set('phone', result.data.phone, expires);
         cookie.set('id', result.data.id, expires);
         cookie.set('sessiobid', result.data.sessionId, expires);
@@ -50,7 +53,9 @@ export default Model.extend({
       const status = result.status;
       const expires = { expires: 7 };
       if (status) {
-        cookie.set('realName', result.data.realName, expires);
+        if (result.data.realName) {
+          cookie.set('realName', result.data.realName, expires);
+        }
         cookie.set('phone', result.data.phone, expires);
         cookie.set('doctorid', result.data.id, expires);
         cookie.set('sessiobid', result.data.sessionId, expires);

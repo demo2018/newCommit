@@ -1,4 +1,5 @@
 import { List } from 'antd-mobile';
+import { getServer } from 'utils/common';
 
 const ListItem = List.Item;
 const Brief = ListItem.Brief;
@@ -10,25 +11,30 @@ class DoctorList extends React.Component {
   }
   renderList() {
     const { toDoctorDetail, details } = this.props;
+    const { medical } = getServer();
     return (details.content || [])
-    .map(({ id, realName, hospitalName, title, icon, isRecommend }, index) => {
-      return (<ListItem
-        key={index}
-        className="borderBottom"
-        arrow="horizontal"
-        align="middle"
-        multipleLine
-        onClick={() => { toDoctorDetail(id); }}
-      >
-        <div className="doctorContent">
-          <img src={require('assets/head.png')} alt="加载失败" />
+      .map(({ id, realName, hospitalName, education, icon, isRecommend }, index) => {
+        return (<ListItem
+          key={index}
+          className="borderBottom"
+          arrow="horizontal"
+          align="middle"
+          multipleLine
+          onClick={() => { toDoctorDetail(id); }}
+        >
+          <div className="doctorContent">
+          {
+            icon
+              ? <img src={`${medical}/bhyy/core/image/${icon}`} alt="加载失败" />
+              : <img src={require('assets/head.png')} alt="加载失败" />
+          }
           <div>
             <div>{realName}{isRecommend ? <span className="tagItem">推荐</span> : null}</div>
-            <Brief>{hospitalName} | {title}</Brief>
+            <Brief>{hospitalName} | {education}</Brief>
           </div>
         </div>
       </ListItem>);
-    })
+      })
       ;
   }
   render() {

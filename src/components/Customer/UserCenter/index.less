@@ -20,6 +20,7 @@
           max-height: 180px;
           max-width: 100px;
           img{
+            display: block;
             margin: -5px;
             width: 100%;
             border: 5px solid #fff;
@@ -59,10 +60,13 @@
             }
           } 
         }
-        .acrossList{
+        .acrossList.borderTop{
           margin: 10px 0;
           overflow: hidden;
-          .am-list-body::after{
+          &::before{
+            top: -0.5px;
+          }
+          .am-list-body::before{
             display: none;
           }
           .am-list-item{
@@ -91,6 +95,9 @@
           }
         }
         .lineList{
+          .am-list-body::before{
+            display: none;
+          }
           .am-list-item:nth-child(1) .am-list-line{
             span{
               vertical-align: -5px;

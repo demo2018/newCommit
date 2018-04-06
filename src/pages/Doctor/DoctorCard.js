@@ -12,7 +12,12 @@ function mapStateToProps({ doctorCard }) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    ...dispatch
+    toAppoint() {
+      dispatch(routerRedux.push('/common/doctors/list'));
+    },
+    toRecordListDet(id) {
+      dispatch(routerRedux.push(`/common/doctors/detail/${id}`));
+    },
   };
 }
 

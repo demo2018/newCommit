@@ -41,6 +41,10 @@
       transform: scaleY(1);
     }
   }
+  .borderTop.tablefoot{
+    &::before{
+    top: auto;}
+  }
 @media(-webkit-min-device-pixel-ratio: 2), (min-resolution: 2dppx){
   .borderBottom{
     position:relative;
@@ -77,6 +81,10 @@
       transform-origin: 50% 100%;
       transform: scaleY(0.5);
     }
+  }
+  .borderTop.tablefoot{
+    &::before{
+    top: auto;}
   }
 }
 @media(-webkit-min-device-pixel-ratio: 2)and(-webkit-min-device-pixel-ratio: 3), (min-resolution: 2dppx) and(min-resolution: 3dppx){
@@ -116,6 +124,10 @@
       transform: scaleY(0.3333333);
     }
   }
+  .borderTop.tablefoot{
+    &::before{
+    top: auto;}
+  }
 }
     html,
     body {
@@ -124,6 +136,7 @@
         background: #fff;
         font-family:Helvetica;
         font-size: 12px;
+        cursor:pointer;
     }
     #root {
         width: 100%;
@@ -179,6 +192,12 @@
     }
     .am-modal.addAssistant .am-modal-header{
         padding: 15px;
+        img{
+          display: block;
+          margin: auto;
+          width: 150px;
+          height: 150px;
+        }
     }
     .am-picker-popup-content .am-picker-popup-body .am-picker-popup-header::after{
       display: none!important;
@@ -242,5 +261,8 @@
     }
     .am-button.am-multi-select-btns-btn.am-button-primary.am-button-inline{
      float: right;
+    }
+    .am-toast{
+      z-index: 99999!important;
     }
 }

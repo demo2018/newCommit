@@ -19,9 +19,11 @@ function mapDispatchToProps(dispatch) {
       dispatch({ type: 'doctorList/updateSearch', payload: { search } });
       dispatch({ type: 'doctorList/fetchSearchList' });
     },
-    fetchSelectList(choose) {
-      dispatch({ type: 'doctorList/updateSelect', payload: { choose } });
-      dispatch({ type: 'doctorList/fetchSelectList' });
+    toContactService() {
+      if (localStorage.getItem('referral') == 1) {
+        dispatch({ type: 'doctorList/getReferral' });
+      }
+      dispatch(routerRedux.push('/common/contactservice'));
     },
   };
 }

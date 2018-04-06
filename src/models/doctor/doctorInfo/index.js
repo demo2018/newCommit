@@ -1,7 +1,7 @@
 import Model from 'utils/model';
 import services from 'services';
 import { routerRedux } from 'dva/router';
-
+import cookie from 'js-cookie';
 
 export default Model.extend({
   namespace: 'doctorInfo',
@@ -54,13 +54,20 @@ export default Model.extend({
     },
     * updateName({ payload: { param } }, { put, callWithLoading }) {
       yield callWithLoading(services.doctorinfo.editInfo, param);
+      cookie.set('realName', param.realName);
       yield put(routerRedux.push('/doctor/info'));
     },
-
-    //  获取配置
+    //  图片上传
+    * imgUpload({ payload: { param } }, { put, callWithLoading }) {
+      const res = yield callWithLoading(services.doctorinfo.imgUpload, param);
+      if (res.status) {
+        yield callWithLoading(services.doctorinfo.editInfo, { icon: res.data });
+        yield put({ type: 'fetchDetails' }); // 更新信息，保持和服务端一致
+      }
+    },
+    //  获取微信配置
     * weChat({ param }, { update, callWithLoading }) {
       const { data } = yield callWithLoading(services.doctorinfo.getWechat, { url: location.href.split('#')[0] });
-      console.log(location.href.split('#')[0]);
       yield update({ wechat: data });
     },
   },

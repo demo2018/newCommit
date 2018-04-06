@@ -28,6 +28,10 @@ export default Model.extend({
   effects: {
     * fetchDetails({ payload }, { select, update, callWithLoading }) {
       const { id } = yield select(({ doctorDetail }) => doctorDetail);
+      localStorage.removeItem('timeBucket');
+      localStorage.removeItem('itemClassId');
+      localStorage.removeItem('patientId');
+      localStorage.removeItem('doctorConfigId');
       const { data } = yield callWithLoading(services.doctordetail.getDetail, { id });
       yield update({ details: data });
     },

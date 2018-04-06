@@ -4,6 +4,8 @@ import * as userinfo from './userinfo';
 import * as usercenter from './usercenter';
 import * as addrelation from './addrelation';
 import * as myappoint from './myappoint';
+import * as myrec from './myrec';
+import * as myrecdet from './myrecdet';
 import * as mybill from './mybill';
 import * as mybilldet from './mybilldet';
 import * as evaluate from './evaluate';
@@ -31,7 +33,11 @@ import * as mynotice from './mynotice';
 import * as doctorcard from './doctorcard';
 import * as pricelist from './pricelist';
 import * as pricelistdet from './pricelistdet';
-
+import * as referralreport from './referralreport';
+import * as turncenter from './turncenter';
+import * as reservationprocess from './reservationprocess';
+import * as recordlistdet from './recordlistdet';
+import * as recordlist from './recordlist';
 
 
 export default {
@@ -44,6 +50,8 @@ export default {
   doctorlist,
   doctordetail,
   doctorappoint,
+  myrec,
+  myrecdet,
   mybill,
   mybilldet,
   evaluate,
@@ -68,4 +76,9 @@ export default {
   doctorcard,
   pricelist,
   pricelistdet,
+  referralreport,
+  turncenter,
+  reservationprocess,
+  recordlistdet,
+  recordlist,
 };

@@ -12,18 +12,18 @@ class BillDetail extends React.Component {
           <td>
             <span className="patient-project">{itemName}</span>
             {
-              discount
-              ? <p className="patient-pro-discount">折扣：
-                  <span className="pro-discount-det">{discount}</span>
+              discount != 1
+                ? <p className="patient-pro-discount">折扣：
+                  <span className="pro-discount-det">{(discount * 10) + '折'}</span>
                 </p>
-              : null
+                : null
             }
           </td>
           <td className="patient-pronum">{num}</td>
           <td>
             <span className="patient-proprice">{actualCost}</span>
             {
-              discount
+              discount != 1
               ? <p className="original-price">
                 {originalPrice}
               </p>
@@ -40,7 +40,7 @@ class BillDetail extends React.Component {
       <div className="myBillDetContent">
         <div className="bill-det">
           <p className="bill-dethead">账单明细</p>
-          <div className="tableWrapper borderBottom borderTop">
+          <div className="tableWrapper borderTop">
             <table cellSpacing="0" cellPadding="0">
               <thead>
                 <tr>
@@ -52,14 +52,14 @@ class BillDetail extends React.Component {
               <tbody>
                 {this.renderList()}
               </tbody>
-              <tfoot>
-                <tr className="combined">
+              <tfoot className="borderTop tablefoot">
+                <tr className="combined" >
                   <td>
                     <span className="combined-price">合计</span>
                     {
-                      details.discount
-                      ? <p>折扣：
-                          <span className="combined-discount pro-discount-det">{details.discount}</span>
+                      details.discount != 1
+                        ? <p>折扣：
+                          <span className="combined-discount pro-discount-det">{(details.discount * 10) + '折'}</span>
                         </p>
                       : null
                     }
@@ -68,7 +68,7 @@ class BillDetail extends React.Component {
                   <td>
                     <span className="combined-discount-price">{details.actualCost}</span>
                      {
-                      details.discount
+                      details.discount != 1
                       ? <p className="original-price">{details.originalCost}</p>
                       : null
                     }

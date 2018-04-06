@@ -7,6 +7,13 @@ class Description extends React.Component {
       open: false,
     };
   }
+  // 获取简介的高度，若高度超过三排，则展示箭头
+  componentWillReceiveProps() {
+    const tabDOM1 = this.content;
+    if (tabDOM1.scrollHeight > 57) {
+      this.setState({ description: 'wordClose' });
+    }
+  }
   // 点击切换简介状态
   clickOpen = () => {
     this.setState({
@@ -17,7 +24,6 @@ class Description extends React.Component {
   // 渲染擅长标签
   renderTags() {
     const { details, tags } = this.props;
-    console.log(tags);
     const partNames = (tags.content || [])
       .filter(({ id }) => {
         return details.adepts && details.adepts.includes(id) || details.adepts && details.adepts.includes(`${id}`);
@@ -30,7 +36,7 @@ class Description extends React.Component {
     });
   }
   render() {
-    let description = 'wordClose';
+    let description = this.state.description;
     let icon = 'icon iconfont icon-xiangxiajiantou';
     if (this.state.open) {
       description += ' wordOpen';
@@ -40,11 +46,14 @@ class Description extends React.Component {
     return (<div className="description part borderBottom borderTop">
       <p className="title">简介与擅长</p>
       <div className="content">
-        <p className={description}>
+        <p className={description} ref={dom => { this.content = dom; }}>
           {details.hospitalName} | {details.intro}
         </p>
-        {/* {description && description.offsetHeight > 55 ? <span className={icon} onClick={this.clickOpen}></span> : null} */}
-        <span className={icon} onClick={this.clickOpen}></span>
+        {
+          this.state.description == 'wordClose'
+            ? <span className={icon} onClick={this.clickOpen}></span>
+            : null
+        }
       </div>
       <div className="tags">
         {this.renderTags()}

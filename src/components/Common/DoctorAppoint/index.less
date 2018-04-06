@@ -56,21 +56,29 @@
           .am-list-line-multiple{
             padding-bottom: 0; 
           }
-        }
-        
-        .am-list-item.borderBottom.appointHead{
-          .am-list-line-multiple{
-            padding-bottom: 12.5px; 
+
           }
-        }
-        .inputName{
-          padding: 6px 15px;
-          .am-list-content{
-            margin-right: 10px;
-            text-align: right; 
-            width: 80px;
+
+          .am-list-item.borderBottom.appointHead {
+              .am-list-line-multiple {
+                  padding-bottom: 12.5px;
+              }
           }
-        }
+
+          .inputName {
+              padding: 6px 15px;
+              .am-list-content {
+                  margin-right: 10px;
+                  text-align: right;
+                  width: 80px;
+              }
+          }
+
+          .patient {
+              .am-list-line.am-list-line-multiple {
+                  padding-bottom: 0;
+              }
+          }
         .am-list-body div:not(:last-child) .am-list-line{
           border-bottom: none;
         }
@@ -112,9 +120,9 @@
         .am-list-body .am-list-item.forOther{
           .am-list-line{
             .am-list-content{
+              padding-top: 0;
+              padding-bottom: 10px;
               display: block;
-              height: 30px;
-              line-height: 30px;
               text-align: center;
               a{
                 display: block;

@@ -38,7 +38,7 @@ export default Model.extend({
     * addRelationinfo({ payload: { param } }, { put, update, callWithLoading }) {
       const { data } = yield callWithLoading(services.addrelation.addRelation, param);
       yield update({ details: data });
-      if (localStorage.getItem('toAdd') != null) {
+      if (localStorage.getItem('toAdd')) {
         yield put(routerRedux.push(`/common/doctors/appoint/${localStorage.getItem('toAdd')}`));
         localStorage.removeItem('toAdd');
       } else {

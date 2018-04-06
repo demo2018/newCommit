@@ -83,9 +83,8 @@ class CheckProject extends React.Component {
       });
     });
 
-    //  判断有问题，当未选择项目时应不跳转
-    console.log(selectedDates);
-    if (selectedDates) {
+    //  判断是否选择项目
+    if (selectedDates[0].value) {
       localStorage.setItem('selectedProjects', JSON.stringify(selectedDates));
       toBill();
     } else {
@@ -139,6 +138,7 @@ class CheckProject extends React.Component {
         <ActivityIndicator animating={loading} toast />
         <div className="tab" style={{ height: this.state.height }}>
           <Tabs
+            className="lineTab"
             tabs={newTabs}
             tabBarPosition="left"
             tabDirection="vertical"

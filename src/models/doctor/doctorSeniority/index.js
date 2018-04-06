@@ -36,8 +36,21 @@ export default Model.extend({
         yield put(routerRedux.push('/doctor/center'));
       }
     },
+    //  图片上传
+    * imgUpload({ payload: { param } }, { put, callWithLoading }) {
+      // 获取要更新的图片参数，将ID赋给相应参数
+      const { key } = param.key;
+      alert(key);
+      alert(param.mediaId);
+      const res = yield callWithLoading(services.doctorinfo.imgUpload, param.mediaId);
+      if (res.status) {
+        yield callWithLoading(services.doctorinfo.editInfo, { [key]: res.data });
+        yield put({ type: 'fetchDetails' }); // 更新信息，保持和服务端一致
+      }
+    },
+    //  获取微信配置
     * weChat({ param }, { update, callWithLoading }) {
-      const { data } = yield callWithLoading(services.doctorseniority.getWechat);
+      const { data } = yield callWithLoading(services.doctorinfo.getWechat, { url: location.href.split('#')[0] });
       yield update({ wechat: data });
     },
   },

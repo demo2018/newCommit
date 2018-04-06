@@ -18,6 +18,7 @@ class Doctors extends React.Component {
       width: document.documentElement.clientWidth,
     };
     document.title = this.state.title;
+    this.toFixed = this.toFixed.bind(this);
   }
   componentDidMount() {
     window.addEventListener('scroll', this.handleScroll);
@@ -32,15 +33,19 @@ class Doctors extends React.Component {
   }
   handleScroll = () => {
     const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-    if (scrollTop > this.state.width * 0.56 - 44) {
+    if (scrollTop >= this.state.width * 0.56 - 44) {
       this.setState({ searchVisible: true });
     } else {
       this.setState({ searchVisible: false });
     }
   }
+  toFixed() {
+    window.scrollTo(0, this.state.width * 0.56 - 44);
+    event.stopPropagation();
+  }
   render() {
     const { height, refreshing, searchVisible } = this.state;
-    const { toDoctorDetail, details, banners, servicesItem, fetchSearchList, search, fetchSelectList, choose } = this.props;
+    const { toDoctorDetail, details, banners, servicesItem, fetchSearchList, search, toContactService } = this.props;
     const doctorListProps = { details };
     const bannerProps = { banners };
     const pullToRefreshProps = {
@@ -65,12 +70,8 @@ class Doctors extends React.Component {
     const searchBarProps = {
       search,
       fetchSearchList,
-    };
-    const selectProps = {
       servicesItem,
       details,
-      choose,
-      fetchSelectList,
     };
 
     return (<div
@@ -80,10 +81,15 @@ class Doctors extends React.Component {
       <BannerList {...bannerProps} />
       <div className={classnames({ fixSearchBar: searchVisible })}>
         {searchVisible && <SearchBar {...searchBarProps} />}
-        <DoctorSelect {...selectProps} {...searchBarProps} />
+        <div>
+          <DoctorSelect {...searchBarProps} />
+        </div>
       </div>
       <DoctorList toDoctorDetail={toDoctorDetail} {...doctorListProps} />
       {/* </PullToRefresh> */}
+      <div className="consulting" onClick={() => { toContactService(); }}>
+        <img src={require('images/consulting.png')} alt="咨询" />
+      </div>
     </div>);
   }
 }

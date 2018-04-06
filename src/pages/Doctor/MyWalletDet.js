@@ -1,6 +1,5 @@
 
 import { connect } from 'dva';
-import { routerRedux } from 'dva/router';
 
 import MyWalletDet from 'components/Doctor/MyWalletDet';
 
@@ -12,7 +11,9 @@ function mapStateToProps({ myWalletDet }) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    dispatch
+    chooseMonth(param) {
+      dispatch({ type: 'myWalletDet/chooseMonth', payload: { month: param } });
+    }
   };
 }
 

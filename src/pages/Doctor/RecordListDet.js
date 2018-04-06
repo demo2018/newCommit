@@ -4,9 +4,9 @@ import { routerRedux } from 'dva/router';
 
 import RecordListDet from 'components/Doctor/RecordListDet';
 
-function mapStateToProps({ layout }) {
+function mapStateToProps({ recordListDet }) {
   return {
-    ...layout,
+    ...recordListDet,
   };
 }
 

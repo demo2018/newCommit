@@ -10,6 +10,7 @@ export default Model.extend({
     goods: [],
     bads: [],
     details: {},
+    wechat: [],
   },
 
   subscriptions: {
@@ -21,6 +22,7 @@ export default Model.extend({
           dispatch({ type: 'fetchDetails' });
           dispatch({ type: 'fetchGood' });
           dispatch({ type: 'fetchBad' });
+          dispatch({ type: 'weChat' });
         },
       });
     }
@@ -42,6 +44,12 @@ export default Model.extend({
       if (status) {
         Toast.info('评价成功');
       }
+    },
+
+    //  获取配置
+    * weChat({ param }, { update, callWithLoading }) {
+      const { data } = yield callWithLoading(services.evaluate.getWechat);
+      yield update({ wechat: data });
     },
   },
 

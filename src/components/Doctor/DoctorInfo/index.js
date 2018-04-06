@@ -2,6 +2,7 @@ import { TextareaItem } from 'antd-mobile';
 import styles from './index.less';
 import PersonalInfo from './PersonalInfo';
 import ProfessionalInfo from './ProfessionalInfo';
+import { createForm } from 'rc-form';
 
 class DoctorInfo extends React.Component {
   constructor(props) {
@@ -10,6 +11,7 @@ class DoctorInfo extends React.Component {
       title: '个人信息',
     };
     document.title = this.state.title;
+    this.handleChange = this.handleChange.bind(this);
   }
   handleChange(key) {
     return (value) => {
@@ -23,10 +25,12 @@ class DoctorInfo extends React.Component {
       }
     };
   }
+
   render() {
-    const { toDoctorName, details, changeInfo, partment, goodat, wechat } = this.props;
-    const doctorProps = { toDoctorName, details, changeInfo, partment, goodat };
+    const { toDoctorName, details, changeInfo, partment, goodat, wechat, imgUpload } = this.props;
+    const doctorProps = { toDoctorName, details, changeInfo, partment, goodat, imgUpload };
     const getWechat = { wechat };
+    const { getFieldProps } = this.props.form;
     return (
       <div className={styles.doctorInfo}>
         {/* 个人资料 */}
@@ -38,18 +42,30 @@ class DoctorInfo extends React.Component {
         {/* 简介 */}
         <div className="moreInfo borderBottom borderTop">
           <p className="doctor-intro borderBottom">简介</p>
-          <TextareaItem
-            rows={5}
-            count={200}
-            defaultValue={details ? details.intro : null}
-            placeholder="请输入内容"
-            onChange={this.handleChange('intro')}
-          />
-           {/* <input type="textarea" defaultValue={details.intro} onChange={this.handleChange('intro')} /> */}
+          {
+            details.intro != null
+            ? <TextareaItem
+              {...getFieldProps('intro', {
+                initialValue: `${details.intro}`,
+              }) }
+              autoHeight
+              rows={0}
+              count={200}
+              placeholder="请输入内容"
+              onBlur={this.handleChange('intro')}
+            />
+              : <TextareaItem
+                {...getFieldProps('intro') }
+                rows={1}
+                count={200}
+                placeholder="请输入内容"
+                onBlur={this.handleChange('intro')}
+              />
+            }
         </div>
       </div>
     );
   }
 }
 
-export default DoctorInfo;
+export default createForm()(DoctorInfo);

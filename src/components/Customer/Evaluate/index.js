@@ -4,10 +4,6 @@ import PaidSuccess from './PaidSuccess';
 
 const CheckboxItem = Checkbox.CheckboxItem;
 
-const tabs = [
-  { title: '表扬一下' },
-  { title: '吐槽一下' }
-];
 
 function successToast() {
   Toast.success('评价成功', 1);
@@ -18,6 +14,7 @@ class Evaluate extends React.Component {
     super(props);
     this.state = {
       title: '支付成功',
+      activeTab: 0,
       btnStatus: false,
       evaluateInfo: {
         content: '',
@@ -28,11 +25,31 @@ class Evaluate extends React.Component {
     document.title = this.state.title;
   }
   onSubmit() {
-    const { evaluateInfo } = this.state;
-    const { addEvaluate } = this.props;
-    console.log(evaluateInfo);
-    addEvaluate(evaluateInfo);
+    const { evaluateInfo, activeTab } = this.state;
+    const { addEvaluate, wechat } = this.props;
+    console.log(activeTab);
+    //  获取微信配置
+    wx.config({
+      debug: true,
+      appId: wechat.appId,
+      timestamp: wechat.timestamp,
+      nonceStr: wechat.nonceStr,
+      signature: wechat.signature,
+      jsApiList: ['onMenuShareTimeline']
+    });
+    if (evaluateInfo.checkboxStatus == true && activeTab == 0) {
+      wx.onMenuShareTimeline({
+        title: '', // 分享标题
+        link: '', // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+        imgUrl: '', // 分享图标
+        success: (res) => {
+          //  用户确认分享后的执行函数
+        }
+      });
+      // addEvaluate(evaluateInfo);
+    }
   }
+
   handleCheckBoxChange(key) {
     return (value) => {
       if (value.target) {
@@ -73,12 +90,22 @@ class Evaluate extends React.Component {
   render() {
     const { evaluateInfo } = this.state;
     const { goods, bads } = this.props;
+    const tabsProps = {
+      activeTab: this.state.activeTab,
+      tabs: [
+        { title: '表扬一下' },
+        { title: '吐槽一下' }
+      ],
+      onTabClick: (tab, index) => {
+        this.setState({ activeTab: index });
+      },
+    };
     return (
       <div className={styles.Evaluate}>
         <PaidSuccess />
         <div className="evaluate borderTop">
           <p className="evaluate-head">您此次就诊体验：</p>
-          <Tabs tabs={tabs} initialPage={0} animated={false} useOnPan={false}>
+          <Tabs {...tabsProps} initialPage={0} animated={false} useOnPan={false}>
             <div style={{ display: 'block', alignItems: 'center', justifyContent: 'center' }}>
               <div className="evaluate-tag">
                 {this.renderTages(goods)}

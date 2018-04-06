@@ -16,7 +16,7 @@ class MyWallet extends React.Component {
       <div className={styles.myWallet}>
         <div className="walletHead">
           账户（元）
-          <p className="money">{numToLocaleString(details.balance)}</p>
+          <p className="money">{parseFloat(numToLocaleString(details.balance)).toFixed(2)}</p>
         </div>
         <Button className="checkDetail" onClick={toWallet}>查看明细</Button>
       </div>

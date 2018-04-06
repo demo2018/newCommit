@@ -47,7 +47,9 @@ class Complete extends React.Component {
           <div>
             <div className="billhead">
               <span className="customer-name">{patientName}</span>
-              {this.renderProjects(index)}
+              {/* {this.renderProjects(index)} */}
+
+              <span className="check-pro">{itemName.replace('["', '').replace('"]', '')}</span>
             </div>
 
             {
@@ -76,13 +78,13 @@ class Complete extends React.Component {
   render() {
     const { doneList } = this.state;
     return (
-      <List>
+      <div>
         {
           doneList.content && doneList.content[0]
-            ? <div>{this.renderList()} </div>
+            ? <List>{this.renderList()} </List>
             : <p className="noList">暂无列表</p>
         }
-      </List>
+      </div>
     );
   }
 }

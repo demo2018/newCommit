@@ -16,6 +16,7 @@ class MyBill extends React.Component {
     //  存储账单详情供发送账单页使用
     localStorage.setItem('appointBillDetails', JSON.stringify({
       appointId: details && details.appointId,
+      customerId: details && details.id,
       patientName: details && details.patientName,
       time: details && details.time,
       doctorName: details && details.doctorName,

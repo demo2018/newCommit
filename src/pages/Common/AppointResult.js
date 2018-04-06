@@ -4,16 +4,19 @@ import { routerRedux } from 'dva/router';
 
 import AppointResult from 'components/Common/AppointResult';
 
-function mapStateToProps({ layout, doctorAppoint }) {
+function mapStateToProps({ appointResult }) {
   return {
-    ...layout,
+    ...appointResult,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     toDoctorList() {
-      dispatch(routerRedux.push('/doctors/list'));
+      dispatch(routerRedux.push('/common/doctors/list'));
+    },
+    toMyAppoint() {
+      dispatch(routerRedux.push('/user/myappoint'));
     },
   };
 }

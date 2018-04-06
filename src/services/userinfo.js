@@ -1,6 +1,7 @@
 import http from 'utils/http';
 import cookie from 'js-cookie';
 
+const { post } = http.create('medical');
 const { put } = http.create('medical');
 const { get } = http.create('medical');
 
@@ -24,4 +25,9 @@ export function getListInfo(param) {
 // 调取微信接口
 export function getWechat(param) {
   return get('/bhyy/core/weixin/config?url=http://test.zhenweitech.cn/', param);
+}
+
+// 调取图片上传接口
+export function imgUpload(param) {
+  return post(`/bhyy/core/image/weixin?serverId=${param}&type=image`);
 }

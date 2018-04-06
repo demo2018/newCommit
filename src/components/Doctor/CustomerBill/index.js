@@ -59,7 +59,8 @@ class CustomerBill extends React.Component {
           <div>
             <div className="billhead">
               <span className="customer-name">{patientName}</span>
-              {this.renderProjects(index)}
+              {/* {this.renderProjects(index)} */}
+              <span className="check-pro">{itemName.replace('["', '').replace('"]', '')}</span>
             </div>
 
             {

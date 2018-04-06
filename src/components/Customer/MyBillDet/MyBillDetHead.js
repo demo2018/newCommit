@@ -8,21 +8,22 @@ class MyBillDetHead extends React.Component {
   }
  //  获取项目
   renderProjects() {
-    const { details, projects } = this.props;
-    const chosedProjects = projects
-      .filter(({ id }) => {
-        return details.itemNames.includes(id) || details.itemNames.includes(`${id}`);
-      })
-      .map(({ className }) => {
-        return className;
-      });
-    return chosedProjects
-      .map((index) => {
-        return (<span className="check-pro" key={index}>{chosedProjects}</span>);
-      });
+    // const { details, projects } = this.props;
+    // const chosedProjects = (projects || [])
+    //   .filter(({ className }) => {
+    //     return (details && details.itemNames.includes(className)) || details && details.itemNames.includes(`${className}`);
+    //   })
+    //   .map(({ className }) => {
+    //     return className;
+    //   });
+    // return chosedProjects
+    //   .map((index) => {
+    //     return (<span className="check-pro" key={index}>{chosedProjects}</span>);
+    //   });
   }
   render() {
     const { details } = this.props;
+    console.log(details);
     return (
       <div className="myBillDetHeadContent">
         <div className="card-header">
@@ -45,7 +46,10 @@ class MyBillDetHead extends React.Component {
           />
           <Card.Body>
             <ul>
-              <li className="diagnosisPro">就诊项目：{this.renderProjects()}</li>
+              <li className="diagnosisPro">就诊项目：
+                  <span className="check-pro">{details.itemNames && details.itemNames[0]}</span>
+                {/* {this.renderProjects()} */}
+                </li>
               <li className="clinic-time">就诊时间：
                 <span className="clinic-date">{formatDate(details.createTime)}</span>
               </li>

@@ -11,7 +11,7 @@ class UserFunction extends React.Component {
     const { toMyAppoint, toMyBill, toMyRec, toMyImage, toMyCoupons, toFeedback, toSet } = this.props;
     return (
       <div className="UserFun">
-        <List className="acrossList">
+        <List className="acrossList borderTop">
           <ListItem className="borderBottom" onClick={() => { toMyAppoint(); }}>
             <img src={require('images/my-appoint.png')} alt="图标" /><span>我的预约</span>
           </ListItem>
@@ -25,7 +25,7 @@ class UserFunction extends React.Component {
             <img src={require('images/my-med-rec.png')} alt="图标" /><span>我的影像</span>
           </ListItem>
         </List>
-        <List className="lineList">
+        <List className="lineList borderTop">
           <ListItem className="borderBottom" onClick={() => { toMyCoupons(); }}>
             <img src={require('images/my-coupons.png')} alt="图标" /><span>我的优惠券</span>
           </ListItem>

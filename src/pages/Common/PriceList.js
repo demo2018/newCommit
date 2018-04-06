@@ -1,6 +1,7 @@
 
 import { connect } from 'dva';
 import { routerRedux } from 'dva/router';
+import cookie from 'js-cookie';
 
 import PriceList from 'components/Common/PriceList';
 
@@ -16,6 +17,9 @@ function mapDispatchToProps(dispatch) {
       dispatch(routerRedux.push(`/common/pricelistdetail/${id}`));
     },
     toContactService() {
+      if (localStorage.getItem('referral') == 1) {
+        dispatch({ type: 'doctorList/getReferral' });
+      }
       dispatch(routerRedux.push('/common/contactservice'));
     },
     getProjects(id) {

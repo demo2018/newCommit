@@ -4,38 +4,15 @@ import { routerRedux } from 'dva/router';
 
 import ReferralReport from 'components/Doctor/ReferralReport';
 
-function mapStateToProps({ userCenter }) {
+function mapStateToProps({ referralReport }) {
   return {
-    ...userCenter,
+    ...referralReport,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    toUserInfo() {
-      dispatch(routerRedux.push('/user/userinfo'));
-    },
-    toMyAppoint() {
-      dispatch(routerRedux.push('/user/myappoint'));
-    },
-    toMyBill() {
-      dispatch(routerRedux.push('/user/mybill'));
-    },
-    toMyRec() {
-      dispatch(routerRedux.push('/user/myrec'));
-    },
-    toMyImage() {
-      dispatch(routerRedux.push('/user/myimage'));
-    },
-    toMyCoupons() {
-      dispatch(routerRedux.push('/user/mycoupons'));
-    },
-    toFeedback() {
-      dispatch(routerRedux.push('/user/feedback'));
-    },
-    toSet() {
-      dispatch(routerRedux.push('/user/set'));
-    },
+    ...dispatch
   };
 }
 

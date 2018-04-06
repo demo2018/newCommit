@@ -17,7 +17,10 @@ function mapDispatchToProps(dispatch) {
     },
     login(param) {
       dispatch({ type: 'set/logout', param });
-    }
+    },
+    toProtectPrivacy() {
+      dispatch(routerRedux.push('/common/protectprivacy'));
+    },
   };
 }
 

@@ -1,5 +1,6 @@
 
 import { connect } from 'dva';
+import { routerRedux } from 'dva/router';
 
 import Login from 'components/Common/Login';
 
@@ -22,7 +23,10 @@ function mapDispatchToProps(dispatch) {
     },
     doctorLogin(param) {
       dispatch({ type: 'login/doctorLogin', param });
-    }
+    },
+    toProtectPrivacy() {
+      dispatch(routerRedux.push('/common/protectprivacy'));
+    },
   };
 }
 

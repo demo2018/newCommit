@@ -1,10 +1,11 @@
-import { List, InputItem, Button, Picker, TextareaItem, Menu } from 'antd-mobile';
+import { List, InputItem, Button, Picker, TextareaItem, Menu, Toast } from 'antd-mobile';
 import styles from './index.less';
+import { createForm } from 'rc-form';
 
 const getDetailFrom = (details = {}) => {
   const { adepts = [], education } = details;
   const allPart = JSON.parse(localStorage.getItem('adepts')); // 擅长列表 为什么从localStorage取？ 后端返回了
-  const selectedPart = adepts;// 已选中的擅长
+  const selectedPart = (adepts || []);// 已选中的擅长
   const partNames = allPart
     .filter(({ value }) => {
       return selectedPart.includes(value) || selectedPart.includes(`${value}`);
@@ -15,7 +16,7 @@ const getDetailFrom = (details = {}) => {
   return {
     ...details,
     education: [education],
-    adepts: adepts.map((key) => {
+    adepts: (adepts || []).map((key) => {
       return window.parseInt(key);
     }),
     partNames: partNames.join('，'),
@@ -75,10 +76,6 @@ class DoctorProfessional extends React.Component {
     this.state = {
       educations: [
         {
-          label: '研究生',
-          value: '研究生',
-        },
-        {
           label: '博士',
           value: '博士',
         },
@@ -97,7 +94,6 @@ class DoctorProfessional extends React.Component {
       ],
       show: false,
       showGoods: false,
-      title: [],
       doctorInfo: getDetailFrom(props.details),
       depart: getTitleFromData(props.partment),
       goods: getGoodFromData(props.goodat),
@@ -115,37 +111,54 @@ class DoctorProfessional extends React.Component {
       this.setState({ goods: getGoodFromData(nextProps.goodat) });
     }
   }
-  //  确认科室
+  //  多选弹出后点击确认科室
   onPartmentOk = (key) => {
     const { doctorInfo } = this.state;
     const { changeInfo } = this.props;
-    const { adepts } = doctorInfo;
-    this.onCancel();
-    changeInfo({
-      ...doctorInfo,
-      title: `${doctorInfo.title[0]}`,
-      hospitalName: doctorInfo.hospitalName,
-      workYear: doctorInfo.workYear,
-      departments: key,
-      // adepts: adepts && adepts.split('，')
-    });
+    const { education } = doctorInfo;
+    // 筛选点击key值的label
+    // }, this);
+    // for (let index = 0; index < pickerOptions.length; index++) {
+    //   for (let k = 0; k < key.length; k++) {
+    //     if (pickerOptions[index].value == key[k]) {
+    //       pick += pickerOptions[index].label + ' ';
+    //     }
+    //   }
+    //    })
+    // }
+    if (key.length > 3) {
+      Toast.info('最多只可选择三项', 1);
+    } else if (key.length < 1) {
+      Toast.info('请至少选择一项', 1);
+    } else {
+      this.onCancel();
+
+      changeInfo({
+        hospitalName: doctorInfo.hospitalName,
+        workYear: doctorInfo.workYear,
+        departments: key,
+        education: education[0],
+      });
+    }
   }
 
-  // 确认擅长
+  // 多选弹出后点击确认擅长
   onAdeptsOk = (key) => {
     const { doctorInfo } = this.state;
+    const { education } = doctorInfo;
     const { changeInfo } = this.props;
-    const { departments } = doctorInfo;
-    this.onCancel();
-
-    changeInfo({
-      ...doctorInfo,
-      title: `${doctorInfo.title[0]}`,
-      hospitalName: doctorInfo.hospitalName,
-      workYear: doctorInfo.workYear,
-      // departments: departments && departments.split('，'),
-      adepts: key
-    });
+    if (key.length > 3) {
+      Toast.info('最多只可选择三项', 1);
+    } else {
+      this.onCancel();
+      changeInfo({
+        ...doctorInfo,
+        hospitalName: doctorInfo.hospitalName,
+        workYear: doctorInfo.workYear,
+        education: education[0],
+        adepts: key
+      });
+    }
   }
   onCancel = () => {
     this.setState({ show: false });
@@ -171,27 +184,32 @@ class DoctorProfessional extends React.Component {
   }
   handleChange(key) {
     return (value) => {
+      const { changeInfo } = this.props;
       const { doctorInfo } = this.state;
       if (value.target) {
         value = value.target.value;
       }
       this.setState({ doctorInfo: { ...doctorInfo, [key]: value } });
+
       //  解决无法实时更新，每次切换只获取到上一次值的BUG
       if (key == 'hospitalName') {
-        this.setState({ ...doctorInfo, hospitalName: value, });
+        changeInfo({ hospitalName: value, });
       } else if (key == 'workYear') {
-        this.setState({ ...doctorInfo, workYear: value });
+        changeInfo({ workYear: value });
       } else if (key == 'education') {
-        this.setState({ ...doctorInfo, education: value[0] });
+        changeInfo({ education: value[0] });
+      } else if (key == 'intro') {
+        changeInfo({ intro: value });
       } else {
-        this.setState({ ...doctorInfo });
+        changeInfo({ ...doctorInfo });
       }
     };
   }
   handleSubmit() {
     const { toSeniority, changeInfo } = this.props;
     const { doctorInfo } = this.state;
-    changeInfo({ ...doctorInfo, title: `${doctorInfo.title[0]}` });
+    const { education } = doctorInfo;
+    changeInfo({ ...doctorInfo, education: education[0] });
     toSeniority();
   }
 
@@ -205,10 +223,11 @@ class DoctorProfessional extends React.Component {
       <Menu
         className="single-multi-foo-menu"
         data={pickerOptions}
+        value={doctorInfo.departments}
         level={1}
         onOk={this.onPartmentOk}
         onCancel={this.onCancel}
-        height={document.documentElement.clientHeight * 0.42}
+        height={document.documentElement.clientHeight * 0.5}
         multiSelect
       />
     );
@@ -218,13 +237,15 @@ class DoctorProfessional extends React.Component {
       <Menu
         className="single-multi-foo-menu"
         data={pickerGood}
+        value={doctorInfo.adepts}
         level={1}
         onOk={this.onAdeptsOk}
         onCancel={this.onCancel}
-        height={document.documentElement.clientHeight * 0.42}
+        height={document.documentElement.clientHeight * 0.5}
         multiSelect
       />
     );
+    const { getFieldProps } = this.props.form;
     return (
       <div className={styles.doctorProfessional}>
         <div className="head borderBottom">
@@ -233,16 +254,31 @@ class DoctorProfessional extends React.Component {
         <div className="basicInfo borderTop">
           <p>执业信息</p>
           <List>
-            <InputItem
-              placeholder="请输入"
-              value={doctorInfo.hospitalName}
-              onChange={this.handleChange('hospitalName')}
-            >执业地点</InputItem>
+            {
+              doctorInfo.hospitalName != null
+                ? <InputItem
+                  {...getFieldProps('hospital', {
+                    initialValue: `${doctorInfo.hospitalName}`,
+                  }) }
+                  className="borderBottom"
+                  type="text"
+                  placeholder="请输入"
+                  onBlur={this.handleChange('hospitalName')}
+                >执业地点</InputItem>
+                : <InputItem
+                  {...getFieldProps('hospital') }
+                  className="borderBottom"
+                  type="text"
+                  placeholder="请输入"
+                  onBlur={this.handleChange('hospitalName')}
+                >执业地点</InputItem>
+            }
+
 
             <List.Item
-              extra={doctorInfo.departments}
               onClick={this.handleClick}
               extra={doctorInfo.departments && doctorInfo.departments.join('，')}
+              placeholder="请选择"
             >科室</List.Item>
             {show ? menuDepart : null}
             {show ? <div className="menu-mask" onClick={this.onMaskClick} /> : null}
@@ -278,13 +314,26 @@ class DoctorProfessional extends React.Component {
         </div>
         <div className="moreInfo borderBottom borderTop">
           <p className="doctor-intro borderBottom">简介</p>
-          <TextareaItem
-            rows={5}
-            count={200}
-            placeholder="请输入内容"
-            defaultValue={doctorInfo.intro}
-            onChange={this.handleChange('intro')}
-          />
+          {
+            doctorInfo.intro != null
+              ? <TextareaItem
+                {...getFieldProps('intro', {
+                  initialValue: `${doctorInfo.intro}`,
+                }) }
+                autoHeight
+                rows={0}
+                count={200}
+                placeholder="请输入内容"
+                onBlur={this.handleChange('intro')}
+              />
+              : <TextareaItem
+                {...getFieldProps('intro') }
+                rows={1}
+                count={200}
+                placeholder="请输入内容"
+                onBlur={this.handleChange('intro')}
+              />
+          }
         </div>
 
         <Button type="primary" className="submit" onClick={this.handleSubmit}>下一步</Button>
@@ -293,4 +342,4 @@ class DoctorProfessional extends React.Component {
   }
 }
 
-export default DoctorProfessional;
+export default createForm()(DoctorProfessional);

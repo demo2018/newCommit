@@ -65,7 +65,6 @@ class Calendar extends React.Component {
 
     const handleClick = () => {
       if (dateSelected) {
-        localStorage.setItem('dateSelected', dateSelected);
         onSelectUsable(day.format(formatStr));
       }
       if (dateWarning) {

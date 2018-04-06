@@ -1,4 +1,5 @@
 import { Carousel } from 'antd-mobile';
+import { getServer } from 'utils/common';
 
 class Doctors extends React.Component {
   constructor(props) {
@@ -9,30 +10,28 @@ class Doctors extends React.Component {
   }
   renderList() {
     const { banners } = this.props;
+    const { medical } = getServer();
     return (banners.content || [])
       .filter(({ status }) => {
         return status == 1;
       })
-      .map(({ id, image }, index) => {
-        return (<a className="bannerWrapper" key={index}>
+      .map(({ id, image, link }, index) => {
+        return (<a className="bannerWrapper" key={index} href={link}>
           <img
             className="bannerImg"
-            src={require('assets/banner.png')}
+            src={`${medical}/bhyy/core/image/${image}`}
             alt="加载失败"
           />
         </a>);
       });
   }
   render() {
-    const carouselProps = {
-      autoplay: true,
-      infinite: true,
-      selectedIndex: 1,
-    };
     return (
       <Carousel
+        autoplay
+        infinite
+        autoplayInterval={3000}
         style={{ height: this.state.width * 0.56 }}
-        {...carouselProps}
       >
         {this.renderList()}
       </Carousel>

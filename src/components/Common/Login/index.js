@@ -9,6 +9,7 @@ const getDetailByStates = (phone) => {
   return { phone: phone.replace(/\s*/g, '') };
 };
 
+
 class Login extends React.Component {
   constructor(props) {
     super(props);
@@ -16,16 +17,28 @@ class Login extends React.Component {
     this.state = {
       title: '登录',
       activeTab: 0,
-      btnStatus: false,
+      btnStatus: true,
       isCaptchaSend: false,
       second: SECOND,
-      phone: '',
+      phone: localStorage.getItem('phone') ? localStorage.getItem('phone').replace(/^(...)(....)/g, '$1 $2 ') : '',
       code: '',
       height: document.documentElement.clientHeight,
     };
     this.handleLogin = this.handleLogin.bind(this);
     this.handleGetCode = this.handleGetCode.bind(this);
     document.title = this.state.title;
+  }
+  //  验证码输入框兼容苹果安卓端唤起数字键盘
+  componentWillMount() {
+    const u = navigator.userAgent;
+    const isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
+    const isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+    if (isAndroid) {
+      this.setState({ type: 'digit', });
+    }
+    if (isiOS) {
+      this.setState({ type: 'number', });
+    }
   }
   componentWillUnmount() {
     clearInterval(this.codeTimer);   // 在倒计时被销毁前清除计时器
@@ -63,15 +76,17 @@ class Login extends React.Component {
       Toast.info('请输入验证码', 1);
     } else {
       if (formData.activeTab == 0) {
+        localStorage.removeItem('phone');
+        localStorage.removeItem('code');
         customerLogin(formData);
       }
       if (formData.activeTab == 1) {
+        localStorage.removeItem('phone');
+        localStorage.removeItem('code');
         doctorLogin(formData);
       }
     }
-
   }
-
   // 获取验证码时触发：验证手机号，判断获取人为医生还是患者
   handleGetCode() {
     const { customerLoginCode, doctorLoginCode } = this.props;
@@ -98,6 +113,7 @@ class Login extends React.Component {
         value = value.target.value;
       }
       this.setState({ [key]: value });
+      localStorage.setItem([key], value.replace(/\s*/g, ''));
     };
   }
   handleCheckBoxChange(key) {
@@ -117,6 +133,7 @@ class Login extends React.Component {
   }
   render() {
     const formData = this.state;
+    const { toProtectPrivacy } = this.props;
     const tabsProps = {
       activeTab: formData.activeTab,
       tabs: [
@@ -150,7 +167,7 @@ class Login extends React.Component {
             extra={this.renderCodeBtn()}
           >手机号码</InputItem>
           <InputItem
-            type="digit"
+            type={this.state.type}
             placeholder="请输入"
             value={formData.code}
             onChange={this.handleChange('code')}
@@ -165,9 +182,10 @@ class Login extends React.Component {
 
           <CheckboxItem
             size="small"
+            defaultChecked
             onChange={this.handleCheckBoxChange('btnStatus')}
           >
-            阅读并同意<a className="agreement"> 隐私服务条款</a>
+            阅读并同意<a className="agreement" onClick={toProtectPrivacy}> 隐私服务条款</a>
           </CheckboxItem>
         </div>
 

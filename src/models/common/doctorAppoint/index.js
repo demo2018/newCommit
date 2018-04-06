@@ -1,3 +1,4 @@
+import { Toast } from 'antd-mobile';
 import Model from 'utils/model';
 import services from 'services';
 import cookie from 'js-cookie';
@@ -9,9 +10,9 @@ export default Model.extend({
   state: {
     id: '',
     doctorInfo: {},
-    times: {},
+    times: [],
     projects: {},
-    relations: [], // 初始化为对象
+    relations: [],
     addAppoint: [],
   },
 
@@ -61,8 +62,8 @@ export default Model.extend({
       const { id } = yield select(({ doctorAppoint }) => doctorAppoint);
       const customerId = cookie.get('id');
       const result = yield callWithLoading(services.doctorappoint.addAppoint, { ...param, doctorId: id, customerId });
-      if (result.status) {
-        yield put(routerRedux.push('/user/myappoint'));
+      if (result.status) {   //  存储状态判断结果页显示内容为成功或失败
+        localStorage.setItem('resultStatus', result.status);
       }
     },
   },

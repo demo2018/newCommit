@@ -34,11 +34,10 @@ class DoctorSelect extends React.Component {
   }
   render() {
     const { services } = this.state;
-    const { choose, fetchSelectList, fetchSearchList, search } = this.props;
+    const { fetchSearchList, search } = this.props;
     const { pickerService } = services;
     const doctorPickerProps = {
       multiple: false, // 新增参数，是否多选
-      // value: isRecommend,
       title: '全部医生',
       menus: [
         { label: '全部医生', value: 0 },
@@ -46,12 +45,9 @@ class DoctorSelect extends React.Component {
       ],
       onSelect: (item) => {
         if (item == 1) {
-          fetchSelectList({ ...choose, isRecommend: item[0] });
+          fetchSearchList({ ...search, isRecommend: 1 });
         } else {
-          if (choose.isRecommend) {
-            delete choose.isRecommend;
-          }
-          fetchSelectList({ ...choose });
+          fetchSearchList({ ...search, isRecommend: '' });
         }
       }
     };
@@ -81,6 +77,7 @@ class DoctorSelect extends React.Component {
         { label: '周日', value: 7 },
       ],
       onSave: (item) => {
+        //  将获取到的item中的字符串转为数字
         const checked = [];
         for (let index = 0; index < item.length; index++) {
           checked[index] = parseInt(item[index]);

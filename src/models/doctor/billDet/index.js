@@ -1,6 +1,7 @@
 import Model from 'utils/model';
 import services from 'services';
 import { Toast } from 'antd-mobile';
+import { routerRedux } from 'dva/router';
 
 export default Model.extend({
   namespace: 'billDet',
@@ -37,12 +38,13 @@ export default Model.extend({
       const { data } = yield callWithLoading(services.billdet.getProject, { types });
       yield update({ projects: data });
     },
-    * sendBillOut({ param }, { select, callWithLoading }) {
+    * sendBillOut({ param }, { put, select, callWithLoading }) {
       const { id } = yield select(({ billDet }) => billDet);
       const result = yield callWithLoading(services.billdet.sendBill, { id, param });
       const status = result.status;
       if (status) {
         Toast.success('账单发送成功', 1);
+        yield put(routerRedux.push('/doctor/customerappoint'));
       } else {
         Toast.info(result.error.message, 1);
       }

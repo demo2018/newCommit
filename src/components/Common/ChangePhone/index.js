@@ -70,10 +70,10 @@ class ChangePhone extends React.Component {
     const { phone, code } = this.state;
     const formData = { phone, code };
     if (!phone) {
-      Toast.info('请输入手机号', 1.5);
+      Toast.info('请输入手机号', 1);
     }
     if (!code) {
-      Toast.info('请输入验证码', 1.5);
+      Toast.info('请输入验证码', 1);
     }
     changePhone(formData);
   }

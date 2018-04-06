@@ -19,18 +19,20 @@ class MyRecDet extends React.Component {
     document.title = this.state.title;
   }
   render() {
+    const { details } = this.props;
+    const detailProps = { details };
     return (
       <div className={styles.myRecDet}>
-        <RecHead />
-        <RecTab />
-        <Complaint />
-        <PresentIllness />
-        <PastHistory />
-        {/* <Examine /> */}
-        <Orthodontic />
-        <Diagnose />
-        <Dispose />
-        <DoctorAdvice />
+        <RecHead {...detailProps} />
+        <RecTab {...detailProps} />
+        <Complaint {...detailProps} />
+        <PresentIllness {...detailProps} />
+        <PastHistory {...detailProps} />
+        {/* <Examine {...detailProps}/> */}
+        <Orthodontic {...detailProps} />
+        <Diagnose {...detailProps} />
+        <Dispose {...detailProps} />
+        <DoctorAdvice {...detailProps} />
       </div>
     );
   }

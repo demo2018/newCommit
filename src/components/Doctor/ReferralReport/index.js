@@ -1,5 +1,6 @@
 import { List } from 'antd-mobile';
 import styles from './index.less';
+import { formatDate, getServer } from 'utils/common';
 
 const ListItem = List.Item;
 const Brief = ListItem.Brief;
@@ -13,56 +14,82 @@ class ReferralReport extends React.Component {
     document.title = this.state.title;
   }
   renderList() {
-    const { dataSoure = [1, 2, 3] } = this.state;
-    return dataSoure.map((id) => {
+    const { referraling } = this.props;
+    const { medical } = getServer();
+    return (referraling.content || []).map(({ status, operationTime, id, icon, customerName }) => {
       return (<ListItem
         key={id}
         className="borderBottom"
-        thumb={require('assets/head.png')}
+        thumb={`${medical}/bhyy/core/image/${icon}`}
         multipleLine
-        extra={<span className="state">已扫码</span>}
+        extra={status == 0 && <span className="state">已扫码</span>
+          || status == 1 && <span className="state">咨询中</span>
+          || status == 2 && <span className="state">已注册</span>
+          || status == 3 && <span className="state">已预约</span>
+          || status == 4 && <span className="state">已就诊</span>
+          || status == 5 && <span className="state">未支付</span>
+          || status == 7 && <span className="turnStatu">取消预约</span>
+         }
       >
-        <span className="customerName">柴杰秀</span>
-        <Brief>
-          <span className="date">2017-10-20</span>
-          <span className="time">9:30</span></Brief>
+        <span className="customerName">{customerName}</span>
+        <Brief><span className="date">{formatDate(operationTime)}</span></Brief>
       </ListItem>);
     })
       ;
   }
   renderSuccessList() {
-    const { dataSoure = [1, 2, 3] } = this.state;
-    return dataSoure.map((id) => {
+    const { referralSuccess } = this.props;
+    return (referralSuccess.content || []).map(({ status, operationTime, id, num }) => {
       return (<ListItem
         key={id}
         className="borderBottom"
         thumb={require('assets/head.png')}
         multipleLine
-        extra={<span className="finalIn">+1299.00</span>}
+        extra={status == 6 && <span className="state">+{num}</span>}
       >
         <span className="customerName">柴杰秀</span>
-        <Brief>
-          <span className="date">2017-10-20</span>
-          <span className="time">9:30</span></Brief>
+        <Brief>{formatDate(operationTime)}</Brief>
       </ListItem>);
     })
       ;
   }
   render() {
+    const { referraling, referralSuccess } = this.props;
     return (
       <div className={styles.referralReport}>
         <div className="reportHead">
           <p>报告时间：2017/10/02-2017/10/08</p>
         </div>
         <div className="referralContent">
-          <p className="borderTop referralState">转诊中（<span>3</span>）</p>
-          <List>
-            {this.renderList()}
-          </List>
-          <p className="borderTop referralState">转诊成功（<span>3</span>）<span className="totalIn">共收入：3333.00</span></p>
-          <List>
-            {this.renderSuccessList()}
-          </List>
+          <p className="borderTop referralState">
+            转诊中
+            {
+              referraling.content && referraling.content[0]
+                ? <span>（{referraling.totalElements}）</span>
+                : null
+            }
+          </p>
+          {
+            referraling.content && referraling.content[0]
+              ? <List>{this.renderList()}</List>
+              : <div className="noReferral">暂无转诊记录</div>
+          }
+          <p className="borderTop referralState">
+            转诊成功
+              {
+              referralSuccess.content && referralSuccess.content[0]
+                ? <span>
+                  <span>（{referralSuccess.totalElements}）</span>
+                  <span className="totalIn">共收入：3333.00</span>
+                </span>
+                : null
+            }
+          </p>
+          {
+            referralSuccess.content && referralSuccess.content[0]
+              ? <List>{this.renderSuccessList()}</List>
+              : <div className="noReferral">暂无转诊记录</div>
+            }
         </div>
       </div>
     );

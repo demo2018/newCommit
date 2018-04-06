@@ -3,7 +3,7 @@ import BaseInfo from './BaseInfo';
 import Description from './Description';
 import Schedule from './Schedule';
 import styles from './index.less';
-import code from 'assets/QR-code.png';
+import { getServer } from 'utils/common';
 
 const myImg = src => <img src={src} className="spe am-icon am-icon-md" alt="" />;
 
@@ -16,41 +16,46 @@ class DoctorDetail extends React.Component {
     };
     document.title = this.state.title;
   }
-  // componentWillReceiveProps(nextProps) {
-  //   if ('details' in nextProps && nextProps.details !== this.props.details) {
-  //     this.setState({ doctorDetail: nextProps.details });
-  //   }
-  // }
   onClose = key => () => {
     this.setState({
       [key]: false,
     });
   }
-  // onWrapTouchStart = (e) => {
-  //   // fix touch to scroll background page on iOS
-  //   if (!/iPhone|iPod|iPad/i.test(navigator.userAgent)) {
-  //     return;
-  //   }
-  //   const pNode = closest(e.target, '.am-modal-content');
-  //   if (!pNode) {
-  //     e.preventDefault();
-  //   }
-  // }
+  onWrapTouchStart = (e) => {
+    // fix touch to scroll background page on iOS
+    if (!/iPhone|iPod|iPad/i.test(navigator.userAgent)) {
+      return;
+    }
+    const pNode = closest(e.target, '.am-modal-content');
+    if (!pNode) {
+      e.preventDefault();
+    }
+  }
+  // 修复ios端拨打电话时弹出三次弹窗问题
+  phone() {
+    const u = navigator.userAgent;
+    const isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
+    const isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+    if (isAndroid) {
+      Modal.alert('提示', '确定拨打电话：400-9696-791吗？', [
+        { text: '取消', onPress: () => console.log('cancel') },
+        { text: '确定', onPress: () => (window.location.href = 'tel://400-9696-791') },
+      ]);
+    }
+    if (isiOS) {
+      window.location.href = 'tel://400-9696-791';
+    }
+  }
   showModal = key => (e) => {
     e.preventDefault(); // 修复 Android 上点击穿透
     this.setState({
       [key]: true,
     });
   }
-  handleContact() {
-    Modal.alert('提示', '确定拨打电话：400-9696-791吗？', [
-      { text: '取消', onPress: () => console.log('cancel') },
-      { text: '确定', onPress: () => (window.location.href = 'tel://400-9696-791') },
-    ]);
-  }
   render() {
     const { toDoctorAppoint, details, dateTime, tags } = this.props;
     const doctorInfoDetailProps = { details, dateTime, tags };
+    const { medical } = getServer();
     return (
       <div className={styles.doctorDetail}>
         {/* // 基本信息 */}
@@ -62,7 +67,7 @@ class DoctorDetail extends React.Component {
 
         {/* //  联系助理 */}
         <div className="connect_doctor">
-          <p className="phone" onClick={this.handleContact}>
+          <p className="phone" onClick={this.phone}>
             <span className="icon iconfont icon-iconfontdianhua2"></span>
             拨打电话
           </p>
@@ -76,7 +81,7 @@ class DoctorDetail extends React.Component {
             transparent
             closable
             onClose={this.onClose('modal')}
-            title={myImg(code)}
+            title={myImg(`${medical}/bhyy/core/image/${details.assistantQr}`)}
             footer={[{ text: '确定', onPress: () => { this.onClose('modal')(); } }]}
             wrapProps={{ onTouchStart: this.onWrapTouchStart }}
           >

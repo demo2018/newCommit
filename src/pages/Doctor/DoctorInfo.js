@@ -17,6 +17,9 @@ function mapDispatchToProps(dispatch) {
     },
     changeInfo(param) {
       dispatch({ type: 'doctorInfo/changeInfo', payload: { param } });
+    },
+    imgUpload(param) {
+      dispatch({ type: 'doctorInfo/imgUpload', payload: { param } });
     }
   };
 }

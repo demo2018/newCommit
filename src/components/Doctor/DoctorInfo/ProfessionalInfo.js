@@ -1,4 +1,5 @@
 import { List, Picker, InputItem, Toast, Menu } from 'antd-mobile';
+import { createForm } from 'rc-form';
 
 const getDetailFrom = (details = {}) => {
   const { adepts = [], education } = details;
@@ -75,10 +76,6 @@ class ProfessionalInfo extends React.Component {
     super(props);
     this.state = {
       educations: [
-        {
-          label: '研究生',
-          value: '研究生',
-        },
         {
           label: '博士',
           value: '博士',
@@ -240,19 +237,34 @@ class ProfessionalInfo extends React.Component {
         multiSelect
       />
     );
+    const { getFieldProps } = this.props.form;
     return (
       <div className="professionalInfo">
         {/* 执业信息 */}
         <List className="my-list">
           <ListItem className="my-listhead borderBottom">执业信息</ListItem>
+
           {/* 输入执业地点 */}
-          <InputItem
-            className="borderBottom"
-            type="text"
-            placeholder="请输入"
-            value={doctorInfo.hospitalName}
-            onChange={this.handleChange('hospitalName')}
-          >执业地点</InputItem>
+          {
+            doctorInfo.hospitalName
+              ? <InputItem
+                {...getFieldProps('hospital', {
+                  initialValue: `${doctorInfo.hospitalName}`,
+                }) }
+                className="borderBottom"
+                type="text"
+                placeholder="请输入"
+                onBlur={this.handleChange('hospitalName')}
+              >执业地点</InputItem>
+              : <InputItem
+                {...getFieldProps('hospital') }
+                className="borderBottom"
+                type="text"
+                placeholder="请输入"
+                onBlur={this.handleChange('hospitalName')}
+              >执业地点</InputItem>
+          }
+
           {/* 科室 */}
           <List.Item
             className="borderBottom multiSelect"
@@ -262,6 +274,7 @@ class ProfessionalInfo extends React.Component {
           >科室</List.Item>
           {show ? menuDepart : null}
           {show ? <div className="menu-mask" onClick={this.onMaskClick} /> : null}
+
           {/* 学历 */}
           <Picker
             data={this.state.educations}
@@ -271,6 +284,7 @@ class ProfessionalInfo extends React.Component {
           >
             <List.Item className="borderBottom" arrow="horizontal" >学历</List.Item>
           </Picker>
+
           {/* 擅长 */}
           <List.Item
             className="borderBottom multiSelect"
@@ -280,6 +294,7 @@ class ProfessionalInfo extends React.Component {
           >擅长</List.Item>
           {showGoods ? menuGood : null}
           {showGoods ? <div className="menu-mask" onClick={this.onMaskClick} /> : null}
+
           {/* 执业年限 */}
           <InputItem
             className="year borderBottom"
@@ -295,4 +310,4 @@ class ProfessionalInfo extends React.Component {
   }
 }
 
-export default ProfessionalInfo;
+export default createForm()(ProfessionalInfo);

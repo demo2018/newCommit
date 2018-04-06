@@ -13,9 +13,8 @@ class MyRec extends React.Component {
     document.title = this.state.title;
   }
   renderList() {
-    const { dataSoure = [1, 2, 3] } = this.state;
-    const { toMyRecDet } = this.props;
-    return dataSoure.map((id) => {
+    const { details, toMyRecDet } = this.props;
+    return (details.content || []).map(({ id, customerName, itemName }) => {
       return (<ListItem
         key={id}
         className="borderBottom"
@@ -27,7 +26,7 @@ class MyRec extends React.Component {
       >
         <div className="myRecordContent">
           <div>
-            <div><span className="check-project">洗牙</span>-<span className="customer-name">李四</span></div>
+            <div><span className="check-project">{itemName}</span>-<span className="customer-name">{customerName}</span></div>
             <Brief className="check-date">2018-1-30</Brief>
           </div>
         </div>
@@ -36,14 +35,19 @@ class MyRec extends React.Component {
       ;
   }
   render() {
+    const { details } = this.props;
     return (
       <div className={styles.myRec}>
-        <List>
-          {this.renderList()}
-        </List>
-        {/* <div className="noRec">
-          <p>暂无病历</p>
-        </div> */}
+        {
+          details.content && details.content[0]
+            ? <List>
+              {this.renderList()}
+            </List>
+            :
+            <div className="noRec">
+              <p>暂无病历</p>
+            </div>
+        }
       </div>
     );
   }
